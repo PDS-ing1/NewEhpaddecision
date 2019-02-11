@@ -1,0 +1,3 @@
+fr\esipe\pds\connection\App.class
+fr\esipe\pds\connection\DataSource.class
+fr\esipe\pds\connection\JDBCConnectionPool.class
