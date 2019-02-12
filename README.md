@@ -4,7 +4,6 @@ dépôt dédiés au PDS
 - [Préalable]
 - [Politique de nommage]
 - [Organisation du projet Maven] 
-- [Creation de branches pour les evolutions]
 - [Git-Eclipse; Eclipse-Git]
 - [Generation de l’artefact JAVA : JAR]
 - [Scenario de demonstration pour la release 1 (R1)
@@ -22,6 +21,11 @@ dépôt dédiés au PDS
 - Le nom des variables ainsi que le nom des méthodes seront en anglais
 	Chaque classe doit avoir un nom clair et réprésetant.
 
+#[Organisation du projet Maven]
+- le projet contient différents branches, dans le src/main/java on trouve les classes suivantes: 
+	App, DataSource, JDBCConnection ces classes permettent de créer un pool de connexion. 
+	Fichier pom contient la configuratin du projet. 
+	
 
 
 ## Etapes de generation via Eclipse
