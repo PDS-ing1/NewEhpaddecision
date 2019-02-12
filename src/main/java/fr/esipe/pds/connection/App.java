@@ -19,7 +19,8 @@ public class App
         DataSource ds = new DataSource();
         Connection con = ds.getConnection();
         
-        
+        System.out.print(DataSource.totalConnections());
+          
         ResultSet resultats = null;
         String requete = "SELECT * FROM categories";
         try {
