@@ -28,7 +28,8 @@ dépôt dédiés au PDS
 	
 
 
-## Etapes de generation via Eclipse
+## Etapes de generation via Eclipse (l'outil utilisé) 
+ Artifact Maven est une classe Java qui représente le type de "nom" qui est déréférencé par un gestionnaire de référentiel dans un artefact de gestionnaire de référentiel. Lorsqu'il est utilisé dans ce sens, un Artifact est simplement un nom glorifié composé de parties telles que groupId , artifactId , version , scope , classifier et ainsi de suite.
 1. Faites : clic-droit sur le projet Monitrack > Run As > Run Configurations
 2. Dans la fenêtre qui va s'ouvrir et dans la partie Maven Build, sélectionnez le module que vous voulez générer
 3. Dans la partie goals, y écrire :
@@ -55,7 +56,26 @@ assembly:single
 		</plugin>
 	</plugins>
 </build>
-
+Pour le moment actuel (mardi 12/02/2019 la generation du fichier jar ne fonctionne pas, cela du au paramètrage. 
+Scanning for projects.../
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Maven Stub Project (No POM) 1
+[INFO] ------------------------------------------------------------------------
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 0.330 s
+[INFO] Finished at: 2019-02-12T15:41:14+01:00
+[INFO] Final Memory: 8M/245M
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-assembly-plugin:2.2-beta-5:single (default-cli): Goal requires a project to execute but there is no POM in this directory (D:\Divers\PdsIng1\Pds2018-2019\target\generated-sources). Please verify you invoked Maven from the correct directory. -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MissingProjectException
 
 
 ```
