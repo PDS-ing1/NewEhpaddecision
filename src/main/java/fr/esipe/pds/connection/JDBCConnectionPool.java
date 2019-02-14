@@ -13,7 +13,7 @@ public class JDBCConnectionPool {
 	
 	private Properties properties = new Properties();
 	private List<Connection> connexions = new ArrayList<Connection>(); 
-	private String url, username, password;
+//	private String url, username, password;
 	//private int maxConnections;
 	//private boolean waitIfBusy;
 	public List<Connection> availableConnections;
@@ -33,7 +33,7 @@ public class JDBCConnectionPool {
 	        
 	        Class.forName("com.mysql.jdbc.Driver");//Set driver	        
 	        
-	        for(int i = 0; i <10; i++) {
+	        for(int i = 0; i <1; i++) {
 		        Connection connection = (Connection) DriverManager.getConnection(properties.getProperty("url"),
 		        		properties.getProperty("user"), 
 		        		properties.getProperty("password"));
