@@ -1,5 +1,6 @@
 package fr.esipe.pds.connection;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,14 +13,14 @@ import java.sql.Statement;
 public class App 
 {
 	
-    public static void main( String[] args )
+    public static void main( String[] args ) throws IOException
     {
         System.out.println( "Start connection pool !" );
         
         DataSource ds = new DataSource();
         Connection con = ds.getConnection();
         
-        System.out.print(DataSource.totalConnections());
+        System.out.println("Nombre de connections ==> " + DataSource.totalConnections());
           
         ResultSet resultats = null;
         String requete = "SELECT * FROM categories";

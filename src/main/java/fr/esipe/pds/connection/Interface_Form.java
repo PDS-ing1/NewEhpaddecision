@@ -18,7 +18,7 @@ public class Interface_Form extends JPanel{
 	    JLabel label_name, label_last_name, label_id,label_age, label_dept, label_gender, _label_for_delete, nothing, result;
 	   
 	   JTextField first_name, last_name, id, f_age, f_dept, f_gender, delete_no;
-	    JRadioButton masculin, feminin;
+	    JRadioButton Masculin, Feminin;
 	    ButtonGroup btngrp;
 	    JButton submit;
 	
@@ -27,42 +27,44 @@ public class Interface_Form extends JPanel{
 	        
 	    	//these lines of code are to show labels on fields 
 	    	submit = new JButton("SUBMIT");
-	        label_name = new JLabel("prenom");
-	        label_last_name = new JLabel("nom:");
-	        label_id = new JLabel("identifiant");
-	        label_dept = new JLabel("role");
-	        label_gender = new JLabel("genre");
-	        label_age = new JLabel("age:");
+	        label_name = new JLabel("Prenom");
+	        label_last_name = new JLabel("Nom:");
+	        label_id = new JLabel("Identifiant");
+	        label_dept = new JLabel("Role");
+	        
+	        label_gender = new JLabel("Genre");
+	        label_age = new JLabel("Age:");
 	        nothing = new JLabel(" ");
 	        result=new JLabel("");
 	        
 	        //these lines of code are to ask users about their information
 	        first_name = new JTextField(12);
 	        last_name = new JTextField(12);
-	        id = new JTextField(10);
+	        id = new JTextField();
 	        f_dept = new JTextField(12);
 	        f_age = new JTextField(12);
 	        
 	        //To choose the gender male or female and then to press submit
-	        masculin = new JRadioButton("male", true);
-	        feminin = new JRadioButton("Female");
+	        Masculin = new JRadioButton("Male", true);
+	        Feminin = new JRadioButton("Female");
 	        btngrp = new ButtonGroup();
-	        btngrp.add(masculin);
-	        btngrp.add(feminin);
+	        btngrp.add(Masculin);
+	        btngrp.add(Feminin);
 	        
 	         setLayout(new GridLayout(8, 3));
 	         add(label_name);
 	         add(first_name);
 	         add(label_last_name);
 	         add(last_name);
-	         add(id);
 	         add(label_id);
+	         add(id);
+	         
 	         add(label_age);
 	         add(f_age);
 	         add(label_gender);
-	         add(masculin);
+	         add(Masculin);
 	         add(nothing);
-	         add(feminin);
+	         add(Feminin);
 	         add(submit);
 	         add(new Back(cardLayout, container));
 	         add(result);
@@ -99,17 +101,17 @@ public class Interface_Form extends JPanel{
 	    {
 	        String req="";
 	                   
-	                   DriverDB drivrebase=new DriverDB();
+	                  // DriverDB drivrebase=new DriverDB();
 	                   int er=Integer.parseInt(id.getText().toString());
 	                   int age=Integer.parseInt(f_age.getText().toString());
 	                   String gen="";
 	                   
-	                   if(masculin.isSelected()){
+	                   if(Masculin.isSelected()){
 	                       gen="female";
 	                   }else{
 	                     gen="male";
 	                   }
-	                   req =drivrebase.insertAndUpdate(first_name.getText().toString(), last_name.getText().toString(),er , age, gen);
+	                  // req =drivrebase.insertAndUpdate(first_name.getText().toString(), last_name.getText().toString(),er , age, gen);
 	                   result.setText(req);
 	                  }
 	

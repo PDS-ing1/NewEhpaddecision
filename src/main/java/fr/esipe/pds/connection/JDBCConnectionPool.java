@@ -1,7 +1,14 @@
 package fr.esipe.pds.connection;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -9,13 +16,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+
+import org.apache.log4j.BasicConfigurator;
+
 public class JDBCConnectionPool {
-	
+	InputStream input = null;
 	private Properties properties = new Properties();
 	private List<Connection> connexions = new ArrayList<Connection>(); 
-//	private String url, username, password;
-	//private int maxConnections;
-	//private boolean waitIfBusy;
 	public List<Connection> availableConnections;
 	public List<Connection> busyConnections;
 	public void add(List<Connection> connections) { 
@@ -23,7 +30,7 @@ public class JDBCConnectionPool {
 	}
 	
 	public JDBCConnectionPool(){
-		try {
+	/*	try {
 			FileInputStream fis = new FileInputStream("src/main/resource/properties.xml");
 	        System.out.println( "properties files found !" );
 
@@ -50,42 +57,99 @@ public class JDBCConnectionPool {
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 		
 	}
 	
 	
-	public  void putConnection(){
-		for(int i=0; i<25; i++){
+	public  void putConnection() throws IOException{
+		int countConnection = GetConnectionCountFromFile();
+	
+		input = new FileInputStream("src/main/resource/properties.xml");
+		properties.loadFromXML(input);
+
+		if(countConnection <= 2){
 		 try {
 			connexions.add(DriverManager.getConnection(properties.getProperty("url"),
 			    		properties.getProperty("user"), 
 			    		properties.getProperty("password")));
+			// add a connection ==> incrementation of the Queue
+			AddConnectionCountFromFile();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		}
+
+		System.out.println("connection number after auth =" + GetConnectionCountFromFile());
+		  BasicConfigurator.configure();
+	       /* logger.debug("Hello World!");
+				logger.info("Info");
+				logger.warn("warning!");
+				logger.error("error");*/
 	}
 	public Connection getConnection(){	
-		return connexions.remove(0);
+		return connexions.get(0);
 		
 	}
 	
+	/**This fonction load the file */
+	private FileReader LoadConnectionFile() throws FileNotFoundException{
+		System.out.println("Loading file ...");
+		return new FileReader("src/main/resource/ConnectionCount.config");
+	}
+	
+	/** This fontion get the count of connection in pool */
+	private int GetConnectionCountFromFile(){
+		try{
+		FileReader file = LoadConnectionFile();
+		BufferedReader br = new BufferedReader(file);
+		return Integer.parseInt(br.readLine());
+		}catch(Exception e){
+			return 0;
+		}
+	}
+	
+	/**This fonction add the connection */
+	@SuppressWarnings("resource")
+	private void AddConnectionCountFromFile() throws IOException{
+		BufferedWriter bw = null;
+		FileWriter fw = null;
+		int count = GetConnectionCountFromFile();
+		System.out.println(count);
+		fw = new FileWriter("src/main/resource/ConnectionCount.config");
+		bw = new BufferedWriter(fw);
+		bw.write(count+1);
+		BufferedWriter writer = new BufferedWriter(fw);
+		System.out.println(count);
+		writer.write(new Integer(count+1).toString());
+		writer.close();
+	}
+	
+	//This fonction add the connection
+	private void DeleteConnectionCountFromFile() throws IOException{
+		BufferedWriter bw = null;
+		FileWriter fw = null;
+		int count = GetConnectionCountFromFile();
+		System.out.println(count);
+		fw = new FileWriter("src/main/resource/ConnectionCount.config");
+		bw = new BufferedWriter(fw);
+		bw.write(count+1);
+		BufferedWriter writer = new BufferedWriter(fw);
+		System.out.println(count);
+		writer.write(new Integer(count-1).toString());
+		writer.close();
+	}
 	public synchronized int totalConnections(){
 		return (connexions.size());
 	}
 	
 	public boolean free(Connection connection){
-		//busyConnections.remove(connection);
-		//availableConnections.add(connection);
 		return connexions.add(connection);
-	//Pour réveiller les threads qui attendent une connexion libre
-		//notifyAll();
-		
 	}
-	public boolean closeAll(){
-		
+	
+	public boolean closeAll() throws IOException{
+		DeleteConnectionCountFromFile();
 		for (Connection connection : connexions)
 		{
 			try {
@@ -116,9 +180,6 @@ public class JDBCConnectionPool {
 
 	
 	
-	/*public synchronized String toString(){
-		String info = "ConnectionPool (" + url +"," + username +")" + ", available =" + availableConnections.size() 			+ ", busy =" + busyConnections.size() + ", max=" + maxConnections;
-		return (info);
-	}*/
+	
 
 }

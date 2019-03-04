@@ -12,7 +12,8 @@ public class Interface extends JFrame implements ActionListener {
 
 	public static boolean flag = false;
 	public static int er=0;
-	DriverDB drivrebase = new DriverDB();
+	//JDBCConnectionPool drivrebase = new JDBCConnectionPool();
+	
 	CardLayout card;
 	
 	JButton insert, delete, update, submitDelete, submitUpdate;
@@ -23,7 +24,7 @@ public class Interface extends JFrame implements ActionListener {
 	 public Interface() {
 	        card = new CardLayout();
 	        panel  = new JPanel();
-	        
+	        panel.setBackground(Color.GRAY);  
 	        panel_insert = new JPanel();
 	        panel_delete = new JPanel();
 	        panel_update = new JPanel();
@@ -51,6 +52,7 @@ public class Interface extends JFrame implements ActionListener {
 	        panel.add(update);
 	        //INSERT CODE
 	        panel_insert.add(new Interface_Form(card, getContentPane()));
+	        setLocationRelativeTo(null);
 	      
 	       //DELETE CODE
 	        
@@ -87,7 +89,7 @@ public class Interface extends JFrame implements ActionListener {
 	                 
 	                 String re="";
 	                 int d=Integer.parseInt(n_delete.getText().toString());
-					 re=drivrebase.Delete(d);
+				//	 re=drivrebase.Delete(d);
 					 Result.setText(re);
 	             }
 	         });

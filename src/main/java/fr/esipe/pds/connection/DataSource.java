@@ -1,5 +1,6 @@
 package fr.esipe.pds.connection;
 
+import java.io.IOException;
 import java.sql.Connection;
 
 public class DataSource {
@@ -15,15 +16,16 @@ public class DataSource {
 		
 	}
 	
-	public static synchronized Connection getConnection(){
-			return pool.getConnection();
+	public static synchronized Connection getConnection() throws IOException{
+		pool.putConnection();
+		return pool.getConnection();
 
 	}
 	public void free(Connection connection){
 		pool.free(connection);
 	}
 	
-	public void closeConnections(){
+	public void closeConnections() throws IOException{
 		pool.closeAll();
 	}
 	
