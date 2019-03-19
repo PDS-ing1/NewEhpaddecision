@@ -1,4 +1,4 @@
-package fr.esipe.pds.connection;
+package fr.esipe.ehpaddecision.connection;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -15,6 +15,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+
 
 
 import org.apache.log4j.BasicConfigurator;
@@ -73,9 +74,10 @@ public class JDBCConnectionPool {
 			connexions.add(DriverManager.getConnection(properties.getProperty("url"),
 			    		properties.getProperty("user"), 
 			    		properties.getProperty("password")));
-			// add a connection ==> incrementation of the Queue
+			// add a connection ==> incrementation of the queue
 			AddConnectionCountFromFile();
 		} catch (SQLException e) {
+			
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -83,10 +85,6 @@ public class JDBCConnectionPool {
 
 		System.out.println("connection number after auth =" + GetConnectionCountFromFile());
 		  BasicConfigurator.configure();
-	       /* logger.debug("Hello World!");
-				logger.info("Info");
-				logger.warn("warning!");
-				logger.error("error");*/
 	}
 	public Connection getConnection(){	
 		return connexions.get(0);
@@ -126,7 +124,7 @@ public class JDBCConnectionPool {
 		writer.close();
 	}
 	
-	//This fonction add the connection
+	//This fonction delete the connection
 	private void DeleteConnectionCountFromFile() throws IOException{
 		BufferedWriter bw = null;
 		FileWriter fw = null;
@@ -139,6 +137,7 @@ public class JDBCConnectionPool {
 		System.out.println(count);
 		writer.write(new Integer(count-1).toString());
 		writer.close();
+		
 	}
 	public synchronized int totalConnections(){
 		return (connexions.size());

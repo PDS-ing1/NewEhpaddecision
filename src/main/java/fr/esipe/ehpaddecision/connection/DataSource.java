@@ -1,10 +1,12 @@
-package fr.esipe.pds.connection;
+package fr.esipe.ehpaddecision.connection;
 
 import java.io.IOException;
 import java.sql.Connection;
 
+import org.apache.log4j.Logger;
+
 public class DataSource {
-	
+	Logger log;
 	//Connection connection = source.getConnection("user", "password");
 	
 	public static JDBCConnectionPool pool;

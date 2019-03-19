@@ -11,7 +11,7 @@ dépôt dédiés au PDS
 
 #Prélable
 1. La branche master est didiée uniquement pour des "merges".
-	Par conséquent, il faut éviter au maximum de modifier directement les fichiers à partir de la branche master, il faut [créer des branches](#creation-de-branches-pour-les-evolutions).
+	Par conséquent, il faut éviter au maximum de modifier directement les fichiers à partir de la branche master, il faut [créer des branches] (#creation-de-branches-pour-les-evolutions).
 2. Dans certains dossiers, vous trouverez un fichier oneFileIsRequired.txt. Vous pourrez supprimer ces fichiers lorsque le dossier contiendra au moins un autre fichier (par exemple un fichier .java). Si vous supprimez ce fichier .txt et que le dossier devient vide, alors le dossier ne pourra pas être 'commit' ce qui pourra entraîner des erreurs de compilation.
 3. N'oubliez pas de faire des "Fetch" et des "Pull" lorsque vous changez de branche.
 4. N'oubliez pas de faire des commits réguliers afin que les autres membres du groupe puissent connaitre votre avancement.
@@ -75,7 +75,7 @@ Scanning for projects.../
 [ERROR] Re-run Maven using the -X switch to enable full debug logging.
 [ERROR] 
 [ERROR] For more information about the errors and possible solutions, please read the following articles:
-[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MissingProjectException
+  http://cwiki.apache.org/confluence/display/MAVEN/MissingProjectException
 
 
 ```
@@ -90,3 +90,5 @@ Scanning for projects.../
 #Quelques conseils
 - N'hésitez pas de passer vos recherches sur Google pour avoir toutes les informations.
 - Consulter le drive pour connaître la spec et les use-cases.
+- Des modifications ont eu lieu lors de la première release de la R2. [politique de nommage a été rediscuté, tous les fichiers de config sont nommés en miniscule, suppression des noms clés tels que Interfarce, thread]
+- 

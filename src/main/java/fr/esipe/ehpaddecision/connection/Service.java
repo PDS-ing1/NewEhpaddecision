@@ -1,4 +1,4 @@
-package fr.esipe.pds.connection;
+package fr.esipe.ehpaddecision.connection;
 
 import java.awt.CardLayout;
 import java.awt.Container;
@@ -8,12 +8,12 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-public class Back extends JPanel {
+public class Service extends JPanel {
 	CardLayout card;
     Container con;
     
     JButton btn;
-    public Back(CardLayout card , Container con) {
+    public Service(CardLayout card , Container con) {
         btn = new JButton("BACK");
         this.card=card;
         this.con = con;

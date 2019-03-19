@@ -1,4 +1,4 @@
-package fr.esipe.pds.connection;
+package fr.esipe.ehpaddecision.connection;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
-public class Interface extends JFrame implements ActionListener {
+public class Ihm extends JFrame implements ActionListener {
 
 	public static boolean flag = false;
 	public static int er=0;
@@ -21,7 +21,7 @@ public class Interface extends JFrame implements ActionListener {
 	JLabel label_delete, label_update, label_update_er, Result;
 	JTextField n_delete, update_n;
 
-	 public Interface() {
+	 public Ihm() {
 	        card = new CardLayout();
 	        panel  = new JPanel();
 	        panel.setBackground(Color.GRAY);  
@@ -34,7 +34,7 @@ public class Interface extends JFrame implements ActionListener {
 	        update = new JButton("UPDATE");
 	        
 	        Result=new JLabel("");
-	        label_delete = new JLabel("Enter enroolemnt number for DELETE data");
+	        label_delete = new JLabel("Enter an id to delete");
 	        Font font = new Font("Times New Romen", Font.BOLD, 20);
 	        submitDelete =new JButton("Submit delete");
 	        submitUpdate =new JButton("Submit update");
@@ -42,7 +42,7 @@ public class Interface extends JFrame implements ActionListener {
 	        update_n=new JTextField(20);
 	        label_update = new JLabel("Enter new values...");
 	        label_update.setFont(font);
-	        label_update_er=new JLabel("Enter er Number");
+	        label_update_er=new JLabel("Enter id number");
 	        label_update_er.setFont(font);
 	        
 	        setLayout(card);
@@ -50,28 +50,29 @@ public class Interface extends JFrame implements ActionListener {
 	        panel.add(insert);
 	        panel.add(delete);
 	        panel.add(update);
+	        
 	        //INSERT CODE
-	        panel_insert.add(new Interface_Form(card, getContentPane()));
-	        setLocationRelativeTo(null);
-	      
+	        panel_insert.add(new IhmForm(card, getContentPane()));
+	        
+	        panel_insert.add(new Service(card, getContentPane()));
 	       //DELETE CODE
 	        
 	        panel_delete.add(label_delete);
 	        panel_delete.add(n_delete);
 	        panel_delete.add(submitDelete);
 	        panel_delete.add(Result);
-	        panel_delete.add(new Back(card, getContentPane()));
+	        panel_delete.add(new Service(card, getContentPane()));
 	        
 	        panel_update_in.add(label_update_er);
 	        panel_update_in.add(update_n);
 	        panel_update_in.add(submitUpdate);
-	        panel_update_in.add(new Back(card, getContentPane()));
+	        panel_update_in.add(new Service(card, getContentPane()));
 	       
 	        // UPDATE CODE
 	        
 	        panel_update.setLayout(new BorderLayout());
 	        panel_update.add(label_update,BorderLayout.NORTH);
-	        panel_update.add(new Interface_Form(card, getContentPane()));
+	        panel_update.add(new IhmForm(card, getContentPane()));
 	        add(panel, "1");
 	        add(panel_insert, "2");
 	        add(panel_delete, "3");
@@ -114,7 +115,7 @@ public class Interface extends JFrame implements ActionListener {
 
  public static void main(String[] args) {
      // TODO code application logic here
-     Interface obj = new Interface();
+     Ihm obj = new Ihm();
  }
 
  public void actionPerformed(ActionEvent e) {

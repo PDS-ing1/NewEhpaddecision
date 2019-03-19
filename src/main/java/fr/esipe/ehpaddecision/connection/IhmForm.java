@@ -1,4 +1,4 @@
-package fr.esipe.pds.connection;
+package fr.esipe.ehpaddecision.connection;
 
 import java.awt.CardLayout;
 import java.awt.Container;
@@ -10,7 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
 
-public class Interface_Form extends JPanel{
+public class IhmForm extends JPanel{
 	
 	 public static boolean flag1=false;
 	    CardLayout cardLayout;
@@ -23,7 +23,7 @@ public class Interface_Form extends JPanel{
 	    JButton submit;
 	
 	    
-	    public Interface_Form(CardLayout cn, Container cr) {
+	    public IhmForm(CardLayout cn, Container cr) {
 	        
 	    	//these lines of code are to show labels on fields 
 	    	submit = new JButton("SUBMIT");
@@ -66,20 +66,19 @@ public class Interface_Form extends JPanel{
 	         add(nothing);
 	         add(Feminin);
 	         add(submit);
-	         add(new Back(cardLayout, container));
+	         
 	         add(result);
 	         
 	         submit.addActionListener(new ActionListener() {
 	             public void actionPerformed(ActionEvent e) {
-	            
-	                 if(Interface.flag==false)
+	                 if(Ihm.flag==false)
 	                 {
 	                     try {
 	                         query();
 	                     } catch (ClassNotFoundException ex) {
-	                         Logger.getLogger(Interface_Form.class.getName()).log(Level.SEVERE, null, ex);
+	                         Logger.getLogger(IhmForm.class.getName()).log(Level.SEVERE, null, ex);
 	                     } catch (SQLException ex) {
-	                         Logger.getLogger(Interface_Form.class.getName()).log(Level.SEVERE, null, ex);
+	                         Logger.getLogger(IhmForm.class.getName()).log(Level.SEVERE, null, ex);
 	                     }
 	                  }
 	                 else
@@ -88,11 +87,12 @@ public class Interface_Form extends JPanel{
 	                     try {
 	                         query();
 	                     } catch (ClassNotFoundException ex) {
-	                         Logger.getLogger(Interface_Form.class.getName()).log(Level.SEVERE, null, ex);
+	                         Logger.getLogger(IhmForm.class.getName()).log(Level.SEVERE, null, ex);
 	                     } catch (SQLException ex) {
-	                         Logger.getLogger(Interface_Form.class.getName()).log(Level.SEVERE, null, ex);
+	                         Logger.getLogger(IhmForm.class.getName()).log(Level.SEVERE, null, ex);
 	                     }
 	                 }
+	                 
 	               
 	             }
 	         });
