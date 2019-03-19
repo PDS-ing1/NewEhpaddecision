@@ -3,59 +3,45 @@ package fr.esipe.pds.client;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
+import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
-
+/**
+* This class implements java socket client
+* 
+*
+*/
 
 public class Client {
 	
-	public Client(String host, int port) {
-		try {
-			String serverHostname = new String ("127.0.0.1");
-			System.out.println("Connecting to host " + serverHostname + " on port " + port + ".");
-			
-			Socket outputsocket = null; 
-			PrintWriter output = null;
-			BufferedReader input = null;
-			
-			try { 
-				outputsocket = new Socket(serverHostname, 8081); 
-				output = new PrintWriter(outputsocket.getOutputStream(), true);
-				input = new BufferedReader(new InputStreamReader(outputsocket.getInputStream()));
-			} catch (IOException e){
-				System.err.println("Unknown host" + serverHostname);
-				System.exit(1);
-			} //catch (IOException e){ 
-				//System.err.println("Unable to get streams from server");
-				//System.exit(1);
-			//}
-			  BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
-			   while (true) {
-	                System.out.print("client: ");
-	                String userInput = stdIn.readLine();
-	                /** Exit on 'q' char sent */
-	                if ("q".equals(userInput)) {
-	                    break;
-	                }
-	                output.println(userInput);
-	                System.out.println("server: " + input.readLine());
-	            }
-			   /** Closing all the resources */
-	            output.close();
-	            input.close();
-	            stdIn.close();
-	            outputsocket.close();
-	        } catch (Exception e) {
-	            e.printStackTrace();
-	        }
 
-		}
-	//}
-
-	public static void main(String args[]) {
-       String host = "127.0.0.1";
-        int port = 8081;
-        new Client(host, port);
+    public static void main(String[] args) throws UnknownHostException, IOException, ClassNotFoundException, InterruptedException{
+       
+    	//get the localhost IP address, if server is running on some other IP, you need to use that
+        InetAddress host = InetAddress.getLocalHost();
+        Socket socket = null;
+        ObjectOutputStream oos = null;
+        ObjectInputStream ois = null;
+       
+        for(int i=0; i<5;i++){
+            //establish socket connection to server
+            socket = new Socket(host.getHostName(), 8855);
+            //write to socket using ObjectOutputStream
+            oos = new ObjectOutputStream(socket.getOutputStream());
+            System.out.println("Send a request to the server");
+            if(i==4)oos.writeObject("exit");
+            else oos.writeObject("toto "+i);
+            //read the server response message
+            ois = new ObjectInputStream(socket.getInputStream());
+            String message = (String) ois.readObject();
+            System.out.println("Message: " + message);
+            //close resources  
+            ois.close();
+            oos.close();
+           
+        }
     }
 }

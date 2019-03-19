@@ -5,7 +5,9 @@ import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
@@ -17,8 +19,15 @@ public class IhmForm extends JPanel{
 	    Container container;
 	    JLabel label_name, label_last_name, label_id,label_age, label_dept, label_gender, _label_for_delete, nothing, result;
 	   
-	   JTextField first_name, last_name, id, f_age, f_dept, f_gender, delete_no;
-	    JRadioButton Masculin, Feminin;
+	   static JTextField first_name;
+	static JTextField last_name;
+	static JTextField id;
+	static JTextField f_age;
+	JTextField f_dept;
+	JTextField f_gender;
+	JTextField delete_no;
+	    static JRadioButton Masculin;
+		JRadioButton Feminin;
 	    ButtonGroup btngrp;
 	    JButton submit;
 	
@@ -96,8 +105,91 @@ public class IhmForm extends JPanel{
 	               
 	             }
 	         });
-	      } 
-	    public void query() throws ClassNotFoundException, SQLException
+	      
+	    
+		submit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+
+				String nom = first_name.getText().toString();
+				String prenom = last_name.getText().toString();
+				int ident = Integer.parseInt(id.getText().toString());
+				int age1 = Integer.parseInt(f_age.getText().toString());
+				String gen="";
+				if(Masculin.isSelected()){
+                    gen="female";
+                }else{
+                  gen="male";
+                }
+				
+				
+
+				String requete = "INSERT INTO clients(prenom, nom , matricule, age, genre, identifiant) VALUES ('"+nom+"','"+prenom+"', 564,'"+age1+"','"+gen+"','"+ident+"')";
+
+				try {
+					Statement st = Connections.getInstance().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+					st.executeUpdate(requete);
+					JOptionPane.showMessageDialog(null, "requete ex�cut�e avec succ�s");
+
+				}
+				catch (SQLException ex) {
+					ex.printStackTrace();
+				}
+			}
+
+
+		});
+	    }
+    
+	    public static JTextField getFirst_name() {
+			return first_name;
+		}
+		public void setFirst_name(JTextField first_name) {
+			this.first_name = first_name;
+		}
+		public static JTextField getLast_name() {
+			return last_name;
+		}
+		public void setLast_name(JTextField last_name) {
+			this.last_name = last_name;
+		}
+		public static JTextField getId() {
+			return id;
+		}
+		public void setId(JTextField id) {
+			this.id = id;
+		}
+		public static JTextField getF_age() {
+			return f_age;
+		}
+		public void setF_age(JTextField f_age) {
+			this.f_age = f_age;
+		}
+		public JTextField getF_dept() {
+			return f_dept;
+		}
+		public void setF_dept(JTextField f_dept) {
+			this.f_dept = f_dept;
+		}
+		public JTextField getF_gender() {
+			return f_gender;
+		}
+		public void setF_gender(JTextField f_gender) {
+			this.f_gender = f_gender;
+		}
+		public static JRadioButton getMasculin() {
+			return Masculin;
+		}
+		public void setMasculin(JRadioButton masculin) {
+			Masculin = masculin;
+		}
+		public JRadioButton getFeminin() {
+			return Feminin;
+		}
+		public void setFeminin(JRadioButton feminin) {
+			Feminin = feminin;
+		}
+		public void query() throws ClassNotFoundException, SQLException
 	    {
 	        String req="";
 	                   

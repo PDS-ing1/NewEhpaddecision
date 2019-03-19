@@ -20,10 +20,20 @@ public class ClientHandler implements Runnable {
 		this.name=name;
 		this.dis=dis;
 		this.dos=dos;
+		this.isloggedin=true;
 	}
+	
+	
+	
+	
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
+		String received; 
+		while (true){
+			try {
+				
+			}
+		}
 		
 	}
 	

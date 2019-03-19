@@ -3,8 +3,9 @@ package fr.esipe.ehpaddecision.connection;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
@@ -83,17 +84,32 @@ public class Ihm extends JFrame implements ActionListener {
 	        delete.addActionListener(this);
 	        update.addActionListener(this);
 	        
+	        
+	    
+	        
+	        
 	        submitDelete.addActionListener(new ActionListener() {
 	        	
 	        	
 	        	 public void actionPerformed(ActionEvent event)  {
+	        		 
+	        		 int d=Integer.parseInt(n_delete.getText().toString());
+	            	 	String requete = "DELETE FROM clients WHERE Identifiant = '"+d+"' ";
+	            	       
+	            	 	try {
+	            	 		Statement st = Connections.getInstance().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+	            			 st.executeUpdate(requete);
+	            			 JOptionPane.showMessageDialog(null, "requete ex�cut�e avec succ�s");
+	            			 
+	            	 	}
+	            	 	catch (SQLException ex) {
+	            	 		ex.printStackTrace();
+	            	 	}
 	                 
-	                 String re="";
-	                 int d=Integer.parseInt(n_delete.getText().toString());
-				//	 re=drivrebase.Delete(d);
-					 Result.setText(re);
+	     
 	             }
-	         });
+	         
+	        		 });
 	        
 	        update.addActionListener(new ActionListener() {
 	            public void actionPerformed(ActionEvent event) {
@@ -105,9 +121,33 @@ public class Ihm extends JFrame implements ActionListener {
 	 submitUpdate.addActionListener(new ActionListener() {
          public void actionPerformed(ActionEvent event) {
              card.show(getContentPane(), "5");
-             er=Integer.parseInt(update_n.getText().toString());
-         }
-     });
+           /**  er=Integer.parseInt(update_n.getText().toString());*/
+             String nom = IhmForm.getLast_name().getText().toString();
+             String prenom = IhmForm.getFirst_name().getText().toString();
+      	 	int ident1 = Integer.parseInt(IhmForm.getId().getText().toString());
+      	 	int age2 = Integer.parseInt(IhmForm.getF_age().getText().toString());
+      	 	String gen="";
+ 			if(IhmForm.getMasculin().isSelected()){
+                 gen="female";
+             }else{
+               gen="male";
+             }
+ 			String genre = gen;
+              int id=Integer.parseInt(update_n.getText().toString());
+              
+ 	       	 	String requete = "UPDATE clients SET prenom = '"+prenom+"', nom ='"+nom+"', matricule= '562', age= '"+age2+"', genre= '"+genre+"', identifiant= '"+ident1+"'WHERE identifiant = '"+id+"' ";
+ 	       	 			          	         
+ 	       	       
+ 	       	 	try {
+ 	       	 		Statement st = connexions.getInstance().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+ 	       			 st.executeUpdate(requete);
+ 	       			 JOptionPane.showMessageDialog(null, "Query executed with success"); 
+ 	       	 	}
+ 	       	 	catch (SQLException ex) {
+ 	       	 		ex.printStackTrace();
+ 	       	 	}
+ 	        }
+      });
     setDefaultCloseOperation(EXIT_ON_CLOSE);
      setSize(500, 500);
      setVisible(true);
