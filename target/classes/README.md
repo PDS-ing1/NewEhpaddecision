@@ -86,6 +86,12 @@ Scanning for projects.../
 5. Aller dans la base de données pour vérifier si les changement ont été reçus
 6. Une liste avec tous les noms qui ont été ajoutés précédemment devrait apparaître
 
+#Quelques notes pour la release 2 : R2
+
+
+- On peut tracker les bandes passantes et les flux qui traversent les canaux TCP. Le monitoring peut être fait à l'aide de WireShark. On peut savoir aussi ce que ces bandes contiennent (texte, image..).
+- 
+
 
 #Quelques conseils
 - N'hésitez pas de passer vos recherches sur Google pour avoir toutes les informations.

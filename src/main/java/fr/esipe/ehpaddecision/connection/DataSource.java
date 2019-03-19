@@ -45,11 +45,4 @@ public class DataSource {
 	return connectionPoolFilled();
 	}
 	
-	
-	
-	
-	
-	
-	
-	
 }

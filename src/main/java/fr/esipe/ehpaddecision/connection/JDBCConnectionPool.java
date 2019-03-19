@@ -62,7 +62,6 @@ public class JDBCConnectionPool {
 		
 	}
 	
-	
 	public  void putConnection() throws IOException{
 		int countConnection = GetConnectionCountFromFile();
 	
@@ -124,7 +123,7 @@ public class JDBCConnectionPool {
 		writer.close();
 	}
 	
-	//This fonction delete the connection
+	/**This fonction delete the connection*/
 	private void DeleteConnectionCountFromFile() throws IOException{
 		BufferedWriter bw = null;
 		FileWriter fw = null;
@@ -159,9 +158,7 @@ public class JDBCConnectionPool {
 			}
 		}
 		return false;
-		
-		
-		
+
 	/*closeConnections(availableConnections);
 		availableConnections = new ArrayList<Connection>();
 		closeConnections(busyConnections);
@@ -176,9 +173,4 @@ public class JDBCConnectionPool {
 		}
 		 TODO Auto-generated method stub	
 	}*/
-
-	
-	
-	
-
 }

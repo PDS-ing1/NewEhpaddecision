@@ -11,7 +11,7 @@ import java.net.Socket;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-public class Server {
+public class Server extends Thread {
 
 	// the server
 	private ServerSocket serversocket;
@@ -24,7 +24,7 @@ public class Server {
 	Server(){
 		try{
 			// create the port 
-			int serverPort = 1111; // the port used 
+			int serverPort = 8081; // the port used 
 			serversocket = new ServerSocket(serverPort); //
 			
 			// creation of the json converter
@@ -56,7 +56,7 @@ public class Server {
 			// while the cliend is connected 
 			while (!client.isClosed()){
 				
-				//
+				// if the request has been sent 
 				if(input.ready()){
 					
 					// receive the request and convert it to Json
