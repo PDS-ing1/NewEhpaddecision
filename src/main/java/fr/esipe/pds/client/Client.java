@@ -26,7 +26,7 @@ public class Client {
         ObjectOutputStream oos = null;
         ObjectInputStream ois = null;
        
-        for(int i=0; i<5;i++){
+        /*for(int i=0; i<5;i++){
             //establish socket connection to server
             socket = new Socket(host.getHostName(), 8855);
             //write to socket using ObjectOutputStream
@@ -41,7 +41,23 @@ public class Client {
             //close resources  
             ois.close();
             oos.close();
-           
-        }
+            
+            // simulation add
+            
+        }*/
+        String requestToSend = "Create;mode1";
+      //establish socket connection to server
+        socket = new Socket(host.getHostName(), 8855);
+        //write to socket using ObjectOutputStream
+        oos = new ObjectOutputStream(socket.getOutputStream());
+        System.out.println("Send a request to the server");
+        oos.writeObject(requestToSend);
+        //read the server response message
+        ois = new ObjectInputStream(socket.getInputStream());
+        String message = (String) ois.readObject();
+        System.out.println("Message: " + message);
+        //close resources  
+        ois.close();
+        oos.close();
     }
 }

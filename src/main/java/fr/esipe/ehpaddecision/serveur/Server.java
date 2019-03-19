@@ -9,6 +9,15 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -20,13 +29,16 @@ import com.google.gson.GsonBuilder;
 	 */
 public class Server implements Runnable {  
 	
-	     private Gson gson;
+	     private static Gson gson;
+		private Object serversocket;
 	    //static ServerSocket variable
 	    private static ServerSocket server;
 	    //socket server port on which it will listen
 	    private static int port = 8855;
+	    private static Properties properties = new Properties();
+		private List<Connection> connexions = new ArrayList<Connection>(); 
 	    
-	    public static void main(String args[]) throws IOException, ClassNotFoundException{
+	    public static void main(String args[]) throws IOException, ClassNotFoundException, SQLException{
 	        //create the socket server object
 	        server = new ServerSocket(port);
 	        //keep listens indefinitely until receives 'exit' call or program terminates
@@ -50,6 +62,15 @@ public class Server implements Runnable {
 	            System.out.println("Message Received: " + message);
 	            //create ObjectOutputStream object
 	            ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+	            String[] parts = message.split(";");
+	            String action = parts[0];
+	            String data = parts[1];
+	            
+	            if(action.equals("Create")){
+	            	Create(data);
+	            	message = "Create";
+	            }
+	            
 	            //write object to Socket
 	            oos.writeObject("Hi Client "+message);
 	            //close resources
@@ -70,7 +91,7 @@ public class Server implements Runnable {
 			try{
 				
 				// Accept client's request to connect to the server
-				Socket client = this.serversocket.accept();
+				Socket client = ((ServerSocket) this.serversocket).accept();
 			
 				// the obejct that allows us to recieve a requeste from the client 
 				BufferedReader input = new BufferedReader(new InputStreamReader(client.getInputStream()));
@@ -104,9 +125,101 @@ public class Server implements Runnable {
 		@Override
 		// how the server will work (behavior)
 		public void run(){
-			while (!serversocket.isClosed())
+			while (!((ServerSocket) serversocket).isClosed())
 				AcceptConnection();
 		}
+		
+		private static Connection openConnection() throws SQLException{
+			Connection connection = null;
+			/*connexions.add(DriverManager.getConnection(properties.getProperty("url"),
+		    		properties.getProperty("user"), 
+		    		properties.getProperty("password")));*/
+			try {
+				Class.forName("com.mysql.jdbc.Driver");
+				connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/pds?serverTimezone=UTC","root", "");
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return connection;
+			
+		}
 	    
+		public static void Create(String mode) throws SQLException{
+			Connection connection=openConnection();
+			Statement stmt = null;
+			ResultSet rs = null;
+			PreparedStatement ps=null;
+			 
+			try {
+				stmt = connection.createStatement();
+				int autoIncKeyFromFunc = -1;
+			    rs = stmt.executeQuery("SELECT LAST_INSERT_ID()");
+
+			    if (rs.next()) {
+			        autoIncKeyFromFunc = rs.getInt(1);
+			    }
+			    if (autoIncKeyFromFunc == 0)
+			    	autoIncKeyFromFunc = 1;
+			    
+			    System.out.println("====================> " + autoIncKeyFromFunc);
+				String query="insert into capteurs (idCapteurs,mode) values (?,?)";
+				ps=connection.prepareStatement(query);
+				ps.setInt(1, autoIncKeyFromFunc);
+				ps.setString(2, mode);
+				System.out.println(ps);
+				ps.executeUpdate();
+			} catch (Exception e) {
+				System.out.println(e);
+			}
+		}
+		
+		public void Read() throws SQLException{
+			Connection connection=openConnection();
+			PreparedStatement ps=null;
+			ResultSet rs=null;
+			try {
+				String query="select * from capteurs";
+				ps=connection.prepareStatement(query);
+				//ps.setString(1, sl_no);
+				System.out.println(ps);
+				rs=ps.executeQuery();
+				while(rs.next()){
+				System.out.println("mode > " + rs.getString("mode"));
+				}
+			} catch (Exception e) {
+				System.out.println(e);
+			}
+		}
+		
+		public void Update(String mode, int idCapteurs) throws SQLException{
+			Connection connection=openConnection();
+			PreparedStatement ps=null;
+			try {
+				String query="update capteurs set mode=? where idCapteurs=?";
+				ps=connection.prepareStatement(query);
+				ps.setString(1, mode);
+				ps.setInt(2, idCapteurs);
+				System.out.println(ps);
+				ps.executeUpdate();
+			} catch (Exception e) {
+				System.out.println(e);
+			}
+		}
+		
+		public void Delete(int idCapteurs)throws SQLException{
+			Connection connection=openConnection();
+			PreparedStatement ps=null;
+			try {
+				String query="delete from capteurs where idCapteurs=?";
+				ps=connection.prepareStatement(query);
+				ps.setInt(1, idCapteurs);
+				System.out.println(ps);
+				ps.executeUpdate();
+			} catch (Exception e) {
+				System.out.println(e);
+			}
+		}
+
 	}
 
