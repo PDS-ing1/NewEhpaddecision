@@ -19,8 +19,6 @@ public class Users {
 		
 	}
 
-
-
 	public int getIdUser() {
 		return idUser;
 	}

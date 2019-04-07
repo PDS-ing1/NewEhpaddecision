@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import fr.esipe.pds.ehpaddecision.connectionpool.DataSource;
+import fr.esipe.pds.ehpaddecision.nicetoadd.Tools;
 
 
 public class Server {
@@ -13,7 +14,7 @@ public class Server {
 	private static Connection con;
 	
 	private ServerSocket serverSocket;
-	//private static final int ;
+	private static final int server_port =Integer.parseInt(Tools.propertiesFileHandler("server_port"));
 	
 	public Server(){
 		con = null;
@@ -27,7 +28,7 @@ public class Server {
 		DataSource.startConnections();
 		
 		try { 
-			serverSocket = new ServerSocket(nbPort);
+			serverSocket = new ServerSocket(server_port);
 			while (true) {
 				if (DataSource.connectionsAvailable() > 0 ) {
 					log.info("The server is ready, waiting a request from a client...");

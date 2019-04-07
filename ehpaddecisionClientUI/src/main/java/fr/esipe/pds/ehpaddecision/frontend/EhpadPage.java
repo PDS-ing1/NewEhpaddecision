@@ -14,4 +14,20 @@ public class EhpadPage {
 	private String pageMainSpell;
 	private String pageOpeningSpell;
 	
+	
+	
+	
+	
+	public String returnNameEhpad() {
+		return pageMainSpell;
+	}
+
+
+
+
+
+	public void showPage(boolean b) {
+		// TODO Auto-generated method stub
+		
+	}
 }

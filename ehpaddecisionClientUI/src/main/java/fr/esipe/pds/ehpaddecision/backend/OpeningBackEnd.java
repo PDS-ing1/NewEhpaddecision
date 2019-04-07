@@ -3,9 +3,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
+
+
 import fr.esipe.pds.ehpaddecision.*;
 import fr.esipe.pds.ehpaddecision.frontend.EhpadPage;
 import fr.esipe.pds.ehpaddecision.frontend.openingPage;
+import fr.esipe.pds.ehpaddecision.main.ClientServerConnection;
 
 
 public class OpeningBackEnd implements ActionListener{
@@ -18,49 +21,41 @@ public class OpeningBackEnd implements ActionListener{
 		this.openingPage = openingPage;
 	}
 
-	@Override
-	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
 	
-	//@SuppressWarnings("incomplete-switch");
-	//@Override
-	/*public void actionPerformed(ActionEvent arg0) {
+	
+	
+	public void actionPerformed(ActionEvent ae) {
 		// TODO Auto-generated method stub
-		if(e.getSource() instanceof JButton)
+		if(ae.getSource() instanceof JButton)
 		{
-			JButton clickedButton = (JButton)e.getSource();
+			JButton clickedButton = (JButton)ae.getSource();
 
 			if(clickedButton == openingPage.getAccessToServerButton())
 			{				
-				openingPage.getConnectionStateLabel().setText(ConnectionStarting.TRYAGAIN);
+				openingPage.connectionStatus().getToolTipText();
 				
-				ConnectionStarting status = .initializeSocket();
-				openingPage.getConnectionStateLabel().setText("");
+				ConnectionStarting status = ClientServerConnection.callSocket();
+				openingPage.connectionStatus().setText("");
 				switch(status)
 				{					
 					case FAIL:
-						JOptionPane.showMessageDialog(null, ConnectionStarting.FAIL, ConnectionStarting.FAIL, JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null, ConnectionStarting.FAIL);
 						break;	
 						
 					case CONNECTION_PROBLEM:
-						JOptionPane.showMessageDialog(null, ConnectionStarting.CONNECTION_PROBLEM, ConnectionStarting.CONNECTION_PROBLEM,JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null, ConnectionStarting.CONNECTION_PROBLEM);
 						break;
 	
 					case WELLDONE:
-						JOptionPane.showMessageDialog(null, ConnectionStarting.WELLDONE , ConnectionStarting.SUCCESS, JOptionPane.INFORMATION_MESSAGE);
-						// Changes the pages in order to have the home page
-						ehpadPage.changePage(ehpadPage.getHomePageName());
-						//Updates the monitrackFrame
-						ehpadPage.setVisible(true);	
+						JOptionPane.showMessageDialog(null, ConnectionStarting.WELLDONE);
+						
+						ehpadPage.showPage(true);	
 						break;
 				}
 			}
 		}
 
 	}
-	}*/
+}
 	
 
-}

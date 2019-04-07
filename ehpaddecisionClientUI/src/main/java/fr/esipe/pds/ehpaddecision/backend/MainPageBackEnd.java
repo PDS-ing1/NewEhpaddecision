@@ -6,13 +6,6 @@ import org.slf4j.LoggerFactory;
 
 import fr.esipe.pds.ehpaddecision.frontend.MainPage;
 
-
-
-
-
-
-
-
 public class MainPageBackEnd implements ActionListener
 {
 	

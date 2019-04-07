@@ -20,6 +20,8 @@ import java.util.Vector;
 import org.apache.log4j.BasicConfigurator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import fr.esipe.pds.ehpaddecision.nicetoadd.Tools;
 /**
  * 
  * 
@@ -30,6 +32,9 @@ public class JDBCConnectionPool implements InterfaceJDBCConnectionPool {
 	InputStream input = null;
 	private Properties properties = new Properties();
 	//private List<Connection> connexions = new ArrayList<Connection>(); 
+	private final String URL             =  Tools.propertiesFileHandler("url");
+	private final String USER            =  Tools.propertiesFileHandler("username");
+	private final String PSWD            =  Tools.propertiesFileHandler("pswd");
 	private int nbConnectionPool;
 	private Vector<Connection> connexions;
 	private int nbConnections;
@@ -72,7 +77,7 @@ public class JDBCConnectionPool implements InterfaceJDBCConnectionPool {
 		connexions = new Vector<Connection>();
 		nbConnectionPool = 0;
 		try{
-			nbConnectionPool =Integer.parseInt() ;
+			nbConnectionPool =Integer.parseInt((Tools.propertiesFileHandler("nb_connection"))) ;
 		}catch (Exception e){
 			nbConnectionPool = 5;
 		}
@@ -210,7 +215,7 @@ public class JDBCConnectionPool implements InterfaceJDBCConnectionPool {
 		
 	}
 	
-	public void loadConnectionsList() {
+	public void loadConnectionsList() throws SQLException{
 		// TODO Auto-generated method stub
 		for (int i = 0; i< nbConnections; i++){
 			Connection newConnection = this.newConnection();
@@ -221,11 +226,11 @@ public class JDBCConnectionPool implements InterfaceJDBCConnectionPool {
 	private Connection newConnection(){
 		Connection con = null; 
 		try {
-			con = DriverManager.getConnection(url, user, password );
-			
-		}catch (SQLException e){
-			log.error("Sorry, something is wrong with this query : " + e.getMessag());
-		}
+			   con = DriverManager.getConnection(URL, USER, PSWD);
+	            nbConnections++;
+		} catch (SQLException e) {
+            log.error("Sorry, something is wrong with this connection :\n" + e.getMessage());
+        }
 		return con;
 	}
 	/*private void closeConnections(List<Connection> connection) {

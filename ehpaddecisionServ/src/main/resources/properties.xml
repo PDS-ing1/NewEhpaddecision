@@ -4,4 +4,7 @@
 	<entry key="user">root</entry>
 	<entry key="password"></entry>
 	<entry key="url">jdbc:mysql://localhost:3306/pds?serverTimezone=UTC</entry>
+	<entry key="server_ip">localhost</entry>
+	<entry key="server_port">7070</entry>
 </properties>
+

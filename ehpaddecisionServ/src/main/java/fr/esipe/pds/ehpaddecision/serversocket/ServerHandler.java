@@ -14,10 +14,12 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import fr.esipe.ehpaddecision.sensorsreferentiel.CurrentUser;
+import fr.esipe.ehpaddecision.sensorsreferentiel.Users;
 import fr.esipe.ehpaddecision.sensorsreferentiel.DAOHandler;
+import fr.esipe.ehpaddecision.sensorsreferentiel.Users;
 import fr.esipe.ehpaddecision.sensorsreferentiel.AbDAO;
 import fr.esipe.pds.ehpaddecision.connectionpool.DataSource;
+import fr.esipe.pds.ehpaddecision.nicetoadd.Tools;
 import fr.esipe.pds.ehpdaddecision.enums.JSONExample;
 import fr.esipe.pds.ehpdaddecision.enums.Queries;
 
@@ -33,6 +35,7 @@ public class ServerHandler implements Runnable {
 	private BufferedReader queryClient;
 		// to be able to response the client
 	private PrintWriter answerServer;
+	private Object deserializedObject;
 	
 	
 	public ServerHandler(Socket socket, Connection connection){
@@ -50,7 +53,7 @@ public class ServerHandler implements Runnable {
 			answerServer = new PrintWriter(socket.getOutputStream(), true);
 			while (true){
 				String rq = queryClient.readLine();
-				String outputrq = getExecutedRequest(rq);
+				String outputrq = getDoneQuery(rq);
 				answerServer.println(outputrq);
 			}
 		
@@ -74,10 +77,7 @@ public class ServerHandler implements Runnable {
 	}
 
 
-	private String getExecutedRequest(String rq) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 	
 	// All methods to handle client request 
 	// At the beginning we should be able to excecute the client request, then send him an answer, depending on what he requests.
@@ -85,62 +85,104 @@ public class ServerHandler implements Runnable {
 	public String getDoneQuery(String jsQuery) 
 	{		
 		String execution = "";
-
 		try 
 		{
 			ObjectMapper mapper = new ObjectMapper();
 			JsonNode js = mapper.readTree(jsQuery);
-			JsonNode QNode = js.get(JSONExample.());	
-			String requestEntity = QNode.get(JSONExample.;
-		
-			
-			Class<?> entityClass = Class.forName(requestEntity);
-			JsonNode serializedObjectNode = js.get(JSONExample;
-			
-			Queries siud = Queries.getRequestType(QNode.get(JSONExample;
+			JsonNode QNode = js.get(JSONExample.INFO.baseExample());	
+			String perim = QNode.get(JSONExample.PERIM.baseExample()).textValue();
+			Class<?> perimCl = Class.forName(perim);
+			JsonNode seriaObjN = js.get(JSONExample.SERIALIZE.baseExample());
+			Queries siud = Queries.getQueries(QNode.get(JSONExample.QUERY.baseExample()).textValue());
 			
 			switch(siud)
 			{
 			case SELECT:
-				execution = select(entityClass, QNode);
+				execution = select(perimCl, seriaObjN);
 				break;
 			case INSERT:
-				execution = insert(entityClass, QNode, serializedObjectNode);
+				execution = insert(perimCl, seriaObjN);
 				break;
 			case UPDATE:
-				execution = update(entityClass, QNode, serializedObjectNode);
+				execution = update(perimCl, seriaObjN);
 				break;
 			case DELETE:
-				execution =  delete(entityClass, QNode, serializedObjectNode);
+				execution =  delete(perimCl,  seriaObjN);
 				break;
 			}
 
 		} 
 		catch (Exception e) {
-		
-			log.error("An error occured during the execution of the client request :\n" + e.getMessage());
+			log.error("Sorry, something is wrong during the execution of the client request :\n" + e.getMessage());
 		}
 			return execution;
-		
-
 	}
+	
+	
 	// this function will handle the insert request, new data
-	private String insert(Class<?> entityClass,JsonNode srzdONode){
-		Object deserializedObject = Util.deserializeObject(srzdONode.toString());
-		AbDAO d = DAOHandler.getDAOHandler(connection, entityClass);
-		CurrentUser usr = (CurrentUser) d.create(entityClass.cast(deserializedObject));
-		String result = Util.serializeObject(entityClass.cast(usr), LocationSensor, "");
+	private String insert(Class<?> perimCl,JsonNode srzdONode) throws Exception{
+		Object deserializedObject = Tools.deserializeObject(srzdONode.toString());
+		AbDAO d = DAOHandler.getDAOHandler(connection, perimCl);
+		Users usr = (Users) d.create(perimCl.cast(deserializedObject));
+		String result = Tools.serializeObject(perimCl.cast(usr),perimCl, "");
 		return result;
 	}
 	
 	// this function will handle the delete request.
-	private String delete(Class<?> entityClass, JsonNode dataNode){
-		Object deserializedObject = Util.deserializeObject(dataNode.toString());
-		AbDAO d = DAOHandler.getDAOHandler(connection, entityClass);
-		d.delete(entityClass.cast(deserializedObject));
-		String result = Util.serializeObject(null, entityClass, "");
+	private String delete(Class<?> perimCl, JsonNode srzdONode) throws Exception{
+		Object deserObjt = Tools.deserializeObject(srzdONode.toString());
+		AbDAO d = DAOHandler.getDAOHandler(connection, perimCl);
+		d.delete(perimCl.cast(deserializedObject));
+		String result = Tools.serializeObject(null, perimCl, "");
 		return result;
 	}
+	
+	
+	private String update(Class<?> perimCl,JsonNode srzdONode) throws Exception {
+		
+		Object deserObj = Tools.deserializeObject(srzdONode.toString());		
+		AbDAO d = DAOHandler.getDAOHandler(connection, perimCl);
+		d.update(perimCl.cast(deserializedObject));
+		String result = Tools.serializeObject(null, perimCl, "");
+		return result;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	private String select(Class<?> perimCl, JsonNode srzdONode) throws Exception
+	{
+
+		ObjectMapper mapper = new ObjectMapper();
+		String result = "";		
+		String getStringJson = srzdONode.get(JSONExample.INFO.baseExample()).textValue();
+		
+
+		List<String> values = null;
+		
+
+		if(getStringJson != null
+				&& getStringJson.trim().length() > 0) 
+		{
+			values = mapper.readValue(getStringJson, mapper.getTypeFactory().constructCollectionType(List.class, String.class));
+			
+
+		}
+
+		AbDAO d = DAOHandler.getDAOHandler(connection, perimCl);
+		result = Tools.serializeObject(d.find(values), perimCl, "");
+
+		
+
+		return result;		
+	}
+
+	
 	
 	
 

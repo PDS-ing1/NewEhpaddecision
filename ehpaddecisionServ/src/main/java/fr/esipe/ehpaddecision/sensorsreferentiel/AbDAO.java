@@ -17,6 +17,8 @@ public abstract class AbDAO<O> {
 	
 	public abstract void delete(O obj);	
 	
-	public abstract List<O> find(List<String> fields, List<String> values);
+	public abstract List<O> find(List<String> values);
+
+	
 
 }

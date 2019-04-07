@@ -1,16 +1,21 @@
 package fr.esipe.ehpaddecision.sensorsreferentiel;
 import java.sql.Connection;
+import java.sql.SQLException;
 
+import fr.esipe.ehpaddecision.sensorsreferentiel.AlertsDAO;
 
 
 public class DAOHandler {
-	public static AbDAO  getDAOHandler(Connection connection, Class entityClass) {
+	public static AbDAO  getDAOHandler(Connection connection, Class entityClass) throws Exception {
 		
-		if(entityClass.equals(CurrentUser.class))
-			return new (connection);
-		else if(entityClass.equals(Location.class))
-			return new (connection);
-	
+		if(entityClass.equals(Alerts.class))
+			return new AlertsDAO(connection);
+		else if(entityClass.equals(Users.class))
+			return new UsersDAO(connection);
+		else
+			throw new Exception();
 	}
+
+	
 
 }

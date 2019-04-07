@@ -45,7 +45,7 @@
 			<configuration>
 				<archive>
 					<manifest>
-						<mainClass>com.monitrack.main.MonitrackMain</mainClass>
+						<mainClass>fr.esipe.pds.ehpaddecision.main.EhpadMain</mainClass>
 					</manifest>
 				</archive>
 				<descriptorRefs>
