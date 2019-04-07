@@ -16,7 +16,6 @@ public class EhpadMain {
 	
 		public void run() {
 			log.info("Welcome to EHPAD DECISION");
-			
 			MainPage ehpad = new MainPage();
 		}
 		
