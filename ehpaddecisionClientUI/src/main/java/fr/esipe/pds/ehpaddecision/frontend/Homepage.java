@@ -6,17 +6,25 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
 import java.awt.Color;
 import java.awt.FlowLayout;
+
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
 import javax.swing.JTextPane;
+
 import java.awt.Font;
+
 import org.eclipse.wb.swing.FocusTraversalOnArray;
+
 import java.awt.Component;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 import javax.swing.JPasswordField;
 
 public class Homepage extends JFrame {
@@ -26,6 +34,7 @@ public class Homepage extends JFrame {
 	private JTextField textField;
 	private JTextField textField_1;
 	private JPasswordField passwordField;
+	private Alarmpage alarm = new Alarmpage();
 
 	/**
 	 * Launch the application.
@@ -115,6 +124,12 @@ public class Homepage extends JFrame {
 		btnNewButton.setForeground(new Color(0, 0, 128));
 		btnNewButton.setBounds(63, 227, 89, 23);
 		panel.add(btnNewButton);
+		btnNewButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e3) {
+				alarm.setVisible(true);
+			}
+		});
 		panel.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{txtAuthentification}));
 	}
 }
