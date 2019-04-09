@@ -42,8 +42,6 @@ public class ServerHandler implements Runnable {
 		this.connection=connection;
 	}
 	
-	
-	
 	public void run() {
 		// TODO Auto-generated method stub
 		

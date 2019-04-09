@@ -17,8 +17,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
-import fr.esipe.pds.ehpdaddecision.enums.JSONExample;
-import fr.esipe.pds.ehpdaddecision.enums.Queries;
+import fr.esipe.pds.ehpdaddecision.enumerations.JSONExample;
+import fr.esipe.pds.ehpdaddecision.enumerations.Queries;
 public class Tools {
 
 	private static final Logger log = LoggerFactory.getLogger(Tools.class);
@@ -43,12 +43,88 @@ public class Tools {
 	}
 
 	// not completed... to review 
+	public static String serializeObject(Object obj, Class Class, String message)
+	{		
+		String JSONobj = null;
+
+		ObjectMapper mapper = new ObjectMapper();
+		ObjectNode node = mapper.createObjectNode();
+		message = (message == null) ? "" : message;
+		node.put(JSONExample.ERROR.baseExample(), message);
+		try {
+
+			if(obj != null && Class != null)
+			{
+				
+				if(obj instanceof List)
+				{
+					node.put(JSONExample.LIST.baseExample(), true);				
+				}
+				else
+				{
+					node.put(JSONExample.LIST.baseExample(), false);
+				}				
+				node.putPOJO(JSONExample.INFO.baseExample(), obj);
+				log.info("Successful serialization");
+				System.out.println(obj.toString());
+			}
+			else
+			{
+				log.error("Sorry no object to serialize found !");				
+			}
+
+			JSONobj = mapper.writeValueAsString(node);
+		} 
+		catch (Exception e) 
+		{
+			log.error("Sorry, your serialization was wrong : " + e.getStackTrace());
+			System.out.println("ERROR " + obj.toString());
+			System.out.println("Exception " +e.toString());
+		}			
+
+		return JSONobj;
+	}
 	
 	// this function will be able to convert a json string into a java object
 	
 	// not completed... to review 
-	
-	
+	public static Object deserializeObject(String objectInJSONString) {
+
+		Object jstObj = null;
+		ObjectMapper mapper = new ObjectMapper();
+
+		try {
+
+			if(objectInJSONString == null || objectInJSONString.trim().length() == 0)
+				throw new Exception("Sorry, We can't load to serialize, check again!");
+
+			JsonNode stringJs = mapper.readTree(objectInJSONString);
+			JsonNode perimNode = stringJs.get(JSONExample.PERIM.baseExample());
+		
+			JsonNode infoNode = stringJs.get(JSONExample.INFO.baseExample());
+			
+			JsonNode listNode = stringJs.get(JSONExample.LIST.baseExample());
+
+			
+			String className = perimNode.textValue();
+			Class<?> objectClass = Class.forName(className);
+
+			boolean isListOfEntities = listNode.booleanValue();			
+
+			if(isListOfEntities)
+				jstObj = mapper.readValue(infoNode.toString(), mapper.getTypeFactory().constructCollectionType(List.class, objectClass));
+			else
+				jstObj = mapper.readValue(infoNode.toString(), objectClass);
+
+			log.info("Deserialization into Java Object succedeed");
+
+		} catch (Exception e) {
+			log.error("Deserialization into Java Object failed : " + e.getMessage());
+			e.printStackTrace();
+		} 
+
+		return jstObj;		
+	}
 
 	public static String jsonNode(JSONExample example, String js)
 	{
