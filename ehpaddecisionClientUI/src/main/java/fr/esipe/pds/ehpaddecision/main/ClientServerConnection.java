@@ -1,5 +1,6 @@
 package fr.esipe.pds.ehpaddecision.main;
 
+import fr.esipe.pds.ehpaddecision.backend.AllConnectionUsedException;
 import fr.esipe.pds.ehpaddecision.backend.ConnectionStarting;
 import fr.esipe.pds.ehpaddecision.clientsocket.SClient;
 
@@ -10,7 +11,13 @@ public class ClientServerConnection {
 	public static ConnectionStarting callSocket()
 	{
 		sclient = new SClient();
-		ConnectionStarting socketState = sclient.go();
+		ConnectionStarting socketState = null;
+		try {
+			socketState = sclient.go();
+		} catch (AllConnectionUsedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return socketState;
 	}
 

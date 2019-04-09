@@ -18,6 +18,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import fr.esipe.pds.ehpdaddecision.enums.JSONExample;
+import fr.esipe.pds.ehpdaddecision.enums.Queries;
 public class Tools {
 
 	private static final Logger log = LoggerFactory.getLogger(Tools.class);
@@ -65,16 +66,10 @@ public class Tools {
 				else
 				{
 					node.put(JSONExample.LIST.baseExample(), false);
-				}
-
-				
-				/*
-				 * We add the entity name in order to make the deserialization easier
-				 * because we will have one deserialization process for all of the entities
-				 */
-				
+				}				
 				node.putPOJO(JSONExample.INFO.baseExample(), obj);
 				log.info("Successful serialization");
+				System.out.println(obj.toString());
 			}
 			else
 			{
@@ -86,13 +81,12 @@ public class Tools {
 		catch (Exception e) 
 		{
 			log.error("Sorry, your serialization was wrong : " + e.getStackTrace());
+			System.out.println("ERROR " + obj.toString());
+			System.out.println("Exception " +e.toString());
 		}			
 
 		return JSONobj;
 	}
-	
-	
-	
 	
 	// this function will be able to convert a json string into a java object 
 	public static Object deserializeObject(String objectInJSONString) {
@@ -153,6 +147,48 @@ public class Tools {
 	}
 	
 	
+	
+	/*public static String serializeQuery(Queries queryExample, Class entityClass,String serializedObject, 
+			List<String> values)
+	{	
+	
+		
+			String objectToJSON = null;
+
+			try {
+				if(queryExample == null || entityClass == null)
+					throw new IOException("The request type and the entity class cannot be null !");
+
+				objectToJSON = null;
+
+				ObjectMapper mapper = new ObjectMapper();
+
+				ObjectNode rootNode = mapper.createObjectNode();
+				ObjectNode requestNode = mapper.createObjectNode();
+
+				if(serializedObject == null)
+					serializedObject = "";
+				JsonNode serializedObjectNode = mapper.readTree(serializedObject);
+
+				requestNode.put(JSONExample.QUERY.baseExample(), queryExample.toString());		
+				requestNode.put(JSONExample.PERIM.baseExample(), entityClass.getName());	
+
+				
+				
+	
+			requestNode.putPOJO(JSONExample.INFO.baseExample(), values);
+
+			rootNode.putPOJO(JSONExample.SERIALIZE.baseExample(), serializedObjectNode);
+
+			objectToJSON = mapper.writeValueAsString(rootNode);
+		} catch (IOException e) {
+			log.error("An error occurred during the serialization of the request :\n" + e.getMessage());
+		}
+
+		return objectToJSON;
+	}	
+*/
+
 	
 	
 	// this function should be able to reflect pretty line 

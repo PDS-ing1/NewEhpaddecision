@@ -32,6 +32,6 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="src" path="/ehpaddecisionUmlandSQL"/>
+	<classpathentry kind="src" path="/ehpaddecisionGoingToBeCommonClass"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

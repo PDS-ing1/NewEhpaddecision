@@ -7,6 +7,7 @@ import java.awt.event.WindowEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import fr.esipe.pds.ehpaddecision.frontend.EhpadPage;
 import fr.esipe.pds.ehpaddecision.main.ClientServerConnection;
 
 public class EhpadBackEnd extends WindowAdapter {
@@ -20,6 +21,11 @@ public class EhpadBackEnd extends WindowAdapter {
 	}	
 
 	
+	public EhpadBackEnd(EhpadPage ehpadPage) {
+		// TODO Auto-generated constructor stub
+	}
+
+
 	public void windowClosing(WindowEvent e) {
 		exit();
 	}	

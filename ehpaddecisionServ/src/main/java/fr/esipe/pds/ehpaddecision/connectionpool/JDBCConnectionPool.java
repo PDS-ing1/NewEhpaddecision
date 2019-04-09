@@ -26,222 +26,126 @@ import fr.esipe.pds.ehpaddecision.nicetoadd.Tools;
  * 
  * 
  *
- */
-public class JDBCConnectionPool implements InterfaceJDBCConnectionPool {
-    private static final Logger log = LoggerFactory.getLogger(JDBCConnectionPool.class);
-	InputStream input = null;
-	private Properties properties = new Properties();
-	//private List<Connection> connexions = new ArrayList<Connection>(); 
-	private final String URL             =  Tools.propertiesFileHandler("url");
-	private final String USER            =  Tools.propertiesFileHandler("username");
-	private final String PSWD            =  Tools.propertiesFileHandler("pswd");
-	private int nbConnectionPool;
-	private Vector<Connection> connexions;
-	private int nbConnections;
-	
+ */public class JDBCConnectionPool implements InterfaceJDBCConnectionPool {
+		
+	    private Vector<Connection> connections;
+	    private static final Logger log = LoggerFactory.getLogger(JDBCConnectionPool.class);
+	    private final String URL             =  Tools.propertiesFileHandler("url");
+	    private final String USER            =  Tools.propertiesFileHandler("username");
+	    private final String PSWD            =  Tools.propertiesFileHandler("password");
+	    private int numberOfConnections;
+	    private int numberOfConnectionsCreated;
+		
+		public JDBCConnectionPool() {
+			connections = new Vector<Connection>();
+			numberOfConnectionsCreated = 0;
+			log.info("Database URL : " + URL);
+			try
+			{
+				numberOfConnections = Integer.parseInt(Tools.propertiesFileHandler("nb_connection"));
+			}
+			catch(Exception e)
+			{
+				log.error("File unloaded from properties !");
+				numberOfConnections = 10;
+			}
 
-	
-	/*public JDBCConnectionPool(){
-		try {
-			FileInputStream fis = new FileInputStream("src/main/resource/properties.xml");
-	        System.out.println( "properties files found !" );
+			log.info(numberOfConnections + " connection(s) should be put inside the connection pool.");
+		} 
+		
 
-			properties.loadFromXML(fis);
-			
-	        System.out.println( "properties loaded properly!" );
+		public void fillConnectionsList() throws SQLException {		
+					
+	        for (int i = 0; i < numberOfConnections; i++ )
+	        {
+	        	Connection createdConnection = this.createConnection(); 
+	        	if(createdConnection != null) {
+	                connections.addElement(createdConnection);
+	                log.info("A connection has been created and is being added to the pool. (" + ( (i+1) + "/" + numberOfConnections) + ")" );
+	        	}
+	        	else {
+	        		log.error("Some erros faced the creation of the connection so your connections are equals to null !");
 	        
-	        Class.forName("com.mysql.jdbc.Driver");//Set driver	        
-	        
-	        for(int i = 0; i <1; i++) {
-		        Connection connection = (Connection) DriverManager.getConnection(properties.getProperty("url"),
-		        		properties.getProperty("user"), 
-		        		properties.getProperty("password"));
-		        connexions.add(connection);
+	        		throw new SQLException("A connection is equal to null !");
+	        	}
 	        }
-	        System.out.println( "properties loaded properly!" );
-	        
-		} catch (IOException e) {
-			System.out.println("Unable to load properties from file !");
-			e.printStackTrace();
-		} catch (SQLException e) {
-			System.out.println("Unable to create Connection !");
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+	        displayConnectionPoolState();
 		}
-		
-	}*/
-	
-	public JDBCConnectionPool(){
-		connexions = new Vector<Connection>();
-		nbConnectionPool = 0;
-		try{
-			nbConnectionPool =Integer.parseInt((Tools.propertiesFileHandler("nb_connection"))) ;
-		}catch (Exception e){
-			nbConnectionPool = 5;
-		}
-	}
-	
-	/*public  void putConnection() throws IOException{
-		int countConnection = GetConnectionCountFromFile();
-	
-		input = new FileInputStream("src/main/resource/properties.xml");
-		properties.loadFromXML(input);
 
-		if(countConnection <= 2){
-		 try {
-			connexions.add(DriverManager.getConnection(properties.getProperty("url"),
-			    		properties.getProperty("user"), 
-			    		properties.getProperty("password")));
-			// add a connection ==> incrementation of the queue
-			AddConnectionCountFromFile();
-		} catch (SQLException e) {
+		public Connection getConnection() throws Exception {
+			if(!connections.isEmpty())
+			{
+				Connection connection = connections.lastElement();
+		        connections.removeElement(connection);
+				log.info("A connection is being retrieved from the conection pool.");
+				displayConnectionPoolState();
+		        return connection; 
+			}
+			else
+			{
+				throw new Exception("There are no connections left in the connection pool ! Please try later.");
+			}     
+		}
+
+		public void putConnection(Connection connection) {
+			if(connection != null)
+			{
+				connections.addElement(connection);	
+				log.info("A connection is being added to the connection pool.");			
+			}
+			displayConnectionPoolState();
 			
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		}
 
-		System.out.println("connection number after auth =" + GetConnectionCountFromFile());
-		  BasicConfigurator.configure();
-	}*/
-	
-	public Vector<Connection> returnConnections() {
-		return connexions;
-	}
-	public Connection getConnection() throws Exception{	
-		if (!connexions.isEmpty())
-		{
-			Connection con = connexions.lastElement();
-			connexions.removeElement(connexions);
-			poolReady();
-			log.info("One connection was taken from the pool");
-			return con;
-		}
-		else
-			throw new Exception ("Sorry, your pool is empty of connections");
-	}
-	
-	/**This function load the file */
-	/*
-	private FileReader LoadConnectionFile() throws FileNotFoundException{
-		System.out.println("Loading file ...");
-		return new FileReader("src/main/resource/ConnectionCount.config");
-	}
-	*/
-	
-	/** This function get the count of connection in pool */
-	/*
-	 * private int GetConnectionCountFromFile(){
-		try{
-		FileReader file = LoadConnectionFile();
-		BufferedReader br = new BufferedReader(file);
-		return Integer.parseInt(br.readLine());
-		}catch(Exception e){
-			return 0;
-		}
-	}*/
-
-	/**This function add the connection */
-	/*
-	 * @SuppressWarnings("resource")
-	 
-	private void AddConnectionCountFromFile() throws IOException{
-		BufferedWriter bw = null;
-		FileWriter fw = null;
-		int count = GetConnectionCountFromFile();
-		System.out.println(count);
-		fw = new FileWriter("src/main/resource/ConnectionCount.config");
-		bw = new BufferedWriter(fw);
-		bw.write(count+1);
-		BufferedWriter writer = new BufferedWriter(fw);
-		System.out.println(count);
-		writer.write(new Integer(count+1).toString());
-		writer.close();
-	}*/
-	
-	/**This function delete the connection*/
-	/*
-	private void DeleteConnectionCountFromFile() throws IOException{
-		BufferedWriter bw = null;
-		FileWriter fw = null;
-		int count = GetConnectionCountFromFile();
-		System.out.println(count);
-		fw = new FileWriter("src/main/resource/ConnectionCount.config");
-		bw = new BufferedWriter(fw);
-		bw.write(count+1);
-		BufferedWriter writer = new BufferedWriter(fw);
-		System.out.println(count);
-		writer.write(new Integer(count-1).toString());
-		writer.close();
-		
-	}*/
-	
-	public synchronized int totalConnections(){
-		return (connexions.size());
-	}
-	
-	public void free(Connection connection){
-		if (connection != null){
-			connexions.add(connection);
-			log.info("A free connection is available. Plus one connection in the pool");
-		}
-		poolReady();
-		
-	}
-	
-	public void closeAll(){
-		//DeleteConnectionCountFromFile();
-		for (Connection con: connexions)
-		{
-			try { 
-				 if(!con.isClosed());
-				 {
-					 con.close();
-					 log.info("One connection closed has been closed");
-				 }
-			}catch 
-				(SQLException e){
-				log.error("Sorry, some problems with your connection, cannot close it");
+		public void closeAllConnections() {
+			for(Connection connection : connections)
+			{
+				try {
+					if(!connection.isClosed())
+					{
+						connection.close();	
+						log.info("A connection has been closed.");
+					}
+				} catch (SQLException e) {
+		            log.error("An error occurs during the closing of the connection :\n" + e.getMessage());
+				}
 			}
 		}
-	}
 			
-	// this method wil declare that the pool is ready to be used
-	public void poolReady() {
-		String ready = "Hello, your pool is ready + ";
-		log.info("Please, your pool has been created and it is ready now ");
 		
-	}
-	
-	public void loadConnectionsList() throws SQLException{
-		// TODO Auto-generated method stub
-		for (int i = 0; i< nbConnections; i++){
-			Connection newConnection = this.newConnection();
+	    public Vector<Connection> getConnections() {
+			return connections;
 		}
-	}
 
-	
-	private Connection newConnection(){
-		Connection con = null; 
-		try {
-			   con = DriverManager.getConnection(URL, USER, PSWD);
-	            nbConnections++;
-		} catch (SQLException e) {
-            log.error("Sorry, something is wrong with this connection :\n" + e.getMessage());
-        }
-		return con;
-	}
-	/*private void closeConnections(List<Connection> connection) {
-		try {
-			for (int i=0; i < connection.size(); i++){
-				Connection connection2 = (Connection) connection
-			}
+
+		private Connection createConnection(){
+	        Connection connection = null;
+	        try {
+	        	System.out.println("JE SUSI LA 1");
+	        	connection = DriverManager.getConnection(URL, USER, PSWD);
+	            numberOfConnectionsCreated++;
+	            System.out.println("JE SUSI LA ");
+	        } catch (SQLException e) {
+	            log.error("A SQL Exception has been raised during the creation of a connection :\n" + e.getMessage());
+	        }
+	        return connection;
+	    }  
+
+		public int connectionStillAlives(){
+			return connections.size();
 		}
-		 TODO Auto-generated method stub	
-	}*/
-	
-	
-}
+		
+		private void displayConnectionPoolState()
+		{
+			String creation  = "- Connection created   : " + numberOfConnectionsCreated;
+			String remaining = "- Actual connection: " + connectionStillAlives();
+			String end 		 = "------------------------------------";
+			log.info("Connection pool state :\n" + creation + "\n" + remaining + "\n" + end + "\n");
+		}
+
+
+		
+		
+
+	}
 

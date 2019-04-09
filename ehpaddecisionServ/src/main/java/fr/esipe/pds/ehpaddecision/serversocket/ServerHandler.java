@@ -14,12 +14,11 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import fr.esipe.ehpaddecision.sensorsreferentiel.Users;
-import fr.esipe.ehpaddecision.sensorsreferentiel.DAOHandler;
-import fr.esipe.ehpaddecision.sensorsreferentiel.Users;
-import fr.esipe.ehpaddecision.sensorsreferentiel.AbDAO;
 import fr.esipe.pds.ehpaddecision.connectionpool.DataSource;
 import fr.esipe.pds.ehpaddecision.nicetoadd.Tools;
+import fr.esipe.pds.ehpaddecision.sensorsreferentiel.AbDAO;
+import fr.esipe.pds.ehpaddecision.sensorsreferentiel.DAOHandler;
+import fr.esipe.pds.ehpaddecision.sensorsreferentiel.Users;
 import fr.esipe.pds.ehpdaddecision.enums.JSONExample;
 import fr.esipe.pds.ehpdaddecision.enums.Queries;
 
@@ -44,7 +43,7 @@ public class ServerHandler implements Runnable {
 	}
 	
 	
-	@Override
+	
 	public void run() {
 		// TODO Auto-generated method stub
 		
@@ -52,8 +51,11 @@ public class ServerHandler implements Runnable {
 			queryClient = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			answerServer = new PrintWriter(socket.getOutputStream(), true);
 			while (true){
+				
 				String rq = queryClient.readLine();
+				System.out.println("Je suis la");
 				String outputrq = getDoneQuery(rq);
+				System.out.println("Je suis la");
 				answerServer.println(outputrq);
 			}
 		
@@ -71,7 +73,7 @@ public class ServerHandler implements Runnable {
 
 
 	private void exit() throws IOException {
-			DataSource.free(connection);
+			DataSource.putConnection(connection);
 			this.connection=null;
 			socket.close();	
 	}

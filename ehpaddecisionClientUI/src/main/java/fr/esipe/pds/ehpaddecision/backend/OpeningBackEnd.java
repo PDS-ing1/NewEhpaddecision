@@ -7,49 +7,54 @@ import javax.swing.JOptionPane;
 
 import fr.esipe.pds.ehpaddecision.*;
 import fr.esipe.pds.ehpaddecision.frontend.EhpadPage;
-import fr.esipe.pds.ehpaddecision.frontend.openingPage;
+import fr.esipe.pds.ehpaddecision.frontend.OpenPageFront;
+import fr.esipe.pds.ehpaddecision.frontend.openingPageOld;
 import fr.esipe.pds.ehpaddecision.main.ClientServerConnection;
+import fr.esipe.pds.ehpaddecision.main.EhpadMain;
 
 
 public class OpeningBackEnd implements ActionListener{
 	
 	private EhpadPage ehpadPage;
-	private openingPage openingPage;
 	
-	public OpeningBackEnd (EhpadPage ehpadPage, openingPage openinPage){
-		this.ehpadPage = ehpadPage;
-		this.openingPage = openingPage;
+	
+	private OpenPageFront openFront;
+	
+	
+	
+	public OpeningBackEnd(EhpadPage ehpadPage, OpenPageFront openFront) {
+		this.ehpadPage=ehpadPage;
+		this.openFront = openFront; 
 	}
 
-	
-	
-	
+	@SuppressWarnings("incomplete-switch")
 	public void actionPerformed(ActionEvent ae) {
 		// TODO Auto-generated method stub
 		if(ae.getSource() instanceof JButton)
 		{
 			JButton clickedButton = (JButton)ae.getSource();
 
-			if(clickedButton == openingPage.getAccessToServerButton())
+			if(clickedButton == openFront.serverAccess())
 			{				
-				openingPage.connectionStatus().getToolTipText();
+				openFront.connectionState().setText(ConnectionStarting.TRYAGAIN.getMessage());
 				
 				ConnectionStarting status = ClientServerConnection.callSocket();
-				openingPage.connectionStatus().setText("");
+				openFront.connectionState().setText("");
 				switch(status)
 				{					
 					case FAIL:
-						JOptionPane.showMessageDialog(null, ConnectionStarting.FAIL);
+						JOptionPane.showMessageDialog(null, ConnectionStarting.FAIL,null, JOptionPane.ERROR_MESSAGE);
 						break;	
 						
 					case CONNECTION_PROBLEM:
-						JOptionPane.showMessageDialog(null, ConnectionStarting.CONNECTION_PROBLEM);
+						JOptionPane.showMessageDialog(null, ConnectionStarting.CONNECTION_PROBLEM, null, JOptionPane.ERROR_MESSAGE);
 						break;
 	
 					case WELLDONE:
-						JOptionPane.showMessageDialog(null, ConnectionStarting.WELLDONE);
+						JOptionPane.showMessageDialog(null, ConnectionStarting.WELLDONE, null, JOptionPane.INFORMATION_MESSAGE);
+						ehpadPage.showPage(ehpadPage.returnNameEhpad());
+						ehpadPage.setVisible(true);
 						
-						ehpadPage.showPage(true);	
 						break;
 				}
 			}

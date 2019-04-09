@@ -3,8 +3,7 @@ package fr.esipe.pds.ehpaddecision.main;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import fr.esipe.pds.ehpaddecision.frontend.MainPage;
-
+import fr.esipe.pds.ehpaddecision.frontend.EhpadPage;
 import javax.swing.*;
 public class EhpadMain {
 	
@@ -16,9 +15,11 @@ public class EhpadMain {
 	
 		public void run() {
 			log.info("Welcome to EHPAD DECISION");
-			MainPage ehpad = new MainPage();
+			EhpadPage ehpadpage = new EhpadPage();
 		}
 		
 		}
 	);
-	}}
+	}
+
+	}

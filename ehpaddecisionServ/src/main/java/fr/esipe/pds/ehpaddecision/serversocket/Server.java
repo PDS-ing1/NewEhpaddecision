@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import fr.esipe.pds.ehpaddecision.connectionpool.DataSource;
+import fr.esipe.pds.ehpaddecision.connectionpool.JDBCConnectionPool;
 import fr.esipe.pds.ehpaddecision.nicetoadd.Tools;
 
 
@@ -14,7 +15,7 @@ public class Server {
 	private static Connection con;
 	
 	private ServerSocket serverSocket;
-	private static final int server_port =Integer.parseInt(Tools.propertiesFileHandler("server_port"));
+	private static final int server_port =7070;
 	
 	public Server(){
 		con = null;
@@ -25,24 +26,23 @@ public class Server {
 	
 	public void launch(){
 		log.info("The server is launching ! ");
-		DataSource.startConnections();
+		DataSource.startConnectionPool();
+		//JDBCConnectionPool dt = new JDBCConnectionPool();
 		
 		try { 
 			serverSocket = new ServerSocket(server_port);
-			while (true) {
-				if (DataSource.connectionsAvailable() > 0 ) {
+				if (true ) {
 					log.info("The server is ready, waiting a request from a client...");
 					Socket socket = serverSocket.accept();
 					con = DataSource.getConnection();
+					System.out.println("A client is on line");
 					ServerHandler srvHandler = new ServerHandler(socket, con);
 					Thread cth = new Thread(srvHandler);
 					cth.start();
-					
 				}
-			}
 		}catch (Exception e){
 			log.error("Sorry, something is wrong with the server : " + e.getMessage());
-			DataSource.closeConnections();
+			DataSource.closeConnectionPool();
 		}
 	}
 	

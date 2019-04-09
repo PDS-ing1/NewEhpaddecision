@@ -6,24 +6,24 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import fr.esipe.pds.ehpaddecision.*;
 import fr.esipe.pds.ehpaddecision.backend.AllConnectionUsedException;
 import fr.esipe.pds.ehpaddecision.backend.ConnectionStarting;
-
-
-
-
-
+import fr.esipe.pds.ehpaddecision.doublon.Tools;
+import fr.esipe.pds.ehpaddecision.main.EhpadMain;
 
 // S as Socket 
 public class SClient {
 	// to add logs
-	//private static final Logger log = 
+	
 	
 	// TODO add address_ip in properties file
-	//private final String ADRESS_IP = Extensions.getBalise("address_ip");
-	//private final int N_PORT = Integer.parseInt(Extensions.getBalise("n_port"));
-	
+	private final String ADRESS_IP = "localhost";
+	private final int N_PORT = 7070;
+	private static  final Logger log = LoggerFactory.getLogger(EhpadMain.class);
+
 	private BufferedReader readFromServer;
 	private PrintWriter writeToServer;
 	
@@ -35,41 +35,31 @@ public class SClient {
 	public void SClient(){
 	}
 
-	public ConnectionStarting go(){
+	public ConnectionStarting go() throws AllConnectionUsedException{
+		
 		try {
 			// log 
-			
 			// connection to one socket
-			//socket = new Socket(ADRESS_IP, N_PORT);
-			
+			log.info(ADRESS_IP);
+			socket = new Socket(ADRESS_IP, N_PORT);
 			// if the servers takes a long time to send an answer, we will send that as a timeout
-			socket.setSoTimeout(TIMEOUT);
+			//socket.setSoTimeout(TIMEOUT); // turn off the timeout for some tests
 			// for read from Server and write to it
 			readFromServer = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			writeToServer = new PrintWriter(socket.getOutputStream(), true);		
-			
-			
 	
-			String str = readFromServer.readLine();
-			{
+			/*String error = readFromServer.readLine();
+			System.out.println(" error " + error);
+			if (error.equalsIgnoreCase(ConnectionStarting.CONNECTION_PROBLEM.getMessage())){	
 				throw new AllConnectionUsedException();
-			}	
-						//log.info("Connected to the server");*
-				//return ConnectionStarting.WELLDONE;
+			}*/
+				log.info("Connected to the server");
+				String jsRequest= "INSERT INTO ALERT (ID_ALERT, NAME, CREATION_DATE) VALUES (1 , 'Default' , null )";
+				return ConnectionStarting.WELLDONE;
 			}
-			catch (AllConnectionUsedException e) 
-			{
-				//log.error("Disconnected from server - Client Error : " + e.getMessage());
-				return ConnectionStarting.CONNECTION_PROBLEM;
-				
-			} 
-			catch (SocketTimeoutException e) 
-			{
-				//log.error("The socket timed out : " + e.getMessage() + ".\nThe server cannot  be reach and cannot response to your last request !");
-			}
-			catch (Exception e) {
-				//log.error("Disconnected from server - Client Error : " + e.getMessage());
-			}
+			catch (Exception e){
+			log.error("Disconnected."+  e.getMessage());
+		}
 			return ConnectionStarting.CONNECTION_PROBLEM;
 	}
 
@@ -82,10 +72,11 @@ public class SClient {
 		
 		// Send the request to the server
 		writeToServer.println(requestToSendToServer);
-
+		System.out.println("Test"+ requestToSendToServer);
+		
 		// Receive an answer from the the server
 		answerServerClient = readFromServer.readLine();
-		
+		System.out.println("Test2" + answerServerClient);
 		return answerServerClient;
 	}
 		
@@ -96,9 +87,9 @@ public class SClient {
 			readFromServer.close();
 			writeToServer.close();
 			socket.shutdownOutput();
-			//log.info("No more communication");
+			log.info("No more communication");
 		} catch (IOException e) {
-			//log.error(e.getMessage());
+			log.error(e.getMessage());
 		}
 	}
 
