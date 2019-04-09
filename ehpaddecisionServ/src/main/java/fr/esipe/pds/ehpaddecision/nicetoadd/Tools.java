@@ -55,10 +55,7 @@ public class Tools {
 
 			if(obj != null && Class != null)
 			{
-				/*
-				 * The object can be a list when we are retrieving all of the datas of a table.
-				 * This usually happens because of the 'findAll()' method
-				 */
+				
 				if(obj instanceof List)
 				{
 					node.put(JSONExample.LIST.baseExample(), true);				
@@ -99,15 +96,14 @@ public class Tools {
 			if(objectInJSONString == null || objectInJSONString.trim().length() == 0)
 				throw new Exception("Sorry, We can't load to serialize, check again!");
 
-			// Converts the String into a JSON Node
 			JsonNode stringJs = mapper.readTree(objectInJSONString);
 			JsonNode perimNode = stringJs.get(JSONExample.PERIM.baseExample());
-			//JSON Node containing the datas of the entity
+		
 			JsonNode infoNode = stringJs.get(JSONExample.INFO.baseExample());
-			// Node which allows us to know if we have a list of entities (because of the method 'findAll()') or only one
+			
 			JsonNode listNode = stringJs.get(JSONExample.LIST.baseExample());
 
-			// Gets the name of the entity we want to deserialize
+			
 			String className = perimNode.textValue();
 			Class<?> objectClass = Class.forName(className);
 
