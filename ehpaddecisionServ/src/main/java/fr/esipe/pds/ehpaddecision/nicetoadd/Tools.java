@@ -47,6 +47,7 @@ public class Tools {
 	// this function will be able to convert a json string into a java object
 	
 	// not completed... to review 
+	// 
 	
 	
 
@@ -71,12 +72,12 @@ public class Tools {
 	// this function should be able to reflect pretty line 
 	public static String getPrettyJson(String jsString)
 	{
-		ObjectMapper mapper = new ObjectMapper();
+		ObjectMapper ObjectMap = new ObjectMapper();
 		// indent_ouput display the answer in multiple lines, as a pretty display
-		mapper.configure(SerializationFeature.INDENT_OUTPUT, true);
+		ObjectMap.configure(SerializationFeature.INDENT_OUTPUT, true);
 		try {
-			JsonNode jsonNode = mapper.readTree(jsString);
-			return mapper.writeValueAsString(jsonNode);
+			JsonNode jsonNode = ObjectMap.readTree(jsString);
+			return ObjectMap.writeValueAsString(jsonNode);
 		} catch (IOException e) {
 			log.error(e.getMessage());
 			return "";
