@@ -11,9 +11,9 @@ import java.awt.Font;
 import javax.swing.JTextField;
 import java.awt.Color;
 public class DisplayPageOld extends JFrame {
-	
 
-	
+
+
 
 
 		private JPanel contentPane;
@@ -50,58 +50,58 @@ public class DisplayPageOld extends JFrame {
 			contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 			setContentPane(contentPane);
 			contentPane.setLayout(null);
-			
+
 			JPanel panel = new JPanel();
 			panel.setBackground(new Color(102, 205, 170));
 			panel.setBounds(0, 0, 434, 261);
 			contentPane.add(panel);
 			panel.setLayout(null);
-			
+
 			JLabel lblNewLabel = new JLabel("Name");
 			lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD, 14));
 			lblNewLabel.setBounds(10, 87, 46, 14);
 			panel.add(lblNewLabel);
-			
+
 			JLabel lblLocation = new JLabel("Location");
 			lblLocation.setFont(new Font("Times New Roman", Font.BOLD, 15));
 			lblLocation.setBounds(10, 123, 57, 14);
 			panel.add(lblLocation);
-			
+
 			JLabel lblId = new JLabel("ID");
 			lblId.setFont(new Font("Times New Roman", Font.BOLD, 15));
 			lblId.setBounds(10, 49, 46, 14);
 			panel.add(lblId);
-			
+
 			JLabel lblType = new JLabel("Type");
 			lblType.setFont(new Font("Times New Roman", Font.BOLD, 15));
 			lblType.setBounds(10, 164, 46, 14);
 			panel.add(lblType);
-			
+
 			JLabel lblMode = new JLabel("Mode");
 			lblMode.setFont(new Font("Times New Roman", Font.BOLD, 15));
 			lblMode.setBounds(10, 203, 46, 14);
 			panel.add(lblMode);
-			
+
 			textField = new JTextField();
 			textField.setBounds(229, 47, 173, 20);
 			panel.add(textField);
 			textField.setColumns(10);
-			
+
 			textField_1 = new JTextField();
 			textField_1.setBounds(229, 85, 173, 20);
 			panel.add(textField_1);
 			textField_1.setColumns(10);
-			
+
 			textField_2 = new JTextField();
 			textField_2.setBounds(229, 121, 173, 20);
 			panel.add(textField_2);
 			textField_2.setColumns(10);
-			
+
 			textField_3 = new JTextField();
 			textField_3.setBounds(229, 162, 173, 20);
 			panel.add(textField_3);
 			textField_3.setColumns(10);
-			
+
 			textField_4 = new JTextField();
 			textField_4.setBounds(229, 201, 173, 20);
 			panel.add(textField_4);

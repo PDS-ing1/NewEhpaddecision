@@ -3,7 +3,7 @@
 # EHPADDECISION
 
 ## Sommaire
-- [Pralable](#Préalable)
+- [Préalable](#Préalable)
 - [Projet](#Projet)
 	- [Politique de nommage] (#Politique-de-nommage)
 	- [Organisation du projet Maven] (#Organisation-du-projet-Maven)
@@ -96,6 +96,21 @@ Scanning for projects.../
 
 - On peut tracker les bandes passantes et les flux qui traversent les canaux TCP. Le monitoring peut être fait à l'aide de WireShark. On peut savoir aussi ce que ces bandes contiennent (texte, image..).
 - 
+
+## Environnement de Pre-Production et de Production
+
+- Nous avons mis en place pour ce projet deux types d'envirronements un environements de Pré-Production constitué de 3VM:
+  -1DSI_PREPROD1
+  -1DSI_DEV
+  -1DSI_NETWORK
+- Un environnement de production également constitué de 3VM:
+  -1DSI_PROD
+  -1DSI_PROD_DB
+  -1DSI_PROD1
+  
+  Sur l'ensemble de ces VM le mot de passe: pds20182019
+  
+  
 
 
 ## Quelques conseils
