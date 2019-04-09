@@ -4,14 +4,12 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.net.SocketTimeoutException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import fr.esipe.pds.ehpaddecision.*;
-import fr.esipe.pds.ehpaddecision.backend.AllConnectionUsedException;
+
 import fr.esipe.pds.ehpaddecision.backend.ConnectionStarting;
-import fr.esipe.pds.ehpaddecision.doublon.Tools;
+import fr.esipe.pds.ehpaddecision.exceptions.AllConnectionUsedException;
 import fr.esipe.pds.ehpaddecision.main.EhpadMain;
 
 // S as Socket 

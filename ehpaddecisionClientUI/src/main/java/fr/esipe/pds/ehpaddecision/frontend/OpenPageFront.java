@@ -40,7 +40,7 @@ public class OpenPageFront extends JPanel{
 		openbackend = new OpeningBackEnd(ehpadPage, this);
 			
 				
-		gotoServer = new JButton("Go to servers");
+		gotoServer = new JButton("Welcome");
 		gotoServer.addActionListener(openbackend);
 		connectionStatus.setFont(new Font("Calibri", Font.BOLD, 22));
 	

@@ -9,14 +9,13 @@ import javax.swing.JOptionPane;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import fr.esipe.pds.ehpaddecision.doublon.Alerts;
-import fr.esipe.pds.ehpaddecision.doublon.JSONExample;
-import fr.esipe.pds.ehpaddecision.doublon.Queries;
-import fr.esipe.pds.ehpaddecision.doublon.Tools;
-import fr.esipe.pds.ehpaddecision.frontend.EhpadPage;
+import fr.esipe.pds.ehpaddecision.enumerations.JSONExample;
+import fr.esipe.pds.ehpaddecision.enumerations.Queries;
+import fr.esipe.pds.ehpaddecision.exceptions.AllConnectionUsedException;
 import fr.esipe.pds.ehpaddecision.frontend.HomePageFront;
-import fr.esipe.pds.ehpaddecision.frontend.MainPageOld;
 import fr.esipe.pds.ehpaddecision.main.ClientServerConnection;
+import fr.esipe.pds.ehpaddecision.nicetoadd.Tools;
+import fr.esipe.pds.ehpaddecision.principales.Alerts;
 
 public class HomeBackEnd implements ActionListener
 {

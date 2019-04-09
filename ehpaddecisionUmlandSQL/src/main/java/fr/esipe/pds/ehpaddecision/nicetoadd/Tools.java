@@ -1,24 +1,20 @@
 package fr.esipe.pds.ehpaddecision.nicetoadd;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
-import javax.management.InvalidAttributeValueException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.base.GeneratorBase;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonMappingException;
+
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
-import fr.esipe.pds.ehpdaddecision.enumerations.JSONExample;
-import fr.esipe.pds.ehpdaddecision.enumerations.Queries;
+import fr.esipe.pds.ehpaddecision.enumerations.JSONExample;
+
+
 public class Tools {
 
 	private static final Logger log = LoggerFactory.getLogger(Tools.class);

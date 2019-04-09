@@ -8,7 +8,6 @@ import javax.swing.JOptionPane;
 import fr.esipe.pds.ehpaddecision.*;
 import fr.esipe.pds.ehpaddecision.frontend.EhpadPage;
 import fr.esipe.pds.ehpaddecision.frontend.OpenPageFront;
-import fr.esipe.pds.ehpaddecision.frontend.openingPageOld;
 import fr.esipe.pds.ehpaddecision.main.ClientServerConnection;
 import fr.esipe.pds.ehpaddecision.main.EhpadMain;
 

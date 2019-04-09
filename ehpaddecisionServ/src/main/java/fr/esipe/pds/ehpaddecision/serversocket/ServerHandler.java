@@ -15,12 +15,12 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import fr.esipe.pds.ehpaddecision.connectionpool.DataSource;
-import fr.esipe.pds.ehpaddecision.nicetoadd.Tools;
-import fr.esipe.pds.ehpaddecision.sensorsreferentiel.AbDAO;
-import fr.esipe.pds.ehpaddecision.sensorsreferentiel.DAOHandler;
-import fr.esipe.pds.ehpaddecision.sensorsreferentiel.Users;
-import fr.esipe.pds.ehpdaddecision.enums.JSONExample;
-import fr.esipe.pds.ehpdaddecision.enums.Queries;
+
+import fr.esipe.pds.ehpaddecision.dao.AbDAO;
+import fr.esipe.pds.ehpaddecision.dao.DAOHandler;
+import fr.esipe.pds.ehpaddecision.users.Users;
+import fr.esipe.pds.ehpaddecision.nicetoadd.*;
+import fr.esipe.pds.ehpaddecision.enumerations.*;
 
 
  // this class will handle all queries dealing with db
@@ -73,7 +73,6 @@ public class ServerHandler implements Runnable {
 			this.connection=null;
 			socket.close();	
 	}
-
 
 
 	

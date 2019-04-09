@@ -2,12 +2,11 @@ package fr.esipe.pds.ehpaddecision.serversocket;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.sql.Connection;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import fr.esipe.pds.ehpaddecision.connectionpool.DataSource;
-import fr.esipe.pds.ehpaddecision.connectionpool.JDBCConnectionPool;
-import fr.esipe.pds.ehpaddecision.nicetoadd.Tools;
 
 
 public class Server {
