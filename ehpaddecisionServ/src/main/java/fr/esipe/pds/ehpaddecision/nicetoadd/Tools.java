@@ -42,7 +42,7 @@ public class Tools {
 		return val;
 	}
 
-
+	// not completed... to review 
 	public static String serializeObject(Object obj, Class Class, String message)
 	{		
 		String JSONobj = null;
@@ -85,7 +85,9 @@ public class Tools {
 		return JSONobj;
 	}
 	
-	// this function will be able to convert a json string into a java object 
+	// this function will be able to convert a json string into a java object
+	
+	// not completed... to review 
 	public static Object deserializeObject(String objectInJSONString) {
 
 		Object jstObj = null;
@@ -142,64 +144,16 @@ public class Tools {
 			return result;
 	}
 	
-	
-	
-	/*public static String serializeQuery(Queries queryExample, Class entityClass,String serializedObject, 
-			List<String> values)
-	{	
-	
-		
-			String objectToJSON = null;
-
-			try {
-				if(queryExample == null || entityClass == null)
-					throw new IOException("The request type and the entity class cannot be null !");
-
-				objectToJSON = null;
-
-				ObjectMapper mapper = new ObjectMapper();
-
-				ObjectNode rootNode = mapper.createObjectNode();
-				ObjectNode requestNode = mapper.createObjectNode();
-
-				if(serializedObject == null)
-					serializedObject = "";
-				JsonNode serializedObjectNode = mapper.readTree(serializedObject);
-
-				requestNode.put(JSONExample.QUERY.baseExample(), queryExample.toString());		
-				requestNode.put(JSONExample.PERIM.baseExample(), entityClass.getName());	
-
-				
-				
-	
-			requestNode.putPOJO(JSONExample.INFO.baseExample(), values);
-
-			rootNode.putPOJO(JSONExample.SERIALIZE.baseExample(), serializedObjectNode);
-
-			objectToJSON = mapper.writeValueAsString(rootNode);
-		} catch (IOException e) {
-			log.error("An error occurred during the serialization of the request :\n" + e.getMessage());
-		}
-
-		return objectToJSON;
-	}	
-*/
-
-	
-	
 	// this function should be able to reflect pretty line 
 	public static String getPrettyJson(String jsString)
 	{
 		ObjectMapper mapper = new ObjectMapper();
 		// indent_ouput display the answer in multiple lines, as a pretty display
 		mapper.configure(SerializationFeature.INDENT_OUTPUT, true);
-		try 
-		{
+		try {
 			JsonNode jsonNode = mapper.readTree(jsString);
 			return mapper.writeValueAsString(jsonNode);
-		} 
-		catch (IOException e) 
-		{
+		} catch (IOException e) {
 			log.error(e.getMessage());
 			return "";
 		}

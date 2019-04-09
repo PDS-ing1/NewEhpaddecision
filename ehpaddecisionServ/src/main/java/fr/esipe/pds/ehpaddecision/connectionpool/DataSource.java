@@ -21,7 +21,7 @@ public class DataSource {
 		try {
 			return connectionPool.getConnection();
 		} catch (Exception e) {
-			log.error("The connections are not availabe :\n" + e.getMessage());
+			log.error("No connection is available" + e.getMessage());
 			return null;
 		}
 	}

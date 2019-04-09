@@ -112,8 +112,6 @@ import fr.esipe.pds.ehpaddecision.nicetoadd.Tools;
 				}
 			}
 		}
-			
-		
 	    public Vector<Connection> getConnections() {
 			return connections;
 		}
@@ -140,14 +138,10 @@ import fr.esipe.pds.ehpaddecision.nicetoadd.Tools;
 		{
 			String welcome   = "  -------------------------------------------  ";
 			String creation  = "- Connection created   : " + connectionsRecentlyCreated;
-			String remaining = "- Actual connection: " + connectionStillAlives();
+			String connectionActual = "- Actual connection: " + connectionStillAlives();
 			String end 		 = "------------------------------------";
-			log.info("Connection pool state :\n" + creation + "\n" + remaining + "\n" + end + "\n");
+			log.info("The pool is ready :\n" + creation + "\n" + connectionActual + "\n" + end + "\n");
 		}
-
-
-		
-		
 
 	}
 
