@@ -51,19 +51,15 @@ public class Tools {
 	
 	
 
-	public static String jsonNode(JSONExample example, String js)
-	{
+	public static String jsonNode(JSONExample example, String js) {
 		String result = "";		
-
-		try 
-		{
+		try {
 			ObjectMapper mapper = new ObjectMapper();
 			JsonNode objectFromStringNode = mapper.readTree(js);
 			JsonNode dataNode = objectFromStringNode.get(example.baseExample());
 			result = dataNode.textValue();			
 		} 
-		catch (IOException e) 
-		{
+		catch (IOException e){
 			log.error(e.getMessage());
 		}
 			return result;
@@ -74,6 +70,7 @@ public class Tools {
 	{
 		ObjectMapper ObjectMap = new ObjectMapper();
 		// indent_ouput display the answer in multiple lines, as a pretty display
+		// INDENT_OUTPUT reflects the displaying on multiple lines
 		ObjectMap.configure(SerializationFeature.INDENT_OUTPUT, true);
 		try {
 			JsonNode jsonNode = ObjectMap.readTree(jsString);

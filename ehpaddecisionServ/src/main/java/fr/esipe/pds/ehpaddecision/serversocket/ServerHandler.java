@@ -52,9 +52,9 @@ public class ServerHandler implements Runnable {
 				
 				String rq = queryClient.readLine();
 				System.out.println("Je suis la");
-				String outputrq = getDoneQuery(rq);
+				//String outputrq = getDoneQuery(rq);
 				System.out.println("Je suis la");
-				answerServer.println(outputrq);
+				//answerServer.println(outputrq);
 			}
 		
 		} catch (IOException e) {
@@ -82,7 +82,7 @@ public class ServerHandler implements Runnable {
 	// All methods to handle client request 
 	// At the beginning we should be able to excecute the client request, then send him an answer, depending on what he requests.
 
-	public String getDoneQuery(String jsQuery) 
+	/*public String getDoneQuery(String jsQuery) 
 	{		
 		String execution = "";
 		try 
@@ -129,23 +129,23 @@ public class ServerHandler implements Runnable {
 	}
 	
 	// this function will handle the delete request.
-	private String delete(Class<?> perimCl, JsonNode srzdONode) throws Exception{
+	/*private String delete(Class<?> perimCl, JsonNode srzdONode) throws Exception{
 		Object deserObjt = Tools.deserializeObject(srzdONode.toString());
 		AbDAO d = DAOHandler.getDAOHandler(connection, perimCl);
 		d.delete(perimCl.cast(deserializedObject));
 		String result = Tools.serializeObject(null, perimCl, "");
 		return result;
-	}
+	}*/
 	
 	
-	private String update(Class<?> perimCl,JsonNode srzdONode) throws Exception {
+	/*private String update(Class<?> perimCl,JsonNode srzdONode) throws Exception {
 		
 		Object deserObj = Tools.deserializeObject(srzdONode.toString());		
 		AbDAO d = DAOHandler.getDAOHandler(connection, perimCl);
 		d.update(perimCl.cast(deserializedObject));
 		String result = Tools.serializeObject(null, perimCl, "");
 		return result;
-	}
+	}*/
 	
 	
 	
@@ -155,7 +155,7 @@ public class ServerHandler implements Runnable {
 	
 	
 	
-	private String select(Class<?> perimCl, JsonNode srzdONode) throws Exception
+	/*private String select(Class<?> perimCl, JsonNode srzdONode) throws Exception
 	{
 
 		ObjectMapper mapper = new ObjectMapper();
@@ -180,7 +180,7 @@ public class ServerHandler implements Runnable {
 		
 
 		return result;		
-	}
+	}*/
 
 	
 	
