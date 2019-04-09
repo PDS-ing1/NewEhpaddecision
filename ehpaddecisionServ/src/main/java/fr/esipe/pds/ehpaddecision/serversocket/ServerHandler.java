@@ -68,8 +68,6 @@ public class ServerHandler implements Runnable {
 			}
 		}
 	}
-
-
 	private void exit() throws IOException {
 			DataSource.putConnection(connection);
 			this.connection=null;
@@ -176,9 +174,6 @@ public class ServerHandler implements Runnable {
 
 		AbDAO d = DAOHandler.getDAOHandler(connection, perimCl);
 		result = Tools.serializeObject(d.find(values), perimCl, "");
-
-		
-
 		return result;		
 	}*/
 
