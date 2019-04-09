@@ -28,40 +28,41 @@ import fr.esipe.pds.ehpaddecision.nicetoadd.Tools;
  *
  */public class JDBCConnectionPool implements InterfaceJDBCConnectionPool {
 		
-	    private Vector<Connection> connections;
+	 
 	    private static final Logger log = LoggerFactory.getLogger(JDBCConnectionPool.class);
-	    private final String URL             =  Tools.propertiesFileHandler("url");
-	    private final String USER            =  Tools.propertiesFileHandler("username");
-	    private final String PSWD            =  Tools.propertiesFileHandler("password");
-	    private int numberOfConnections;
-	    private int numberOfConnectionsCreated;
+	    private final String url             =  Tools.propertiesFileHandler("url");
+	    private final String user            =  Tools.propertiesFileHandler("username");
+	    private final String pswd            =  Tools.propertiesFileHandler("password");
+	    private int connectionsAvailableNb;
+	    private int connectionsRecentlyCreated;
+	    private Vector<Connection> connections;
 		
 		public JDBCConnectionPool() {
 			connections = new Vector<Connection>();
-			numberOfConnectionsCreated = 0;
-			log.info("Database URL : " + URL);
+			connectionsRecentlyCreated = 0;
+			log.info("This Database is linked to this url : " + url);
 			try
 			{
-				numberOfConnections = Integer.parseInt(Tools.propertiesFileHandler("nb_connection"));
+				connectionsAvailableNb = Integer.parseInt(Tools.propertiesFileHandler("nb_connection"));
 			}
 			catch(Exception e)
 			{
 				log.error("File unloaded from properties !");
-				numberOfConnections = 10;
+				connectionsAvailableNb = 10;
 			}
 
-			log.info(numberOfConnections + " connection(s) should be put inside the connection pool.");
+			log.info(connectionsAvailableNb + " connection(s) should be put inside the connection pool.");
 		} 
 		
 
-		public void fillConnectionsList() throws SQLException {		
+		public void loadConnectionPool() throws SQLException {		
 					
-	        for (int i = 0; i < numberOfConnections; i++ )
+	        for (int i = 0; i < connectionsAvailableNb; i++ )
 	        {
-	        	Connection createdConnection = this.createConnection(); 
+	        	Connection createdConnection = this.newConnection(); 
 	        	if(createdConnection != null) {
 	                connections.addElement(createdConnection);
-	                log.info("A connection has been created and is being added to the pool. (" + ( (i+1) + "/" + numberOfConnections) + ")" );
+	                log.info("A connection has been created and is being added to the pool. (" + ( (i+1) + "/" + connectionsAvailableNb) + ")" );
 	        	}
 	        	else {
 	        		log.error("Some erros faced the creation of the connection so your connections are equals to null !");
@@ -69,7 +70,7 @@ import fr.esipe.pds.ehpaddecision.nicetoadd.Tools;
 	        		throw new SQLException("A connection is equal to null !");
 	        	}
 	        }
-	        displayConnectionPoolState();
+	        poolReady();
 		}
 
 		public Connection getConnection() throws Exception {
@@ -77,13 +78,13 @@ import fr.esipe.pds.ehpaddecision.nicetoadd.Tools;
 			{
 				Connection connection = connections.lastElement();
 		        connections.removeElement(connection);
-				log.info("A connection is being retrieved from the conection pool.");
-				displayConnectionPoolState();
+				log.info("We just took a connection from the pool");
+				poolReady();
 		        return connection; 
 			}
 			else
 			{
-				throw new Exception("There are no connections left in the connection pool ! Please try later.");
+				throw new Exception("No more connection available in the pool ! Please try later.");
 			}     
 		}
 
@@ -93,17 +94,17 @@ import fr.esipe.pds.ehpaddecision.nicetoadd.Tools;
 				connections.addElement(connection);	
 				log.info("A connection is being added to the connection pool.");			
 			}
-			displayConnectionPoolState();
+			poolReady();
 			
 		}
 
 		public void closeAllConnections() {
-			for(Connection connection : connections)
+			for(Connection con : connections)
 			{
 				try {
-					if(!connection.isClosed())
+					if(!con.isClosed())
 					{
-						connection.close();	
+						con.close();	
 						log.info("A connection has been closed.");
 					}
 				} catch (SQLException e) {
@@ -118,15 +119,15 @@ import fr.esipe.pds.ehpaddecision.nicetoadd.Tools;
 		}
 
 
-		private Connection createConnection(){
+		private Connection newConnection(){
 	        Connection connection = null;
 	        try {
 	        	System.out.println("JE SUSI LA 1");
-	        	connection = DriverManager.getConnection(URL, USER, PSWD);
-	            numberOfConnectionsCreated++;
+	        	connection = DriverManager.getConnection(url, user, pswd);
+	            connectionsRecentlyCreated++;
 	            System.out.println("JE SUSI LA ");
 	        } catch (SQLException e) {
-	            log.error("A SQL Exception has been raised during the creation of a connection :\n" + e.getMessage());
+	            log.error("Sorry, an exception from SQL has been added " + e.getMessage());
 	        }
 	        return connection;
 	    }  
@@ -135,9 +136,10 @@ import fr.esipe.pds.ehpaddecision.nicetoadd.Tools;
 			return connections.size();
 		}
 		
-		private void displayConnectionPoolState()
+		private void poolReady()
 		{
-			String creation  = "- Connection created   : " + numberOfConnectionsCreated;
+			String welcome   = "  -------------------------------------------  ";
+			String creation  = "- Connection created   : " + connectionsRecentlyCreated;
 			String remaining = "- Actual connection: " + connectionStillAlives();
 			String end 		 = "------------------------------------";
 			log.info("Connection pool state :\n" + creation + "\n" + remaining + "\n" + end + "\n");

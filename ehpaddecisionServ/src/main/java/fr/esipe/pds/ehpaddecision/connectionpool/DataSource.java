@@ -16,7 +16,6 @@ public class DataSource {
 
 	public DataSource() {}
 	
-
 	public static synchronized Connection getConnection()
 	{
 		try {
@@ -28,27 +27,25 @@ public class DataSource {
 	}
 	
 	
-	public static synchronized void putConnection(Connection connection)
-	{
+	public static synchronized void putConnection(Connection connection){
 		connectionPool.putConnection(connection);
 	}
 	
 
-	public static void closeConnectionPool()
-	{
+	public static void closeConnectionPool(){
 		connectionPool.closeAllConnections();
 	}
 	
 	public static void startConnectionPool() {
 		try {
-			connectionPool.fillConnectionsList();
+			connectionPool.loadConnectionPool();
 		} catch (SQLException e) {
 			log.error(e.getMessage());
 			e.printStackTrace();
 		}
 	}	
 	
-	public static int getRemaningConnections(){
+	public static int connectionsAvailable(){
 		return connectionPool.connectionStillAlives();
 	}
 	
