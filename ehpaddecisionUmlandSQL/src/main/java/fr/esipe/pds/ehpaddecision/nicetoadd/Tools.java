@@ -13,6 +13,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import fr.esipe.pds.ehpaddecision.enumerations.JSONExample;
+import fr.esipe.pds.ehpaddecision.enumerations.Queries;
 
 
 public class Tools {
@@ -154,6 +155,28 @@ public class Tools {
 			return "";
 		}
 	}
+	
+	public static String toJsonQuery (Queries query,String toSerializObject, List<String> values ){
+		String toJsonThisObject = null;
+		try {
+			if (query == null){
+				throw new IOException ("This query is bad ");
+				toJsonThisObject = null;
+				ObjectMapper thisObjectMapper = new ObjectMapper();
+				ObjectNode thisFObject  = thisObjectMapper.createObjectNode();
+				ObjectNode thisSObject  = thisObjectMapper.createObjectNode();
+			
+				if(serializedObject == null)
+					
+				JsonNode serializedObjectNode = thisObjectMapper.readTree(serializedObject);
+
+				thisSObject.put(JSONExample.QUERY.baseExample(), requestType.toString());		
+				thisSObject.put(JSONExample.PERIM.baseExample(), entityClass.getName());
+			
+			}
+		}
+	}
+	
 	
 	
 	/**
