@@ -15,7 +15,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import fr.esipe.pds.ehpaddecision.enumerations.JSONExample;
 import fr.esipe.pds.ehpaddecision.enumerations.Queries;
 
-
+//this class will handle many communications 
 public class Tools {
 
 	private static final Logger log = LoggerFactory.getLogger(Tools.class);
