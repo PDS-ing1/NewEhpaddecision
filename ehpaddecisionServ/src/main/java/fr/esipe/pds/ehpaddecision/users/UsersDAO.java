@@ -1,5 +1,6 @@
 package fr.esipe.pds.ehpaddecision.users;
 
+import fr.esipe.pds.ehpaddecision.principales.Users;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,7 +16,6 @@ import com.fasterxml.jackson.core.JsonFactory;
 
 import fr.esipe.pds.ehpaddecision.alertsreferentiel.AlertsDAO;
 import fr.esipe.pds.ehpaddecision.dao.AbDAO;
-import fr.esipe.pds.ehpaddecision.users.Users;
 
 public class UsersDAO extends AbDAO<Users>{
 	private final Logger log = LoggerFactory.getLogger(AlertsDAO.class);	
@@ -31,7 +31,7 @@ public class UsersDAO extends AbDAO<Users>{
 		{
 			Users user = null;
 			try {
-				user = new Users(rs.getInt("ID_USER"), rs.getString("NAME"),null, rs.getTimestamp("DATE_CREATION"));
+				user = new Users(rs.getInt("ID_USER"), rs.getString("NAME"), rs.getTimestamp("DATE_CREATION"));
 			} catch (SQLException e) {
 				log.error("Sorry, we occured an error while retrieving this alert from the result : " + e.getMessage());
 			}
@@ -66,8 +66,8 @@ public class UsersDAO extends AbDAO<Users>{
 			{
 				try {
 					PreparedStatement preparedStatement = connection
-							.prepareStatement("INSERT INTO USER (ID, LAST_NAME, FIRST_NAME, CREATION_DATE)"
-									+ " VALUES (? , ? , ? , ?, ? )", Statement.RETURN_GENERATED_KEYS);
+							.prepareStatement("INSERT INTO USER (ID_USER, NAME, CREATION_DATE)"
+									+ " VALUES (? , ?, ? )", Statement.RETURN_GENERATED_KEYS);
 					preparedStatement.setInt(1, users.getIdUser());
 					preparedStatement.setString(2, users.getNameUser());
 					preparedStatement.setTimestamp(3, users.getDateCreation());

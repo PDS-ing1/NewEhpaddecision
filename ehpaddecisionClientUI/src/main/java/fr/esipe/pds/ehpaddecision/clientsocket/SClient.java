@@ -47,7 +47,7 @@ public class SClient {
 			
 			readFromServer = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"));
 			writeToServer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(), "UTF-8"), true);	
-			System.out.println("write 1");
+			
 			
 	
 			/*String error = readFromServer.readLine();
@@ -74,11 +74,9 @@ public class SClient {
 		
 		// Send the request to the server
 		writeToServer.println(requestToSendToServer);
-		System.out.println("Test1 " + requestToSendToServer);
 		
 		// Receive an answer from the the server
 		answerServerClient = readFromServer.readLine();
-		System.out.println("Test2 " + answerServerClient);
 		return answerServerClient;
 	}
 		

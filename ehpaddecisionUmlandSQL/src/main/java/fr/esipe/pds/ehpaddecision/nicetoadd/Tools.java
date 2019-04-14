@@ -58,14 +58,11 @@ public class Tools {
 				{
 					
 					node.put(JSONExample.LIST.baseExample(), true);	
-					System.out.println("yep is list ");
 				}
 				else
 				{
 					node.put(JSONExample.LIST.baseExample(), false);
-					System.out.println("no is not ");
 				}				
-				
 				
 				String className = Class.getName();
 				/*
@@ -192,6 +189,8 @@ public class Tools {
 				requestNode.put(JSONExample.QUERY.baseExample(), queryExample.toString());		
 				requestNode.put(JSONExample.PERIM.baseExample(), entityClass.getName());	
 				requestNode.putPOJO(JSONExample.INFO.baseExample(), values);
+				
+				rootNode.putPOJO(JSONExample.INFO.baseExample(), requestNode);
 				rootNode.putPOJO(JSONExample.SERIALIZE.baseExample(), serializedObjectNode);
 
 			objectToJSON = mapper.writeValueAsString(rootNode);
@@ -223,6 +222,7 @@ public class Tools {
 		}
 	}
 	*/
+	
 	
 	
 	/**

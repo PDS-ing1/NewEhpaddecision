@@ -1,22 +1,31 @@
-package fr.esipe.pds.ehpaddecision.locations;
+package fr.esipe.pds.ehpaddecision.principales;
 
 import java.sql.Timestamp;
 
 public class Locations {
-/*	private int idLocation; 
+	private int idLocation; 
+	private String nameLocation;
 	private int hall_nb;
 	private int floor_nb;
 	private int building_nb;
 	private Timestamp dateCreation;
 		
-	public Locations(int idLocation, int hall_nb, int floor_nb, int building_nb, Timestamp dateCreation){
+	public Locations(int idLocation, String nameLocation,int hall_nb, int floor_nb, int building_nb, Timestamp dateCreation){
 		this.idLocation=idLocation;
+		this.nameLocation=nameLocation;
 		this.floor_nb=floor_nb;
 		this.building_nb=building_nb;
 		this.dateCreation=dateCreation;
 		
 	}
-	
+		public Locations( String nameLocation) {
+		this.idLocation=idLocation;
+		this.nameLocation=nameLocation;
+		this.floor_nb=floor_nb;
+		this.building_nb=building_nb;
+		this.dateCreation=dateCreation;
+	}
+
 	public int getIdLocation() {
 		return idLocation;
 	}
@@ -46,6 +55,6 @@ public class Locations {
 	}
 	public void setDateCreation(Timestamp dateCreation) {
 		this.dateCreation = dateCreation;
-	}*/
+	}
 
 }

@@ -1,6 +1,6 @@
 package fr.esipe.pds.ehpaddecision.alertsreferentiel;
 import java.sql.Timestamp;
-
+/*
 public class Alerts  {
 		private int idAlert;
 		private String nameAlert;
@@ -47,3 +47,4 @@ public class Alerts  {
 		
 		
 }
+*/

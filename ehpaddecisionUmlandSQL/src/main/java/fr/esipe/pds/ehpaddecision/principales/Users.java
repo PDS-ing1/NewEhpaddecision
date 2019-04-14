@@ -1,24 +1,30 @@
-package fr.esipe.pds.ehpaddecision.users;
+package fr.esipe.pds.ehpaddecision.principales;
 
 import java.sql.Timestamp;
-/*
+
 public class Users {
 
 	private int idUser; 
 	private String nameUser;
-	private String passwordUser; 
 	private Timestamp dateCreation;
 	
+	public Users(){
+		
+	}
 	
+	public Users(String nameUser){
+		this.nameUser=nameUser;
+		this.dateCreation=new Timestamp(System.currentTimeMillis());
+		
+	}
 	
-	public Users(int idUser, String nameUser, String passwordUser, Timestamp dateCreation){
+	public Users(int idUser, String nameUser, Timestamp dateCreation){
 		this.idUser=idUser;
 		this.nameUser=nameUser;
-		this.passwordUser=passwordUser;
 		this.dateCreation=dateCreation;
 		
 	}
-
+	
 	public int getIdUser() {
 		return idUser;
 	}
@@ -43,18 +49,6 @@ public class Users {
 
 
 
-	public String getPasswordUser() {
-		return passwordUser;
-	}
-
-
-
-	public void setPasswordUser(String passwordUser) {
-		this.passwordUser = passwordUser;
-	}
-
-
-
 	public Timestamp getDateCreation() {
 		return dateCreation;
 	}
@@ -64,7 +58,12 @@ public class Users {
 	public void setDateCreation(Timestamp dateCreation) {
 		this.dateCreation = dateCreation;
 	}
+
+	@Override
+	public String toString() {
+		return "Users [idUser=" + idUser + ", nameUser=" + nameUser + ", dateCreation=" + dateCreation + "]";
+	}
+	
 		
 	
 }
-*/

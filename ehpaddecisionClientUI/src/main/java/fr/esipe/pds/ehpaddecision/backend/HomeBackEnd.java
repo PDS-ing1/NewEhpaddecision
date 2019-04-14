@@ -17,6 +17,8 @@ import fr.esipe.pds.ehpaddecision.frontend.HomePageFront;
 import fr.esipe.pds.ehpaddecision.main.ClientServerConnection;
 import fr.esipe.pds.ehpaddecision.nicetoadd.Tools;
 import fr.esipe.pds.ehpaddecision.principales.Alerts;
+import fr.esipe.pds.ehpaddecision.principales.Locations;
+import fr.esipe.pds.ehpaddecision.principales.Users;
 
 public class HomeBackEnd implements ActionListener
 {
@@ -46,14 +48,34 @@ public class HomeBackEnd implements ActionListener
 					}
 					else
 					{
-						
+						// Alert test
+						/*
 						Alerts alert = new Alerts(nameAlert);
 						System.out.println(alert.toString());
 					    String serializedObject = Tools.serializeObject(alert, alert.getClass(), "");
-						//String jsRequest= "{\"error\":\"ko\",\"list\" : \"false\",\"perim\" : \"Alerts\",\"info\" :[\"idAlert\":0,\"nameAlert\":\"koko\",\"creationDate\":\"134567989875\"]}";
-					    String jsRequest = Tools.serializeObject(Queries.INSERT, Alerts.class, serializedObject);
+						String jsRequest = Tools.serializeQuery(Queries.INSERT, Alerts.class, serializedObject,null);
 					    System.out.println(jsRequest);
 					    String answer = ClientServerConnection.returnClientSocket().sendToServer(jsRequest);
+					    */
+					    //user test
+					    Users user = new Users (nameAlert);
+						System.out.println(user.toString());
+					    String serializedObject = Tools.serializeObject(user, user.getClass(), "");
+						String jsRequest = Tools.serializeQuery(Queries.INSERT, Users.class, serializedObject,null);
+					    System.out.println(jsRequest);
+					    String answer = ClientServerConnection.returnClientSocket().sendToServer(jsRequest);
+					    
+					    
+					    /*Location test 
+					    Locations location = new Locations(nameAlert);
+						System.out.println(location.toString());
+					    String serializedObject = Tools.serializeObject(location, location.getClass(), "");
+						String jsRequest = Tools.serializeQuery(Queries.INSERT, Locations.class, serializedObject,null);
+					    System.out.println(jsRequest);
+					    String answer = ClientServerConnection.returnClientSocket().sendToServer(jsRequest);
+					    
+					    */
+					    
 						log.info("Getting the answer from the server..." + Tools.getPrettyJson(answer));
 						String error = Tools.jsonNode(JSONExample.ERROR, answer).trim();
 						if(error.equals(""))

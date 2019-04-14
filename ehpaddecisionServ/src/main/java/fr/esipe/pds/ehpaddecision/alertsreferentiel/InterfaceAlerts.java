@@ -1,5 +1,6 @@
 package fr.esipe.pds.ehpaddecision.alertsreferentiel;
 
+import fr.esipe.pds.ehpaddecision.principales.Alerts;
 import java.util.List;
 
 public interface InterfaceAlerts {
@@ -7,6 +8,6 @@ public interface InterfaceAlerts {
 	void update (Alerts alert);
 	void delete (int alertId);
 	
-	// to display all currentUsers.
-	List<Alerts> DisplayAllAlerts();
+	// to display all alerts.
+	List<Alerts> DisplayAllAlerts(); 
 }

@@ -12,7 +12,7 @@ public enum JSONExample {
 	
 private String baseExample;
 	
-	JSONExample(String abe)
+	JSONExample(String baseExample)
 	{
 		this.baseExample = baseExample;
 	}

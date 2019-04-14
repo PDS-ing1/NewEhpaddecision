@@ -6,6 +6,7 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.sql.Connection;
+import java.sql.Statement;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -19,7 +20,6 @@ import fr.esipe.pds.ehpaddecision.connectionpool.DataSource;
 
 import fr.esipe.pds.ehpaddecision.dao.AbDAO;
 import fr.esipe.pds.ehpaddecision.dao.DAOHandler;
-import fr.esipe.pds.ehpaddecision.users.Users;
 import fr.esipe.pds.ehpaddecision.nicetoadd.*;
 import fr.esipe.pds.ehpaddecision.enumerations.*;
 
@@ -88,7 +88,7 @@ public class ServerHandler implements Runnable {
 		String execution = "";
 		try 
 		{
-			System.out.println("get text");
+			
 			ObjectMapper mapper = new ObjectMapper();
 			JsonNode js = mapper.readTree(jsQuery);
 			JsonNode QNode = js.get(JSONExample.INFO.baseExample());	
@@ -124,12 +124,17 @@ public class ServerHandler implements Runnable {
 	
 	// this function will handle the insert request, new data
 	private String insert(Class<?> perimCl,JsonNode srzdONode) throws Exception{
-		System.out.println(srzdONode.toString());
+		System.out.println(" deserialize start ");
 		Object deserializedObject = Tools.deserializeObject(srzdONode.toString());
+		System.out.println(" deserialize fin ");
+		System.out.println(perimCl);
 		AbDAO d = DAOHandler.getDAOHandler(connection, perimCl);
-		Users usr = (Users) d.create(perimCl.cast(deserializedObject));
-		String result = Tools.serializeObject(perimCl.cast(usr),perimCl, "");
-		System.out.println(result);
+		System.out.println(" step 1 start ");
+		Object obj = d.create(perimCl.cast(deserializedObject));
+		System.out.println(" step 2 start ");
+		String result = Tools.serializeObject(perimCl.cast(obj),perimCl, "");
+		System.out.println(" step 3 start ");
+		
 		return result;
 	}
 	
@@ -152,14 +157,7 @@ public class ServerHandler implements Runnable {
 		return result;
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	private String select(Class<?> perimCl, JsonNode srzdONode) throws Exception
 	{
 
@@ -183,9 +181,5 @@ public class ServerHandler implements Runnable {
 		result = Tools.serializeObject(d.find(values), perimCl, "");
 		return result;		
 	}
-
-	
-	
-	
 
 }
