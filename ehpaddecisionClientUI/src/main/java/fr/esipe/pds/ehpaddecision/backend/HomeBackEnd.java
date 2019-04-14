@@ -2,6 +2,7 @@ package fr.esipe.pds.ehpaddecision.backend;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.swing.JOptionPane;
@@ -34,6 +35,7 @@ public class HomeBackEnd implements ActionListener
 		{
 			if(ae.getSource()== homePageFront.getButtonNew())
 			{
+				System.out.println("action button test1");
 				try
 				{
 					String nameAlert = homePageFront.getTextfName().getText();
@@ -44,15 +46,14 @@ public class HomeBackEnd implements ActionListener
 					}
 					else
 					{
+						
 						Alerts alert = new Alerts(nameAlert);
-						System.out.println("mon alerte "+alert.toString());
-						String serializedObject = Tools.serializeObject(alert, alert.getClass(), "");
-						String jsRequest= "INSERT INTO ALERT (ID_ALERT, NAME, CREATION_DATE) VALUES (2, 'Default')";
-						//String jsRequest = Tools.serializeObject(Queries.INSERT, Alerts.class, serializedObject);
-						System.out.println("SQL Query " +jsRequest);
-						System.out.println("jsRequest"+jsRequest.toString());				
-						String answer = ClientServerConnection.returnClientSocket().sendToServer(jsRequest);
-						System.out.println("Answer"+ answer);
+						System.out.println(alert.toString());
+					    String serializedObject = Tools.serializeObject(alert, alert.getClass(), "");
+						//String jsRequest= "{\"error\":\"ko\",\"list\" : \"false\",\"perim\" : \"Alerts\",\"info\" :[\"idAlert\":0,\"nameAlert\":\"koko\",\"creationDate\":\"134567989875\"]}";
+					    String jsRequest = Tools.serializeObject(Queries.INSERT, Alerts.class, serializedObject);
+					    System.out.println(jsRequest);
+					    String answer = ClientServerConnection.returnClientSocket().sendToServer(jsRequest);
 						log.info("Getting the answer from the server..." + Tools.getPrettyJson(answer));
 						String error = Tools.jsonNode(JSONExample.ERROR, answer).trim();
 						if(error.equals(""))

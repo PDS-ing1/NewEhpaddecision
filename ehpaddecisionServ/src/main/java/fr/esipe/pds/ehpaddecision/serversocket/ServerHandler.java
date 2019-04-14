@@ -2,6 +2,7 @@ package fr.esipe.pds.ehpaddecision.serversocket;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.sql.Connection;
@@ -28,7 +29,7 @@ import fr.esipe.pds.ehpaddecision.enumerations.*;
 public class ServerHandler implements Runnable {
 
 	private static final Logger log = LoggerFactory.getLogger(ServerHandler.class);
-	private Socket socket;
+	private Socket socket=null;
 	private Connection connection;
 		// 	to be able to read client requests
 	private BufferedReader queryClient;
@@ -46,15 +47,18 @@ public class ServerHandler implements Runnable {
 		// TODO Auto-generated method stub
 		
 		try {
-			queryClient = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-			answerServer = new PrintWriter(socket.getOutputStream(), true);
+			
+			queryClient = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"));
+			answerServer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(), "UTF-8"), true);
+			
+			System.out.println("start serveur");
 			while (true){
 				
 				String rq = queryClient.readLine();
-				System.out.println("Je suis la");
-				//String outputrq = getDoneQuery(rq);
-				System.out.println("Je suis la");
-				//answerServer.println(outputrq);
+				System.out.println(rq);
+				
+				String outputrq = getDoneQuery(rq);
+				answerServer.println(outputrq);
 			}
 		
 		} catch (IOException e) {
@@ -79,15 +83,17 @@ public class ServerHandler implements Runnable {
 	// All methods to handle client request 
 	// At the beginning we should be able to excecute the client request, then send him an answer, depending on what he requests.
 
-	/*public String getDoneQuery(String jsQuery) 
+	public String getDoneQuery(String jsQuery) 
 	{		
 		String execution = "";
 		try 
 		{
+			System.out.println("get text");
 			ObjectMapper mapper = new ObjectMapper();
 			JsonNode js = mapper.readTree(jsQuery);
 			JsonNode QNode = js.get(JSONExample.INFO.baseExample());	
 			String perim = QNode.get(JSONExample.PERIM.baseExample()).textValue();
+			System.out.println(perim);
 			Class<?> perimCl = Class.forName(perim);
 			JsonNode seriaObjN = js.get(JSONExample.SERIALIZE.baseExample());
 			Queries siud = Queries.getQueries(QNode.get(JSONExample.QUERY.baseExample()).textValue());
@@ -118,31 +124,33 @@ public class ServerHandler implements Runnable {
 	
 	// this function will handle the insert request, new data
 	private String insert(Class<?> perimCl,JsonNode srzdONode) throws Exception{
+		System.out.println(srzdONode.toString());
 		Object deserializedObject = Tools.deserializeObject(srzdONode.toString());
 		AbDAO d = DAOHandler.getDAOHandler(connection, perimCl);
 		Users usr = (Users) d.create(perimCl.cast(deserializedObject));
 		String result = Tools.serializeObject(perimCl.cast(usr),perimCl, "");
+		System.out.println(result);
 		return result;
 	}
 	
 	// this function will handle the delete request.
-	/*private String delete(Class<?> perimCl, JsonNode srzdONode) throws Exception{
+	private String delete(Class<?> perimCl, JsonNode srzdONode) throws Exception{
 		Object deserObjt = Tools.deserializeObject(srzdONode.toString());
 		AbDAO d = DAOHandler.getDAOHandler(connection, perimCl);
 		d.delete(perimCl.cast(deserializedObject));
 		String result = Tools.serializeObject(null, perimCl, "");
 		return result;
-	}*/
+	}
 	
 	
-	/*private String update(Class<?> perimCl,JsonNode srzdONode) throws Exception {
+	private String update(Class<?> perimCl,JsonNode srzdONode) throws Exception {
 		
 		Object deserObj = Tools.deserializeObject(srzdONode.toString());		
 		AbDAO d = DAOHandler.getDAOHandler(connection, perimCl);
 		d.update(perimCl.cast(deserializedObject));
 		String result = Tools.serializeObject(null, perimCl, "");
 		return result;
-	}*/
+	}
 	
 	
 	
@@ -152,7 +160,7 @@ public class ServerHandler implements Runnable {
 	
 	
 	
-	/*private String select(Class<?> perimCl, JsonNode srzdONode) throws Exception
+	private String select(Class<?> perimCl, JsonNode srzdONode) throws Exception
 	{
 
 		ObjectMapper mapper = new ObjectMapper();
@@ -174,7 +182,7 @@ public class ServerHandler implements Runnable {
 		AbDAO d = DAOHandler.getDAOHandler(connection, perimCl);
 		result = Tools.serializeObject(d.find(values), perimCl, "");
 		return result;		
-	}*/
+	}
 
 	
 	

@@ -9,6 +9,7 @@ public enum JSONExample {
 	ERROR("error"), 
 	SERIALIZE("serialize");
 	
+	
 private String baseExample;
 	
 	JSONExample(String abe)
@@ -22,3 +23,8 @@ private String baseExample;
 	}
 	
 }
+
+	
+	
+	
+

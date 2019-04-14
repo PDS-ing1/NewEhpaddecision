@@ -40,6 +40,7 @@ public class Tools {
 	}
 
 	// not completed... to review 
+	
 	public static String serializeObject(Object obj, Class Class, String message)
 	{		
 		String JSONobj = null;
@@ -55,15 +56,25 @@ public class Tools {
 				
 				if(obj instanceof List)
 				{
-					node.put(JSONExample.LIST.baseExample(), true);				
+					
+					node.put(JSONExample.LIST.baseExample(), true);	
+					System.out.println("yep is list ");
 				}
 				else
 				{
 					node.put(JSONExample.LIST.baseExample(), false);
+					System.out.println("no is not ");
 				}				
+				
+				
+				String className = Class.getName();
+				/*
+				 * We add the entity name in order to make the deserialization easier
+				 * because we will have one deserialization process for all of the entities
+				 */
+				node.put(JSONExample.PERIM.baseExample(), className);
 				node.putPOJO(JSONExample.INFO.baseExample(), obj);
-				log.info("Successful serialization");
-				System.out.println(obj.toString());
+				log.info("Serialization into JSON succedeed");
 			}
 			else
 			{
@@ -78,7 +89,7 @@ public class Tools {
 			System.out.println("ERROR " + obj.toString());
 			System.out.println("Exception " +e.toString());
 		}			
-
+		System.out.println(JSONobj);
 		return JSONobj;
 	}
 	
@@ -156,6 +167,41 @@ public class Tools {
 		}
 	}
 	
+	public static String serializeQuery(Queries queryExample, Class entityClass,String serializedObject, 
+			List<String> values)
+	{	
+	
+		
+			String objectToJSON = null;
+
+			try {
+				if(queryExample == null || entityClass == null)
+					throw new IOException("The request type and the entity class cannot be null !");
+
+				objectToJSON = null;
+
+				ObjectMapper mapper = new ObjectMapper();
+
+				ObjectNode rootNode = mapper.createObjectNode();
+				ObjectNode requestNode = mapper.createObjectNode();
+
+				if(serializedObject == null)
+					serializedObject = "";
+				JsonNode serializedObjectNode = mapper.readTree(serializedObject);
+
+				requestNode.put(JSONExample.QUERY.baseExample(), queryExample.toString());		
+				requestNode.put(JSONExample.PERIM.baseExample(), entityClass.getName());	
+				requestNode.putPOJO(JSONExample.INFO.baseExample(), values);
+				rootNode.putPOJO(JSONExample.SERIALIZE.baseExample(), serializedObjectNode);
+
+			objectToJSON = mapper.writeValueAsString(rootNode);
+		} catch (IOException e) {
+			log.error("An error occurred during the serialization of the request :\n" + e.getMessage());
+		}
+
+		return objectToJSON;
+	}	
+	/*
 	public static String toJsonQuery (Queries query,String toSerializObject, List<String> values ){
 		String toJsonThisObject = null;
 		try {
@@ -167,16 +213,16 @@ public class Tools {
 				ObjectNode thisSObject  = thisObjectMapper.createObjectNode();
 			
 				if(serializedObject == null)
-					
+				{	
 				JsonNode serializedObjectNode = thisObjectMapper.readTree(serializedObject);
-
+				}
 				thisSObject.put(JSONExample.QUERY.baseExample(), requestType.toString());		
 				thisSObject.put(JSONExample.PERIM.baseExample(), entityClass.getName());
 			
 			}
 		}
 	}
-	
+	*/
 	
 	
 	/**
