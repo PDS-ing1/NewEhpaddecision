@@ -2,6 +2,7 @@ package fr.esipe.pds.ehpaddecision.backend;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.swing.JOptionPane;
@@ -9,14 +10,15 @@ import javax.swing.JOptionPane;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import fr.esipe.pds.ehpaddecision.doublon.Alerts;
-import fr.esipe.pds.ehpaddecision.doublon.JSONExample;
-import fr.esipe.pds.ehpaddecision.doublon.Queries;
-import fr.esipe.pds.ehpaddecision.doublon.Tools;
-import fr.esipe.pds.ehpaddecision.frontend.EhpadPage;
+import fr.esipe.pds.ehpaddecision.enumerations.JSONExample;
+import fr.esipe.pds.ehpaddecision.enumerations.Queries;
+import fr.esipe.pds.ehpaddecision.exceptions.AllConnectionUsedException;
 import fr.esipe.pds.ehpaddecision.frontend.HomePageFront;
-import fr.esipe.pds.ehpaddecision.frontend.MainPageOld;
 import fr.esipe.pds.ehpaddecision.main.ClientServerConnection;
+import fr.esipe.pds.ehpaddecision.nicetoadd.Tools;
+import fr.esipe.pds.ehpaddecision.principales.Alerts;
+import fr.esipe.pds.ehpaddecision.principales.Locations;
+import fr.esipe.pds.ehpaddecision.principales.Users;
 
 public class HomeBackEnd implements ActionListener
 {
@@ -35,6 +37,7 @@ public class HomeBackEnd implements ActionListener
 		{
 			if(ae.getSource()== homePageFront.getButtonNew())
 			{
+				System.out.println("action button test1");
 				try
 				{
 					String nameAlert = homePageFront.getTextfName().getText();
@@ -45,15 +48,34 @@ public class HomeBackEnd implements ActionListener
 					}
 					else
 					{
+						// Alert test
+						/*
 						Alerts alert = new Alerts(nameAlert);
-						System.out.println("mon alerte "+alert.toString());
-						String serializedObject = Tools.serializeObject(alert, alert.getClass(), "");
-						String jsRequest= "INSERT INTO ALERT (ID_ALERT, NAME, CREATION_DATE) VALUES (2, 'Default')";
-						//String jsRequest = Tools.serializeObject(Queries.INSERT, Alerts.class, serializedObject);
-						System.out.println("SQL Query " +jsRequest);
-						System.out.println("jsRequest"+jsRequest.toString());				
-						String answer = ClientServerConnection.returnClientSocket().sendToServer(jsRequest);
-						System.out.println("Answer"+ answer);
+						System.out.println(alert.toString());
+					    String serializedObject = Tools.serializeObject(alert, alert.getClass(), "");
+						String jsRequest = Tools.serializeQuery(Queries.INSERT, Alerts.class, serializedObject,null);
+					    System.out.println(jsRequest);
+					    String answer = ClientServerConnection.returnClientSocket().sendToServer(jsRequest);
+					    */
+					    //user test
+					    Users user = new Users (nameAlert);
+						System.out.println(user.toString());
+					    String serializedObject = Tools.serializeObject(user, user.getClass(), "");
+						String jsRequest = Tools.serializeQuery(Queries.INSERT, Users.class, serializedObject,null);
+					    System.out.println(jsRequest);
+					    String answer = ClientServerConnection.returnClientSocket().sendToServer(jsRequest);
+					    
+					    
+					    /*Location test 
+					    Locations location = new Locations(nameAlert);
+						System.out.println(location.toString());
+					    String serializedObject = Tools.serializeObject(location, location.getClass(), "");
+						String jsRequest = Tools.serializeQuery(Queries.INSERT, Locations.class, serializedObject,null);
+					    System.out.println(jsRequest);
+					    String answer = ClientServerConnection.returnClientSocket().sendToServer(jsRequest);
+					    
+					    */
+					    
 						log.info("Getting the answer from the server..." + Tools.getPrettyJson(answer));
 						String error = Tools.jsonNode(JSONExample.ERROR, answer).trim();
 						if(error.equals(""))
