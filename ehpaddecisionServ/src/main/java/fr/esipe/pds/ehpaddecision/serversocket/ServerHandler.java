@@ -24,8 +24,12 @@ import fr.esipe.pds.ehpaddecision.nicetoadd.*;
 import fr.esipe.pds.ehpaddecision.enumerations.*;
 
 
- // this class will handle all queries dealing with db
+ /** this class will handle all queries dealing with db
+* many reviews should be done and completed */
+//TODO remove tests done by sysout 
 
+
+// This class should be able to handle CRUD requests, preparation for serialization and deserialization 
 public class ServerHandler implements Runnable {
 
 	private static final Logger log = LoggerFactory.getLogger(ServerHandler.class);
@@ -83,12 +87,9 @@ public class ServerHandler implements Runnable {
 	// All methods to handle client request 
 	// At the beginning we should be able to excecute the client request, then send him an answer, depending on what he requests.
 
-	public String getDoneQuery(String jsQuery) 
-	{		
+	public String getDoneQuery(String jsQuery){		
 		String execution = "";
-		try 
-		{
-			
+		try {
 			ObjectMapper mapper = new ObjectMapper();
 			JsonNode js = mapper.readTree(jsQuery);
 			JsonNode QNode = js.get(JSONExample.INFO.baseExample());	
@@ -98,8 +99,7 @@ public class ServerHandler implements Runnable {
 			JsonNode seriaObjN = js.get(JSONExample.SERIALIZE.baseExample());
 			Queries siud = Queries.getQueries(QNode.get(JSONExample.QUERY.baseExample()).textValue());
 			
-			switch(siud)
-			{
+			switch(siud){
 			case SELECT:
 				execution = select(perimCl, seriaObjN);
 				break;
@@ -147,7 +147,7 @@ public class ServerHandler implements Runnable {
 		return result;
 	}
 	
-	
+	// this function will handle the update request. 
 	private String update(Class<?> perimCl,JsonNode srzdONode) throws Exception {
 		
 		Object deserObj = Tools.deserializeObject(srzdONode.toString());		
@@ -158,25 +158,16 @@ public class ServerHandler implements Runnable {
 	}
 	
 
-	private String select(Class<?> perimCl, JsonNode srzdONode) throws Exception
-	{
-
+	// this function will handle the select request. 
+	private String select(Class<?> perimCl, JsonNode srzdONode) throws Exception {
 		ObjectMapper mapper = new ObjectMapper();
 		String result = "";		
 		String getStringJson = srzdONode.get(JSONExample.INFO.baseExample()).textValue();
-		
-
 		List<String> values = null;
-		
 
-		if(getStringJson != null
-				&& getStringJson.trim().length() > 0) 
-		{
+		if(getStringJson != null && getStringJson.trim().length() > 0) {
 			values = mapper.readValue(getStringJson, mapper.getTypeFactory().constructCollectionType(List.class, String.class));
-			
-
 		}
-
 		AbDAO d = DAOHandler.getDAOHandler(connection, perimCl);
 		result = Tools.serializeObject(d.find(values), perimCl, "");
 		return result;		

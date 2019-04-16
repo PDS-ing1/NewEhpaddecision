@@ -6,6 +6,8 @@ import java.sql.Statement;
 
 import fr.esipe.pds.ehpaddecision.connectionpool.DataSource;
 
+// this class is only for test, it should be removed at the end of tests. 
+// TODO remove class test 
 public class test {
 
 	  public static void main(String[] args)

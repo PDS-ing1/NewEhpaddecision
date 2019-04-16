@@ -55,14 +55,6 @@ public class AlertsDAO extends AbDAO<Alerts> implements InterfaceAlerts{
 
 	}
 
-
-
-
-
-
-
-
-	
 	public Alerts create(Alerts alerts) {
 	
 		// quick check if there is any free connection to use 

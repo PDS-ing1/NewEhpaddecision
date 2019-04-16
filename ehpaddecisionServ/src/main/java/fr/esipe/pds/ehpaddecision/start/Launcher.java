@@ -5,10 +5,11 @@ import fr.esipe.pds.ehpaddecision.serversocket.Server;
 /**
  * This main class will launch the server
  */
+// TODO remove sysout
 
 public class Launcher {
 	public static void main(String [] args){
-		System.out.println("fff");
+		//System.out.println("fff");
 		Server server = new Server();
 		server.launch();
 	}

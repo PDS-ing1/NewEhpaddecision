@@ -3,24 +3,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
-
-
 import fr.esipe.pds.ehpaddecision.*;
 import fr.esipe.pds.ehpaddecision.frontend.EhpadPage;
 import fr.esipe.pds.ehpaddecision.frontend.OpenPageFront;
 import fr.esipe.pds.ehpaddecision.main.ClientServerConnection;
 import fr.esipe.pds.ehpaddecision.main.EhpadMain;
 
-
 public class OpeningBackEnd implements ActionListener{
-	
 	private EhpadPage ehpadPage;
-	
-	
 	private OpenPageFront openFront;
-	
-	
-	
+
 	public OpeningBackEnd(EhpadPage ehpadPage, OpenPageFront openFront) {
 		this.ehpadPage=ehpadPage;
 		this.openFront = openFront; 

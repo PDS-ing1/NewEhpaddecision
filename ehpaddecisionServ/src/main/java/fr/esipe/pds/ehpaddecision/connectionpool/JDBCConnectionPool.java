@@ -140,7 +140,7 @@ import fr.esipe.pds.ehpaddecision.nicetoadd.Tools;
 			String creation  = "- Connection created   : " + connectionsRecentlyCreated;
 			String connectionActual = "- Actual connection: " + connectionStillAlives();
 			String end 		 = "------------------------------------";
-			log.info("The pool is ready :\n" + creation + "\n" + connectionActual + "\n" + end + "\n");
+			log.info("The pool is ready :\n" + welcome  + creation + "\n" + connectionActual + "\n" + end + "\n");
 		}
 
 	}

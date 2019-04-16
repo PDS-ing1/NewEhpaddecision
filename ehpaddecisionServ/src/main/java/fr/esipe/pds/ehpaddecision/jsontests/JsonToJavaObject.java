@@ -1,6 +1,7 @@
 package fr.esipe.pds.ehpaddecision.jsontests;
 
-
+// this package should be removed one time the test has been ran
+// TODO remove package jsontests
 import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;

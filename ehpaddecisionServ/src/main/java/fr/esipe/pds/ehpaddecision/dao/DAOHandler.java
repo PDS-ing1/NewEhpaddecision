@@ -9,7 +9,8 @@ import fr.esipe.pds.ehpaddecision.users.UsersDAO;
 public class DAOHandler {
 	public static AbDAO  getDAOHandler(Connection connection, Class entityClass) throws Exception {
 		
-		
+		// run some test with sysout
+		// TODO remvoe sysout
 		if(entityClass.equals(fr.esipe.pds.ehpaddecision.principales.Alerts.class)){
 		     System.out.println("here");
 			return new AlertsDAO(connection);

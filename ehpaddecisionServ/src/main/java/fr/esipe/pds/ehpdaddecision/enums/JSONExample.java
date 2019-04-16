@@ -1,5 +1,7 @@
 package fr.esipe.pds.ehpdaddecision.enums;
 
+
+// this enum could help us to normalize the json messages, like a kind of rules to insert and get done other queries with json
 public enum JSONExample {
 	
 	PERIM("perim"),

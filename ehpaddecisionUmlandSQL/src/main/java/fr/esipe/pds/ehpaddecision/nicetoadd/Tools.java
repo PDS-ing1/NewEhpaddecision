@@ -3,10 +3,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Properties;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -65,10 +63,7 @@ public class Tools {
 				}				
 				
 				String className = Class.getName();
-				/*
-				 * We add the entity name in order to make the deserialization easier
-				 * because we will have one deserialization process for all of the entities
-				 */
+				
 				node.put(JSONExample.PERIM.baseExample(), className);
 				node.putPOJO(JSONExample.INFO.baseExample(), obj);
 				log.info("Serialization into JSON succedeed");
@@ -92,7 +87,7 @@ public class Tools {
 	
 	// this function will be able to convert a json string into a java object
 	
-	// not completed... to review 
+	// 
 	public static Object deserializeObject(String objectInJSONString) {
 
 		Object jstObj = null;
@@ -121,10 +116,10 @@ public class Tools {
 			else
 				jstObj = mapper.readValue(infoNode.toString(), objectClass);
 
-			log.info("Deserialization into Java Object succedeed");
+			log.info("Successful deserialization");
 
 		} catch (Exception e) {
-			log.error("Deserialization into Java Object failed : " + e.getMessage());
+			log.error("Failed deserialization : " + e.getMessage());
 			e.printStackTrace();
 		} 
 
@@ -165,12 +160,8 @@ public class Tools {
 	}
 	
 	public static String serializeQuery(Queries queryExample, Class entityClass,String serializedObject, 
-			List<String> values)
-	{	
-	
-		
-			String objectToJSON = null;
-
+			List<String> values) {	
+		String objectToJSON = null;
 			try {
 				if(queryExample == null || entityClass == null)
 					throw new IOException("The request type and the entity class cannot be null !");
@@ -195,33 +186,12 @@ public class Tools {
 
 			objectToJSON = mapper.writeValueAsString(rootNode);
 		} catch (IOException e) {
-			log.error("An error occurred during the serialization of the request :\n" + e.getMessage());
+			log.error("Sorry, something was wrong with the deserialization of this request :\n" + e.getMessage());
 		}
 
 		return objectToJSON;
 	}	
-	/*
-	public static String toJsonQuery (Queries query,String toSerializObject, List<String> values ){
-		String toJsonThisObject = null;
-		try {
-			if (query == null){
-				throw new IOException ("This query is bad ");
-				toJsonThisObject = null;
-				ObjectMapper thisObjectMapper = new ObjectMapper();
-				ObjectNode thisFObject  = thisObjectMapper.createObjectNode();
-				ObjectNode thisSObject  = thisObjectMapper.createObjectNode();
-			
-				if(serializedObject == null)
-				{	
-				JsonNode serializedObjectNode = thisObjectMapper.readTree(serializedObject);
-				}
-				thisSObject.put(JSONExample.QUERY.baseExample(), requestType.toString());		
-				thisSObject.put(JSONExample.PERIM.baseExample(), entityClass.getName());
-			
-			}
-		}
-	}
-	*/
+	
 	
 	
 	

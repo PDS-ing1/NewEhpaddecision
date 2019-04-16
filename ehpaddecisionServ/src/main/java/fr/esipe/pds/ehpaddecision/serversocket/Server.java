@@ -22,7 +22,7 @@ public class Server {
 	
 	// turn on the connection pool 
 	// give access to client to connect
-	
+	// TODO remove sysout at the end 
 	public void launch(){
 		log.info("The server is launching ! ");
 		DataSource.startConnectionPool();

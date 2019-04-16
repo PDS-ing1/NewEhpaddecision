@@ -1,4 +1,5 @@
 package fr.esipe.pds.ehpdaddecision.enums;
+// this enum will help us to call this queries everytime that we need its
 
 public enum Queries {
 	INSERT,
