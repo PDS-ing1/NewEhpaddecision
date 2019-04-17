@@ -46,7 +46,7 @@ import javax.swing.JToolBar;
 import javax.swing.KeyStroke;
 import javax.swing.border.Border;
 
-public class Home {
+public class Home extends JFrame {
 	private static final JMenuItem Bon_de_reservation = null;
 	private JMenuBar menuBar = new JMenuBar();
 	private JMenu edition = new JMenu("Edition");
@@ -78,7 +78,7 @@ public class Home {
 	
 	private JMenuItem new_alerte= new JMenuItem("Nouvelle Alerte");
 	private JMenu maj_sensor = new JMenu("New update");
-	private JMenuItem display_vehicule = new JMenuItem("Display");
+	private JMenuItem display_sensor = new JMenuItem("Display");
 	private JMenuItem create_sensor = new JMenuItem("Create");
 	private JMenuItem update_sensor = new JMenuItem("Update");
 	private JMenuItem delete_sensor = new JMenuItem("Delete");
@@ -114,7 +114,6 @@ public Home(){
 		this.setSize(new Dimension(800, 600));
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
-		
 		close .addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
 				System.exit(0);
@@ -125,7 +124,7 @@ public Home(){
 		
 		new_alerte.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {	
-			//facture();
+			//Alerte ();
 				
 			}
 		});
@@ -134,10 +133,10 @@ public Home(){
 	
 		
 		public static void main(String[] args) throws UnknownHostException, MalformedURLException, RemoteException, NotBoundException, InterruptedException{
-			BDD zd = new BDD(null, "Etape 1/2 : Configuration de la base de donnée", true);
-			new Client(null, "Etape 2/2 : Informations utilisateur", true);
+		//	BDD zd = new BDD(null, "Etape 1/2 : Configuration de la base de donnée", true);
+			new Person(null, "Etape 2/2 : Informations utilisateur", true);
 			if(true){
-		loading wind = new loading();
+		Loading wind = new Loading();
 			wind.setVisible(true);
 			Thread.sleep(4500);
 			wind.setVisible(false);
@@ -146,7 +145,6 @@ public Home(){
 		
 			javax.swing.SwingUtilities.invokeLater(new Runnable() {
 				public void run() {
-				
 					new Home();
 				}
 			});

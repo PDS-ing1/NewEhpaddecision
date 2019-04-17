@@ -70,6 +70,9 @@ public class HomeBackEnd implements ActionListener {
 					    
 					    */
 					    
+					    
+					    // to do the same lines of code for other uc, (locations, users, sensors..)
+					    
 						log.info("Getting the answer from the server..." + Tools.getPrettyJson(answer));
 						String error = Tools.jsonNode(JSONExample.ERROR, answer).trim();
 						if(error.equals("")) {
@@ -162,7 +165,7 @@ public class HomeBackEnd implements ActionListener {
 					}
 				}
 				catch(Exception exp){
-					log.error("The convertion into a Integer did not work");
+					log.error("The convertion into an Integer did not work");
 					JOptionPane.showMessageDialog(null, "Sorry, something is wrong with it", "Cannot convert", JOptionPane.WARNING_MESSAGE);
 				}
 			}

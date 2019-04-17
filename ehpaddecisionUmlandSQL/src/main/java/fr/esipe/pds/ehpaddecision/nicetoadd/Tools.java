@@ -37,8 +37,8 @@ public class Tools {
 		return val;
 	}
 
-	// not completed... to review 
 	
+	// this function is able to serialize an object from java object to Json 
 	public static String serializeObject(Object obj, Class Class, String message)
 	{		
 		String JSONobj = null;
@@ -86,8 +86,6 @@ public class Tools {
 	}
 	
 	// this function will be able to convert a json string into a java object
-	
-	// 
 	public static Object deserializeObject(String objectInJSONString) {
 
 		Object jstObj = null;
@@ -99,6 +97,7 @@ public class Tools {
 				throw new Exception("Sorry, We can't load to serialize, check again!");
 
 			JsonNode stringJs = mapper.readTree(objectInJSONString);
+			// the next implementation corresponds to our enum JSONExample
 			JsonNode perimNode = stringJs.get(JSONExample.PERIM.baseExample());
 		
 			JsonNode infoNode = stringJs.get(JSONExample.INFO.baseExample());
@@ -107,6 +106,7 @@ public class Tools {
 
 			
 			String className = perimNode.textValue();
+			// the object <?> it is called a wildcard and it takes all kinds of objects in Java 
 			Class<?> objectClass = Class.forName(className);
 
 			boolean isListOfEntities = listNode.booleanValue();			
@@ -126,8 +126,7 @@ public class Tools {
 		return jstObj;		
 	}
 
-	public static String jsonNode(JSONExample example, String js)
-	{
+	public static String jsonNode(JSONExample example, String js){
 		String result = "";		
 
 		try 
@@ -145,10 +144,10 @@ public class Tools {
 	}
 	
 	// this function should be able to reflect pretty line 
-	public static String getPrettyJson(String jsString)
-	{
+	// this function is not mandatory, but we implement it to get a pretty answer of Json
+	public static String getPrettyJson(String jsString){
 		ObjectMapper mapper = new ObjectMapper();
-		// indent_ouput display the answer in multiple lines, as a pretty display
+		// indent_ouput : display the answer in multiple lines, as a pretty display
 		mapper.configure(SerializationFeature.INDENT_OUTPUT, true);
 		try {
 			JsonNode jsonNode = mapper.readTree(jsString);
@@ -159,17 +158,16 @@ public class Tools {
 		}
 	}
 	
+	// this function will help us to serialize all kinds of request (CRUD). 
 	public static String serializeQuery(Queries queryExample, Class entityClass,String serializedObject, 
 			List<String> values) {	
 		String objectToJSON = null;
 			try {
 				if(queryExample == null || entityClass == null)
-					throw new IOException("The request type and the entity class cannot be null !");
+					throw new IOException("Sorry, this information could not be empty !");
 
 				objectToJSON = null;
-
 				ObjectMapper mapper = new ObjectMapper();
-
 				ObjectNode rootNode = mapper.createObjectNode();
 				ObjectNode requestNode = mapper.createObjectNode();
 
@@ -184,7 +182,7 @@ public class Tools {
 				rootNode.putPOJO(JSONExample.INFO.baseExample(), requestNode);
 				rootNode.putPOJO(JSONExample.SERIALIZE.baseExample(), serializedObjectNode);
 
-			objectToJSON = mapper.writeValueAsString(rootNode);
+				objectToJSON = mapper.writeValueAsString(rootNode);
 		} catch (IOException e) {
 			log.error("Sorry, something was wrong with the deserialization of this request :\n" + e.getMessage());
 		}

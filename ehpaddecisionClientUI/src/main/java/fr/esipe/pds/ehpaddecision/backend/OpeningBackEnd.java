@@ -18,6 +18,7 @@ public class OpeningBackEnd implements ActionListener{
 		this.openFront = openFront; 
 	}
 
+	// this class of Opening Back End checks if we are connected to the server and get back a message
 	@SuppressWarnings("incomplete-switch")
 	public void actionPerformed(ActionEvent ae) {
 		// TODO Auto-generated method stub
@@ -32,7 +33,8 @@ public class OpeningBackEnd implements ActionListener{
 				ConnectionStarting status = ClientServerConnection.callSocket();
 				openFront.connectionState().setText("");
 				switch(status)
-				{					
+				{	
+				// if we are not connected, we will get back an error message of Fail with ERROR_MESSAGE as a pop up
 					case FAIL:
 						JOptionPane.showMessageDialog(null, ConnectionStarting.FAIL,null, JOptionPane.ERROR_MESSAGE);
 						break;	

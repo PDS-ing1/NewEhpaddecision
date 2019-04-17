@@ -18,7 +18,8 @@ public class SClient {
 	// to add logs
 	
 	
-	// TODO add address_ip in properties file
+	// TODO add address_ip in properties file, and remove the unuseful comments
+	// TODO no value directly in code is allowed, to be removed and put it in the properties file.
 	private final String ADRESS_IP = "localhost";
 	private final int N_PORT = 7070;
 	private static  final Logger log = LoggerFactory.getLogger(EhpadMain.class);
@@ -26,8 +27,7 @@ public class SClient {
 	private BufferedReader readFromServer;
 	private PrintWriter writeToServer;
 	
-	// Set a delay for the the server, after this delay we will send a timeout error
-	
+	// Set a delay for the the server, after this delay we will send a timeout error, this timeout is not ON now.
 	private final int TIMEOUT = 2000;
 	private Socket socket;
 	
@@ -70,7 +70,6 @@ public class SClient {
 	{
 		String answerServerClient = "";
 		
-		//log.info("Request sent to the server :\n" + Util.indentJsonOutput(requestToSendToServer));
 		
 		// Send the request to the server
 		writeToServer.println(requestToSendToServer);
