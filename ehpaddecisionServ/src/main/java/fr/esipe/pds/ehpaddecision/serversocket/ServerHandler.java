@@ -26,7 +26,7 @@ import fr.esipe.pds.ehpaddecision.enumerations.*;
 
  /** this class will handle all queries dealing with db
 * many reviews should be done and completed */
-//TODO remove tests done by sysout 
+//TODO remove tests done by sysout
 
 
 // This class should be able to handle CRUD requests, preparation for serialization and deserialization 

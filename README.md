@@ -1,4 +1,4 @@
-   ![EHPAD Decision](https://github.com/PDS-ing1/PDS/blob/master/Ehpaddecision.png)
+﻿   ![EHPAD Decision](https://github.com/PDS-ing1/PDS/blob/master/Ehpaddecision.png)
    
 # EHPADDECISION
 
@@ -25,11 +25,17 @@
 ## Politique de nommage
 - Le nom des variables ainsi que le nom des méthodes seront en anglais
 	Chaque classe doit avoir un nom clair et réprésetant.
+	Prévoir de mettre des commentaires au maximum possible, cela facilitera la compréhension pour les autres membres.
+	
 
 ## Organisation du projet Maven
 - le projet contient différents branches, dans le src/main/java on trouve les classes suivantes: 
 	App, DataSource, JDBCConnection ces classes permettent de créer un pool de connexion. 
 	Fichier pom contient la configuratin du projet. 
+	Trois modules actuellement, 1 pour le server, 1 pour le client et le dernier est en commun entre les deux permiers. 
+	Un dossier didié au diagramme de classe et de séquence, ainsi le script de la création de la base de données. 
+	Le script pourra changer éventuellement, nous devons mettre à jour le fichier uniquement et non pas importer le nouveau script et laisser l'ancien. 
+	
 	
 
 
@@ -91,15 +97,27 @@ Scanning for projects.../
 5. Aller dans la base de données pour vérifier si les changement ont été reçus
 6. Une liste avec tous les noms qui ont été ajoutés précédemment devrait apparaître
 
+## Scenario de demonstration pour la release 2 : R2
+1. Lancer les VMs, exécuter les deux jar: le jar serveur sera déployé sur une vm à part, nos ordinateurs respectifs seront des clients pour ce serveur. 
+2. Lancer des tests de requête, nous insérons par exemple une nouvelle alerte dans la table alert. Cela doit respecter les normes imposées en amont par JSon. 
+
+
+## Scenario de demonstration pour la release 3 : R3 La démonstration finale
+1. 
+2. 
+3. 
+4. 
+
+
 ## Quelques notes pour la release 2 : R2
 
-
+- Nous utilisons dans cette realese et pour la première fois dans le projet les énums.
 - On peut tracker les bandes passantes et les flux qui traversent les canaux TCP. Le monitoring peut être fait à l'aide de WireShark. On peut savoir aussi ce que ces bandes contiennent (texte, image..).
 - 
 
 ## Environnement de Pre-Production et de Production
 
-- Nous avons mis en place pour ce projet deux types d'envirronements un environements de Pré-Production constitué de 3VM:
+- Nous avons mis en place pour ce projet deux types d'environements, un environements de Pré-Production constitué de 3VM:
   -1DSI_PREPROD1
   -1DSI_DEV
   -1DSI_NETWORK
@@ -109,15 +127,26 @@ Scanning for projects.../
   -1DSI_PROD1
   
   Sur l'ensemble de ces VM le mot de passe: pds20182019
-  
-  
+ 
+## Quelques modifications pour la release 3 : R3
+
+- Pour cette realise nous devons passer en VM, toute la configuration sera mise en place sur deux différentes machines, une de pré-prod et une de prod. 
+- Pour la démo finale nous allons utiliser la machine de la prod. 
+- Les étapes de la connexion sont comme suivant : 
+	1) Nous nous connectons au VPN en tant qu'administrateur. 
+	2) Nous allumons la machine concernée.
+	3) Nous utilisons Putty via windows pour pouvoir naviguer dedans. 
+Tout cela doit être effectué en SSH, aucune interface graphique ne doit apparaitre sur le client. Pour des raisons de ressources et de rapidité. 
+
+
 
 
 ## Quelques conseils
 - N'hésitez pas de passer vos recherches sur Google pour avoir toutes les informations.
 - Consulter le drive pour connaître la spec et les use-cases.
 - Des modifications ont eu lieu lors de la première release de la R2. [politique de nommage a été rediscuté, tous les fichiers de config sont nommés en miniscule, suppression des noms clés tels que Interfarce, thread]
-- 
+- Pour la R3, le développement sera en monôme, c'est à dire chacun développera son use case et le mettra sur sa branche pour tester. Une fois le développement d'UC est terminé nous pouvons merger vers la master. 
+
 
 
  ![EHPAD Decision](https://github.com/PDS-ing1/PDS/blob/master/Ehpaddecision.png)

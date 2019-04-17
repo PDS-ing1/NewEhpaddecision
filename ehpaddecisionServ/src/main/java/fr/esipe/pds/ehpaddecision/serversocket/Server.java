@@ -12,7 +12,7 @@ import fr.esipe.pds.ehpaddecision.connectionpool.DataSource;
 public class Server {
 	private final Logger log = LoggerFactory.getLogger(Server.class);
 	private static Connection con;
-	
+	// TODO no more brute value in code, all values should be in the properties file
 	private ServerSocket serverSocket;
 	private static final int server_port =7070;
 	

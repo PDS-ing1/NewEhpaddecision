@@ -12,9 +12,11 @@ import org.slf4j.LoggerFactory;
 import com.fasterxml.jackson.core.JsonFactory;
 
 import fr.esipe.pds.ehpaddecision.dao.AbDAO;
+import fr.esipe.pds.ehpaddecision.principales.Locations;
 
 //this class should contain the CRUD methods of the object Location 
 //Create a sensor , delete a or many sensors, update a sensor, and display all sensors,
+// TODO review this class and correct mistakes
 
 public class LocationDAO  extends AbDAO<Locations> {
 	// to be able to convert Json into a readable file

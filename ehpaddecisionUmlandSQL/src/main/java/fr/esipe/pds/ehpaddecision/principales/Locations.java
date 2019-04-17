@@ -10,7 +10,7 @@ public class Locations {
 	private int building_nb;
 	private Timestamp dateCreation;
 		
-	public Locations(int idLocation, String nameLocation,int hall_nb, int floor_nb, int building_nb, Timestamp dateCreation){
+	public Locations(int idLocation, int hall_nb, int floor_nb, int building_nb, Timestamp dateCreation){
 		this.idLocation=idLocation;
 		this.nameLocation=nameLocation;
 		this.floor_nb=floor_nb;
@@ -23,8 +23,12 @@ public class Locations {
 		this.nameLocation=nameLocation;
 		this.floor_nb=floor_nb;
 		this.building_nb=building_nb;
-		this.dateCreation=dateCreation;
+		this.dateCreation = new Timestamp(System.currentTimeMillis());
 	}
+		public Locations(){
+			this.idLocation=1;
+			this.nameLocation= "First Location";
+		}
 
 	public int getIdLocation() {
 		return idLocation;

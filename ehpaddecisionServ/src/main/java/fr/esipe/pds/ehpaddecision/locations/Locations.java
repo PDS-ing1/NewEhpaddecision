@@ -1,7 +1,7 @@
 package fr.esipe.pds.ehpaddecision.locations;
 
 import java.sql.Timestamp;
-
+// UNSEFUL CLASS,  TO REMOVE 
 public class Locations {
 /*	private int idLocation; 
 	private int hall_nb;
