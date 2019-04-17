@@ -28,6 +28,8 @@ import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
 import javax.swing.JTextField;
 
+import org.apache.commons.lang3.ClassUtils.Interfaces;
+
 public class Alerte extends JDialog {
 
 		private AlerteInfo zInfo = new AlerteInfo();
@@ -59,7 +61,7 @@ public class Alerte extends JDialog {
 		public Alerte(String adr, Interfaces Alertes) {
 			// TODO Auto-generated constructor stub
 			this.adr = adr;
-			this.Alertes = Alertes;
+			this.Alerte = Alertes;
 			
 		}
 
@@ -213,7 +215,7 @@ public class Alerte extends JDialog {
 			okBouton.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent arg0) {	
 					setVisible(false);
-					 Clients c = new Clients( numero.getText(),marques.getSelectedItem(), modele.getSelectedItem(),"sortie",kilometre.getText(), prix.getText());
+					 SClient c = new Clients( numero.getText(),marques.getSelectedItem(), modele.getSelectedItem(),"sortie",kilometre.getText(), prix.getText());
 					Clients l = new Clients(null, "Contrat : Informations Clients", true);
 					
 					
@@ -249,7 +251,7 @@ public class Alerte extends JDialog {
 		}
 		public static void Close(){
 			
-			((JComponent) Alerte).setVisible(false);
+			((JComponnent).Alerte).setVisible(false);
 		}
 
 		}	 
