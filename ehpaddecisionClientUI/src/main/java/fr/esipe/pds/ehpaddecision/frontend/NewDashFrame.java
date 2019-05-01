@@ -186,6 +186,8 @@ public class NewDashFrame extends JFrame {
 		
 		Button button_4 = new Button("Voir");
 		panel_3.add(button_4, "6, 10");
+		
+		
 	}
 
 }
