@@ -46,6 +46,8 @@ import javax.swing.JToolBar;
 import javax.swing.KeyStroke;
 import javax.swing.border.Border;
 
+import fr.esipe.pds.ehpaddecision.principales.Person;
+
 public class Home extends JFrame {
 	private static final JMenuItem Bon_de_reservation = null;
 	private JMenuBar menuBar = new JMenuBar();
