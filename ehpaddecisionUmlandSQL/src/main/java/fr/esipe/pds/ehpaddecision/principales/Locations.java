@@ -10,7 +10,7 @@ public class Locations {
 	private int building_nb;
 	private Timestamp dateCreation;
 		
-	public Locations(int idLocation, int hall_nb, int floor_nb, int building_nb, Timestamp dateCreation){
+	public Locations(int idLocation,String nameLocation, int hall_nb, int floor_nb, int building_nb, Timestamp dateCreation){
 		this.idLocation=idLocation;
 		this.nameLocation=nameLocation;
 		this.floor_nb=floor_nb;
@@ -18,23 +18,26 @@ public class Locations {
 		this.dateCreation=dateCreation;
 		
 	}
-		public Locations( String nameLocation) {
-		this.idLocation=idLocation;
+	public Locations( String nameLocation) {
 		this.nameLocation=nameLocation;
-		this.floor_nb=floor_nb;
-		this.building_nb=building_nb;
+		this.hall_nb=0;
+		this.floor_nb=0;
+		this.building_nb=0;
 		this.dateCreation = new Timestamp(System.currentTimeMillis());
 	}
-		public Locations(){
-			this.idLocation=1;
-			this.nameLocation= "First Location";
-		}
-
+	public Locations(){
+	}
 	public int getIdLocation() {
 		return idLocation;
 	}
 	public void setIdLocation(int idLocation) {
 		this.idLocation = idLocation;
+	}
+	public String getNameLocation() {
+		return nameLocation;
+	}
+	public void setNameLocation(String nameLocation) {
+		this.nameLocation = nameLocation;
 	}
 	public int getHall_nb() {
 		return hall_nb;
@@ -60,5 +63,11 @@ public class Locations {
 	public void setDateCreation(Timestamp dateCreation) {
 		this.dateCreation = dateCreation;
 	}
+	@Override
+	public String toString() {
+		return "Locations [idLocation=" + idLocation + ", nameLocation=" + nameLocation + ", hall_nb=" + hall_nb
+				+ ", floor_nb=" + floor_nb + ", building_nb=" + building_nb + ", dateCreation=" + dateCreation + "]";
+	}
 
+	
 }

@@ -160,11 +160,13 @@ public class ServerHandler implements Runnable {
 
 	// this function will handle the select request. 
 	private String select(Class<?> perimCl, JsonNode srzdONode) throws Exception {
+		System.out.println(perimCl.toString());
+		System.out.println("1");
 		ObjectMapper mapper = new ObjectMapper();
 		String result = "";		
 		String getStringJson = srzdONode.get(JSONExample.INFO.baseExample()).textValue();
 		List<String> values = null;
-
+		System.out.println(getStringJson);
 		if(getStringJson != null && getStringJson.trim().length() > 0) {
 			values = mapper.readValue(getStringJson, mapper.getTypeFactory().constructCollectionType(List.class, String.class));
 		}

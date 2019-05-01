@@ -51,16 +51,16 @@ public class HomeBackEnd implements ActionListener {
 					    System.out.println(jsRequest);
 					    String answer = ClientServerConnection.returnClientSocket().sendToServer(jsRequest);
 					    */
-					    //user test
+					    /*user test
 					    Users user = new Users (nameAlert);
 						System.out.println(user.toString());
 					    String serializedObject = Tools.serializeObject(user, user.getClass(), "");
 						String jsRequest = Tools.serializeQuery(Queries.INSERT, Users.class, serializedObject,null);
 					    System.out.println(jsRequest);
 					    String answer = ClientServerConnection.returnClientSocket().sendToServer(jsRequest);
+					    */
 					    
-					    
-					    /*Location test 
+					    //Location test 
 					    Locations location = new Locations(nameAlert);
 						System.out.println(location.toString());
 					    String serializedObject = Tools.serializeObject(location, location.getClass(), "");
@@ -68,7 +68,7 @@ public class HomeBackEnd implements ActionListener {
 					    System.out.println(jsRequest);
 					    String answer = ClientServerConnection.returnClientSocket().sendToServer(jsRequest);
 					    
-					    */
+					    
 					    
 					    
 					    // to do the same lines of code for other uc, (locations, users, sensors..)
@@ -90,8 +90,104 @@ public class HomeBackEnd implements ActionListener {
 					log.error(e1.getMessage());
 				}
 			}
+			// Test Location 
 			if(ae.getSource()==homePageFront.getButtonDisplay()) {
-				String jsRequest = Tools.serializeObject(Queries.SELECT, Alerts.class, null);
+				
+				Locations Location = new Locations ();
+				System.out.println(Location.toString());
+			    String serializedObject = Tools.serializeObject(Location, Location.getClass(), "");
+				String jsRequest = Tools.serializeQuery(Queries.SELECT, Locations.class, serializedObject,null);
+				System.out.println(serializedObject);
+			    
+			    
+			    // String jsRequest = Tools.serializeObject(Queries.SELECT, Alerts.class, null);
+				// String jsRequest = Tools.serializeQuery(Queries.SELECT, Alerts.class, serializedObject,null);
+				
+			    System.out.println(jsRequest);
+				try 
+				{
+					String answer = ClientServerConnection.returnClientSocket().sendToServer(jsRequest);
+					log.info("Getting the answer from the server..." + Tools.getPrettyJson(answer));
+					String error = Tools.jsonNode(JSONExample.ERROR, answer).trim();
+					if(error.equals(""))
+					{
+						List<Locations> locations = (List<Locations>) Tools.deserializeObject(answer);
+						String locationsText = "";
+						for(Locations location : locations)
+						{
+							locationsText += location+ "\n";
+						}
+						homePageFront.getTextArea().setText(locationsText);
+					}
+					else {
+						JOptionPane.showMessageDialog(homePageFront, error, "Error", JOptionPane.ERROR_MESSAGE);
+					}
+
+				} 
+				catch (IOException e1){
+					log.error(e1.getMessage());
+				} 
+				catch (AllConnectionUsedException usedConnection){
+					log.error(usedConnection.getMessage());
+				}
+			}
+			
+			/* test user 
+			if(ae.getSource()==homePageFront.getButtonDisplay()) {
+				
+				Users Users = new Users ();
+				System.out.println(Users.toString());
+			    String serializedObject = Tools.serializeObject(Users, Users.getClass(), "");
+				String jsRequest = Tools.serializeQuery(Queries.SELECT, Users.class, serializedObject,null);
+				System.out.println(serializedObject);
+			    
+			    
+			    // String jsRequest = Tools.serializeObject(Queries.SELECT, Alerts.class, null);
+				// String jsRequest = Tools.serializeQuery(Queries.SELECT, Alerts.class, serializedObject,null);
+				
+			    System.out.println(jsRequest);
+				try 
+				{
+					String answer = ClientServerConnection.returnClientSocket().sendToServer(jsRequest);
+					log.info("Getting the answer from the server..." + Tools.getPrettyJson(answer));
+					String error = Tools.jsonNode(JSONExample.ERROR, answer).trim();
+					if(error.equals(""))
+					{
+						List<Users> users = (List<Users>) Tools.deserializeObject(answer);
+						String locationsText = "";
+						for(Users User : users)
+						{
+							locationsText += User+ "\n";
+						}
+						homePageFront.getTextArea().setText(locationsText);
+					}
+					else {
+						JOptionPane.showMessageDialog(homePageFront, error, "Error", JOptionPane.ERROR_MESSAGE);
+					}
+
+				} 
+				catch (IOException e1){
+					log.error(e1.getMessage());
+				} 
+				catch (AllConnectionUsedException usedConnection){
+					log.error(usedConnection.getMessage());
+				}
+			}*/
+			// Test Alert
+/*
+			if(ae.getSource()==homePageFront.getButtonDisplay()) {
+				
+				Alerts Alerts = new Alerts ();
+				System.out.println(Alerts.toString());
+			    String serializedObject = Tools.serializeObject(Alerts, Alerts.getClass(), "");
+				String jsRequest = Tools.serializeQuery(Queries.SELECT, Alerts.class, serializedObject,null);
+				System.out.println(serializedObject);
+			    
+			    
+			    // String jsRequest = Tools.serializeObject(Queries.SELECT, Alerts.class, null);
+				// String jsRequest = Tools.serializeQuery(Queries.SELECT, Alerts.class, serializedObject,null);
+				
+			    System.out.println(jsRequest);
 				try 
 				{
 					String answer = ClientServerConnection.returnClientSocket().sendToServer(jsRequest);
@@ -119,7 +215,7 @@ public class HomeBackEnd implements ActionListener {
 					log.error(usedConnection.getMessage());
 				}
 			}
-
+*/
 			if(ae.getSource() == homePageFront.getButtonDelete()){
 				String idInString = JOptionPane.showInputDialog(null, "Please enter the ID of the alert to delete :"
 						, "Delete", JOptionPane.QUESTION_MESSAGE);

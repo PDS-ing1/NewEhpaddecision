@@ -35,13 +35,14 @@ public class LocationDAO  extends AbDAO<Locations> {
 		{
 			try {
 				PreparedStatement preparedStatement = connection
-						.prepareStatement("INSERT INTO LOCATION (ID_LOCATION, HALL_NB, FLOOR_NB, BUILDING_NB ,DATE_CREATION)"
-								+ " VALUES (? , ? , ? , ? )", Statement.RETURN_GENERATED_KEYS);
+						.prepareStatement("INSERT INTO LOCATION (ID_LOCATION,NAME_LOCATION, HALL_NB, FLOOR_NB, BUILDING_NB ,DATE_CREATION)"
+								+ " VALUES (? , ? ,?, ? , ?, ? )", Statement.RETURN_GENERATED_KEYS);
 				preparedStatement.setInt(1, location.getIdLocation());
-				preparedStatement.setInt(2, location.getHall_nb());
-				preparedStatement.setInt(3, location.getFloor_nb());
-				preparedStatement.setInt(4, location.getBuilding_nb());
-				preparedStatement.setTimestamp(5, location.getDateCreation());
+				preparedStatement.setString(2, location.getNameLocation());
+				preparedStatement.setInt(3, location.getHall_nb());
+				preparedStatement.setInt(4, location.getFloor_nb());
+				preparedStatement.setInt(5, location.getBuilding_nb());
+				preparedStatement.setTimestamp(6, location.getDateCreation());
 				preparedStatement.execute();
 				ResultSet rs = preparedStatement.getGeneratedKeys();
 			} catch (Exception e) {
@@ -125,7 +126,7 @@ public class LocationDAO  extends AbDAO<Locations> {
 		{
 			Locations location = null;
 			try {
-				location = new Locations(rs.getInt("ID_LOCATION"), rs.getInt("HALL_NB"),rs.getInt("FLOOR_NB"), rs.getInt("BUILDING_NB"),rs.getTimestamp("CREATION_DATE"));
+				location = new Locations(rs.getInt("ID_LOCATION"),rs.getString("NAME_LOCATION"), rs.getInt("HALL_NB"),rs.getInt("FLOOR_NB"), rs.getInt("BUILDING_NB"),rs.getTimestamp("DATE_CREATION"));
 			} catch (SQLException e) {
 				log.error("Sorry, we occured an error while retrieving this location from the result : " + e.getMessage());
 			}

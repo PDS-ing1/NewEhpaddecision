@@ -31,7 +31,7 @@ public class UsersDAO extends AbDAO<Users>{
 		{
 			Users user = null;
 			try {
-				user = new Users(rs.getInt("ID_USER"), rs.getString("NAME"), rs.getTimestamp("DATE_CREATION"));
+				user = new Users(rs.getInt("ID_USER"), rs.getString("NAME"), rs.getTimestamp("creation_Date"));
 			} catch (SQLException e) {
 				log.error("Sorry, we occured an error while retrieving this alert from the result : " + e.getMessage());
 			}
