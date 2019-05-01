@@ -15,6 +15,7 @@
   	<module>ehpaddecisionUmlandSQL</module>
   	<module>ehpaddecisionClientUI</module>
   	<module>ehpaddecisionServ</module>
+  	<module>ehpaddecisionMock</module>
    </modules>
   
 </project>
