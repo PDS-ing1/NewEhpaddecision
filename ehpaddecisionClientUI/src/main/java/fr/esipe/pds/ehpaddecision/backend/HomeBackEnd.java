@@ -27,7 +27,6 @@ public class HomeBackEnd implements ActionListener {
 		this.homePageFront=homePageFront;
 	}
 	
-
 	@SuppressWarnings("unchecked")
 	public void actionPerformed(ActionEvent ae) {
 		{
@@ -132,7 +131,8 @@ public class HomeBackEnd implements ActionListener {
 				}
 			}
 			
-			/* test user 
+			// test user 
+			/*
 			if(ae.getSource()==homePageFront.getButtonDisplay()) {
 				
 				Users Users = new Users ();
@@ -172,9 +172,10 @@ public class HomeBackEnd implements ActionListener {
 				catch (AllConnectionUsedException usedConnection){
 					log.error(usedConnection.getMessage());
 				}
-			}*/
+			}
+			*/
 			// Test Alert
-/*
+			/*
 			if(ae.getSource()==homePageFront.getButtonDisplay()) {
 				
 				Alerts Alerts = new Alerts ();
@@ -215,7 +216,7 @@ public class HomeBackEnd implements ActionListener {
 					log.error(usedConnection.getMessage());
 				}
 			}
-*/
+			 */
 			if(ae.getSource() == homePageFront.getButtonDelete()){
 				String idInString = JOptionPane.showInputDialog(null, "Please enter the ID of the alert to delete :"
 						, "Delete", JOptionPane.QUESTION_MESSAGE);

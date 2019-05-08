@@ -52,6 +52,7 @@ public class EhpadPage extends JFrame {
 
 	public void showPage(String ehpadname) {
 		// TODO Auto-generated method stub
+		if(homePageSpell.equals(ehpadname)) homePage.init();
 		cdLayout.show(this.getContentPane(), ehpadname);
 	}
 }
