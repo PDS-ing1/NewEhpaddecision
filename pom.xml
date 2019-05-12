@@ -9,13 +9,10 @@
   
   
    <modules>
+     <module>ehpaddecisionShare</module>
+  	 <module>ehpaddecisionClientUI</module>
+  	 <module>ehpaddecisionServ</module>
   	
-  	<module>EhpaddecisionService</module>
-  	
-  	<module>ehpaddecisionUmlandSQL</module>
-  	<module>ehpaddecisionClientUI</module>
-  	<module>ehpaddecisionServ</module>
-  	<module>ehpaddecisionMock</module>
    </modules>
   
 </project>

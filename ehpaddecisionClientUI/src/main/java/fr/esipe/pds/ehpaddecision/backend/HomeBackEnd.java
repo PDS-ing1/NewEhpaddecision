@@ -20,7 +20,8 @@ import fr.esipe.pds.ehpaddecision.principales.Alerts;
 import fr.esipe.pds.ehpaddecision.principales.Locations;
 import fr.esipe.pds.ehpaddecision.principales.Users;
 
-public class HomeBackEnd implements ActionListener {
+public class HomeBackEnd { //implements ActionListener {
+	/*
 	private static final  Logger log = LoggerFactory.getLogger(HomeBackEnd.class);
 	private HomePageFront homePageFront;
 	public HomeBackEnd (HomePageFront homePageFront){
@@ -42,22 +43,22 @@ public class HomeBackEnd implements ActionListener {
 					}
 					else {
 						// Alert test
-						/*
+						
 						Alerts alert = new Alerts(nameAlert);
 						System.out.println(alert.toString());
 					    String serializedObject = Tools.serializeObject(alert, alert.getClass(), "");
 						String jsRequest = Tools.serializeQuery(Queries.INSERT, Alerts.class, serializedObject,null);
 					    System.out.println(jsRequest);
 					    String answer = ClientServerConnection.returnClientSocket().sendToServer(jsRequest);
-					    */
-					    /*user test
+					    
+					    user test
 					    Users user = new Users (nameAlert);
 						System.out.println(user.toString());
 					    String serializedObject = Tools.serializeObject(user, user.getClass(), "");
 						String jsRequest = Tools.serializeQuery(Queries.INSERT, Users.class, serializedObject,null);
 					    System.out.println(jsRequest);
 					    String answer = ClientServerConnection.returnClientSocket().sendToServer(jsRequest);
-					    */
+					    
 					    
 					    //Location test 
 					    Locations location = new Locations(nameAlert);
@@ -216,7 +217,7 @@ public class HomeBackEnd implements ActionListener {
 					log.error(usedConnection.getMessage());
 				}
 			}
-			 */
+			 *  /
 			if(ae.getSource() == homePageFront.getButtonDelete()){
 				String idInString = JOptionPane.showInputDialog(null, "Please enter the ID of the alert to delete :"
 						, "Delete", JOptionPane.QUESTION_MESSAGE);
@@ -269,4 +270,5 @@ public class HomeBackEnd implements ActionListener {
 		}
 
 	}
+	*/
 }

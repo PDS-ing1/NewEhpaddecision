@@ -56,7 +56,7 @@ public class OpenPageFront extends JPanel{
 		return connectionStatus;
 	}
 
-
+	// ADD AUTHENTIFICATION
 
 	
 	

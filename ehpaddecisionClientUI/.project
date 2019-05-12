@@ -20,4 +20,16 @@
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>org.eclipse.m2e.core.maven2Nature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>src/main/java/fr/esipe/pds/ehpaddecision/frontend/images/croix rouge.png</name>
+			<type>1</type>
+			<location>D:/Divers/PdsIng1/Ehpaddecision/croix rouge.png</location>
+		</link>
+		<link>
+			<name>src/main/java/fr/esipe/pds/ehpaddecision/frontend/images/croix verte.png</name>
+			<type>1</type>
+			<location>D:/Divers/PdsIng1/Ehpaddecision/croix verte.png</location>
+		</link>
+	</linkedResources>
 </projectDescription>
