@@ -126,7 +126,7 @@ Scanning for projects.../
   -1DSI_PROD_DB
   -1DSI_PROD1
   
-  Sur l'ensemble de ces VM le mot de passe: pds20182019
+  Sur l'ensemble de ces VM le mot de passe: toto
  
 ## Quelques modifications pour la release 3 : R3
 
