@@ -37,7 +37,7 @@ public class HomePageFront extends JPanel {
 
 	private static final  Logger log = LoggerFactory.getLogger(HomePageFront.class);
 	private JPanel firstpanel = new JPanel(new CardLayout());
-	
+	//only tabs
 	public HomePageFront()
 	{
 		initComponents();
