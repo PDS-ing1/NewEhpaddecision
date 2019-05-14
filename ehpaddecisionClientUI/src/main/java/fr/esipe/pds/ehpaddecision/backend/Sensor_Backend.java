@@ -27,6 +27,7 @@ import fr.esipe.pds.ehpaddecision.enumerations.JSONExample;
 import fr.esipe.pds.ehpaddecision.enumerations.Queries;
 import fr.esipe.pds.ehpaddecision.exceptions.AllConnectionUsedException;
 import fr.esipe.pds.ehpaddecision.frontend.HomePageFront;
+import fr.esipe.pds.ehpaddecision.frontend.SensorPlan;
 import fr.esipe.pds.ehpaddecision.frontend.SensorsFront1;
 import fr.esipe.pds.ehpaddecision.frontend.Sensors_Add;
 import fr.esipe.pds.ehpaddecision.main.ClientServerConnection;
@@ -49,6 +50,7 @@ public class Sensor_Backend implements ActionListener {
 	private static final  Logger log = LoggerFactory.getLogger(Sensor_Backend.class);
 	private Sensors_Add sensors_add;
 	private SensorsFront1 sensorsfront1;
+	private SensorPlan sensorPlan;
 
 
 	public Sensor_Backend(Sensors_Add sensors_add) {
@@ -229,11 +231,12 @@ public class Sensor_Backend implements ActionListener {
 
 
 
-
+				sensorPlan.AddButtonavailable(Sensors_Add.getComboBox_1().getSelectedItem().toString());
 
 
 
 			}
+			/*
 			if(ae.getSource()== SensorsFront1.getBtnSubmit1()){
 				System.out.println("action button Submit1");
 				String idInString = JOptionPane.showInputDialog(null, "Please enter macAdress of sensor to update :"
@@ -264,7 +267,7 @@ public class Sensor_Backend implements ActionListener {
 					JOptionPane.showMessageDialog(null, "Sorry, something is wrong with it", "Cannot convert", JOptionPane.WARNING_MESSAGE);
 				}
 			}	
-
+			 */
 		}
 
 
@@ -272,4 +275,4 @@ public class Sensor_Backend implements ActionListener {
 
 	}
 }
-}
+

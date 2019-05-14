@@ -65,7 +65,7 @@ public class SensorPlan extends JFrame implements ActionListener{
 
 	JButton button ;
 	JButton btnNewButton_1;
-	private DeleteSensor instance;
+	private Sensors_Add instance;
 
 	String living_room = "Living room";
 	String kitchen = "Kitchen";
@@ -135,18 +135,25 @@ public class SensorPlan extends JFrame implements ActionListener{
 		btnNewButton.setBackground(Color.LIGHT_GRAY);
 		btnNewButton.setBounds(20, 11, 174, 23);
 		getContentPane().add(btnNewButton);
-
-		btnNewButton_1 = new JButton("Delete a sensor\r\n");
-		btnNewButton_1.setBackground(Color.LIGHT_GRAY);
-		btnNewButton_1.setBounds(20, 44, 174, 23);
-		getContentPane().add(btnNewButton_1);
-		btnNewButton_1.addActionListener(new ActionListener() {
+		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
 				instance = new DeleteSensor();
 				instance.setVisible(true);
 			}
 		});
+
+		btnNewButton_1 = new JButton("Delete a sensor\r\n");
+		btnNewButton_1.setBackground(Color.LIGHT_GRAY);
+		btnNewButton_1.setBounds(20, 44, 174, 23);
+		getContentPane().add(btnNewButton_1);
+		//btnNewButton_1.addActionListener(new ActionListener() {
+			//public void actionPerformed(ActionEvent arg0) {
+
+				//instance = new DeleteSensor();
+				//instance.setVisible(true);
+			//}
+		//});
 
 		JButton btnNewButton_2 = new JButton("Set up a sensor");
 		btnNewButton_2.setBackground(Color.LIGHT_GRAY);
