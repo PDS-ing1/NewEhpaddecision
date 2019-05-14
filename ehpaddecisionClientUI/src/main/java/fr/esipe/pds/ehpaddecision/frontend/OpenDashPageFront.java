@@ -1,7 +1,5 @@
 package fr.esipe.pds.ehpaddecision.frontend;
-import Base_de_donnee.BDD;
-import Base_de_donnee.Parametre;
-import Base_de_donnee.ResultSetTableModel;
+
 
 import java.sql.Connection;
 import java.sql.DriverManager;
