@@ -1,7 +1,7 @@
 package fr.esipe.pds.ehpaddecision.enumerations;
 
 public enum JSONExample {
-	
+
 	PERIM("perim"),
 	LIST("list"),
 	QUERY("query"),

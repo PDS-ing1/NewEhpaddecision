@@ -499,7 +499,7 @@ public class HomePageFront extends JPanel {
 
     // Variables declaration - do not modify                     
     
-        private javax.swing.JComboBox com_rech;
+    private javax.swing.JComboBox com_rech;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;

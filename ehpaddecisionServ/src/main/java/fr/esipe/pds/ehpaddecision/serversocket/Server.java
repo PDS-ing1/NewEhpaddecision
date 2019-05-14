@@ -33,7 +33,7 @@ public class Server {
 				if (true ) {
 					log.info("The server is ready, waiting a request from a client...");
 					Socket socket = serverSocket.accept();
-					con = DataSource.getConnection();
+					con = DataSource.getConnection(null, null, null);
 					System.out.println("A client is on line");
 					ServerHandler srvHandler = new ServerHandler(socket, con);
 					Thread cth = new Thread(srvHandler);

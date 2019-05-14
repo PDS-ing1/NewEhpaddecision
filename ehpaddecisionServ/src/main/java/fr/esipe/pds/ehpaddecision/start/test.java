@@ -14,14 +14,20 @@ public class test {
 	  {
 	    try
 	    {
+	    	Class.forName("com.mysql.cj.jdbc.Driver");
+	    	System.out.println("Driver O.K.");
+	    	
 	      // create a mysql database connection
-	      String myDriver = "com.mysql.jdbc.Driver";
+	      String myDriver = "com.mysql.cj.jdbc.Driver";
 	      String myUrl = "jdbc:mysql://localhost:3306/ehpaddecision?serverTimezone=UTC";
+	      String user = "root";
+	      String passwd = "";
 	      Class.forName(myDriver);
-	      Connection conn = DataSource.getConnection();//DriverManager.getConnection(myUrl, "root", "");
+	      Connection conn = DriverManager.getConnection(myUrl,user,passwd);//DriverManager.getConnection(myUrl, "root", "");
+	      System.out.println ("Connexion effective");
 	      
 	      Statement st = conn.createStatement();
-	      st.executeUpdate("INSERT INTO alert VALUES (4,'Fred',1555238588982)");
+	      st.executeUpdate("INSERT INTO alert VALUES (7,'TOMA',155523858894)");
 
 	      conn.close();
 	    }
@@ -29,6 +35,7 @@ public class test {
 	    {
 	      System.err.println("Got an exception!");
 	      System.err.println(e.getMessage());
+	      e.printStackTrace();
 	    }
 
 	  }

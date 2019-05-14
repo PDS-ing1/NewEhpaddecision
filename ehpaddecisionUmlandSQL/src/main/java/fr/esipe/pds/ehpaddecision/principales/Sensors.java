@@ -1,0 +1,79 @@
+package fr.esipe.pds.ehpaddecision.principales;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+public class Sensors {
+	
+	private String macAdress;
+	private String Brand;
+	private String Location;
+	private String Type;
+	private String mode = "off";
+	private long date = System.currentTimeMillis();
+	
+	@JsonCreator
+	public Sensors(@JsonProperty("macAdress") String macAdress,@JsonProperty("Brand") String Brand,@JsonProperty("Location") String Location,@JsonProperty("Type") String Type, @JsonProperty("mode") String mode, @JsonProperty("date") long date){
+		
+		this.macAdress = macAdress;
+		this.Brand = Brand;
+		this.Location = Location;
+		this.Type = Type;
+		this.mode = mode;
+		this.date = date;
+	}
+
+	public long getDate() {
+		return date;
+	}
+
+	public void setDate(long date) {
+		this.date = date;
+	}
+
+	public String getMode() {
+		return mode;
+	}
+
+	public void setMode(String mode) {
+		this.mode = mode;
+	}
+
+	public String getMacAdress() {
+		return macAdress;
+	}
+
+	public void setMacAdress(String macAdress) {
+		this.macAdress = macAdress;
+	}
+
+	public String getBrand() {
+		return Brand;
+	}
+
+	public void setBrand(String brand) {
+		Brand = brand;
+	}
+
+	public String getType() {
+		return Type;
+	}
+
+	public void setType(String type) {
+		Type = type;
+	}
+
+	public String getLocation() {
+		return Location;
+	}
+
+	public void setLocation(String location) {
+		Location = location;
+	}
+	
+	public String toString() {
+		return "sensors1 [macAdress=" + macAdress + ", Brand=" + Brand + ", Location=" + Location + ", Type=" + Type +", mode=" + mode +", date=" + date +"]";
+	}
+	
+
+}

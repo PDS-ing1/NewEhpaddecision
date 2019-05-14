@@ -15,6 +15,7 @@ import fr.esipe.pds.ehpaddecision.backend.*;
 @SuppressWarnings("serial")
 public class EhpadPage extends JFrame {
 	private HomePageFront homePage;
+	private Sensors_Add sensors_add;
 	private OpenPageFront openingPage;
 	private String homePageSpell;
 	private String pageOpeningSpell;

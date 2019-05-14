@@ -8,13 +8,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import fr.esipe.pds.ehpaddecision.frontend.EhpadPage;
+import fr.esipe.pds.ehpaddecision.frontend.Sensors_Add;
 import fr.esipe.pds.ehpaddecision.main.ClientServerConnection;
 
 public class EhpadBackEnd extends WindowAdapter {
 	
 	private static final Logger log = LoggerFactory.getLogger(EhpadBackEnd.class);
 
-	private  EhpadBackEnd ehpadbackend;	
+	private  EhpadBackEnd ehpadbackend;
+
+	private Sensors_Add sensors_Add;	
 
 	public EhpadBackEnd(EhpadBackEnd ehpadbackend) {
 		this.ehpadbackend = ehpadbackend;
@@ -23,6 +26,12 @@ public class EhpadBackEnd extends WindowAdapter {
 	
 	public EhpadBackEnd(EhpadPage ehpadPage) {
 		// TODO Auto-generated constructor stub
+	}
+
+
+	public EhpadBackEnd(Sensors_Add sensors_Add) {
+		// TODO Auto-generated constructor stub
+		this.sensors_Add = sensors_Add;
 	}
 
 

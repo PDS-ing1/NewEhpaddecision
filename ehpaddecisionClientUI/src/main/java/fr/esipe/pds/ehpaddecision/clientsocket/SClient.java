@@ -45,9 +45,9 @@ public class SClient {
 			//socket.setSoTimeout(TIMEOUT); // turn off the timeout for some tests
 			// for read from Server and write to it
 			
-			readFromServer = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"));
-			writeToServer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(), "UTF-8"), true);	
 			
+			writeToServer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(), "UTF-8"), true);	
+			readFromServer = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"));
 			
 	
 			/*String error = readFromServer.readLine();
@@ -56,7 +56,7 @@ public class SClient {
 				throw new AllConnectionUsedException();
 			}*/
 				log.info("Connected to the server");
-				String s= "INSERT INTO ALERT (ID_ALERT, NAME, CREATION_DATE) VALUES (1 , 'Default' , null )";
+				//String s= "INSERT INTO ALERT (ID_ALERT, NAME, CREATION_DATE) VALUES (1 , 'Default' , null )";
 				return ConnectionStarting.WELLDONE;
 			}
 			catch (Exception e){
@@ -72,10 +72,14 @@ public class SClient {
 		
 		
 		// Send the request to the server
+		System.out.println("WriteToServer will be executed");
 		writeToServer.println(requestToSendToServer);
+		System.out.println("WriteToServer have been executed");
+		
 		
 		// Receive an answer from the the server
 		answerServerClient = readFromServer.readLine();
+		System.out.println("toto6");
 		return answerServerClient;
 	}
 		
