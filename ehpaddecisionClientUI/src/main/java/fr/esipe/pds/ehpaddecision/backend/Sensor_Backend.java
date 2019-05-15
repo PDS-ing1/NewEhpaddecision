@@ -49,17 +49,14 @@ import fr.esipe.pds.ehpaddecision.principales.Temperatures_Sensors;
 public class Sensor_Backend implements ActionListener {
 	private static final  Logger log = LoggerFactory.getLogger(Sensor_Backend.class);
 	private Sensors_Add sensors_add;
-	private SensorsFront1 sensorsfront1;
-	private SensorPlan sensorPlan;
+		SensorPlan sensorPlan;
+	
 
 
 	public Sensor_Backend(Sensors_Add sensors_add) {
 		this.sensors_add = sensors_add;
 	}
 
-	public Sensor_Backend(SensorsFront1 sensorsFront1) {
-		this.sensorsfront1 = sensorsfront1;
-	}
 
 	public void actionPerformed(ActionEvent ae) {
 		{
@@ -75,9 +72,6 @@ public class Sensor_Backend implements ActionListener {
 					long date = System.currentTimeMillis();
 					int temperatureMin = 5;
 					int temperatureMax = 39;
-					String macAdress1 = SensorsFront1.getTextField().getText();
-					String user_name = SensorsFront1.getTextField_1().getText();
-					String user_firstname = SensorsFront1.getTextField_2().getText();
 
 
 					System.out.println("Mac_adress"+macAdress+brand+location+type);
@@ -218,6 +212,7 @@ public class Sensor_Backend implements ActionListener {
 
 						}
 					}
+					sensorPlan.AddButtonavailable(location);
 				}
 
 
@@ -229,50 +224,17 @@ public class Sensor_Backend implements ActionListener {
 					log.error(e0.getMessage());
 				}
 
-
-
-				sensorPlan.AddButtonavailable(Sensors_Add.getComboBox_1().getSelectedItem().toString());
-
+				
+                
 
 
 			}
-			/*
-			if(ae.getSource()== SensorsFront1.getBtnSubmit1()){
-				System.out.println("action button Submit1");
-				String idInString = JOptionPane.showInputDialog(null, "Please enter macAdress of sensor to update :"
-						, "Updating", JOptionPane.QUESTION_MESSAGE);
-				try
-				{
-					String macAdress1 = SensorsFront1.getTextField().getText();
-					String user_name = SensorsFront1.getTextField_1().getText();
-					String user_firstname = SensorsFront1.getTextField_2().getText();
-					int id = Integer.parseInt(idInString);
 
-					String macAdress = JOptionPane.showInputDialog(null, "Please enter the new value of your sensor"
-							, "Creating", JOptionPane.QUESTION_MESSAGE);
 
-					Temperatures_Sensors temperaturessensorsUpdating = new Temperatures_Sensors(macAdress1, newAlertName,  null);				
-					String serializedObject = Tools.serializeObject(alertUpdating, alertUpdating.getClass(), "");
-					String jsRequest = Tools.serializeObject(Queries.UPDATE, Alerts.class, serializedObject);
-					String answer = ClientServerConnection.returnClientSocket().sendToServer(jsRequest);
-					log.info("Getting the answer from the server..." + Tools.getPrettyJson(answer));
-					String error = Tools.jsonNode(JSONExample.ERROR, answer).trim();
-					if(!error.equals(""))
-					{
-						JOptionPane.showMessageDialog(homePageFront, error, "Error", JOptionPane.ERROR_MESSAGE);
-					}
-				}
-				catch(Exception exp){
-					log.error("The convertion into an Integer did not work");
-					JOptionPane.showMessageDialog(null, "Sorry, something is wrong with it", "Cannot convert", JOptionPane.WARNING_MESSAGE);
-				}
-			}	
-			 */
+			
+
+
 		}
-
-
-
-
 	}
 }
 

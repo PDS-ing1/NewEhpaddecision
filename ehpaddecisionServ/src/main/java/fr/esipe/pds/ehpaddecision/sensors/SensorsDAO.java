@@ -46,7 +46,7 @@ public class SensorsDAO extends AbDAO<Sensors>{
 			{
 				try {
 					PreparedStatement preparedStatement = connection
-							.prepareStatement("INSERT INTO sensor1 (macAdress, Brand, Location, Type, mode, date)"
+							.prepareStatement("INSERT INTO sensor (macAdress, Brand, Location, Type, mode, date)"
 									+ " VALUES (? , ? , ? , ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
 					preparedStatement.setString(1, sensors.getMacAdress());
 					preparedStatement.setString(2, sensors.getBrand());

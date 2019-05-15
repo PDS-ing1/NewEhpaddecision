@@ -65,7 +65,8 @@ public class SensorPlan extends JFrame implements ActionListener{
 
 	JButton button ;
 	JButton btnNewButton_1;
-	private Sensors_Add instance;
+	
+	Sensors_Add instance ;
 
 	String living_room = "Living room";
 	String kitchen = "Kitchen";
@@ -90,6 +91,7 @@ public class SensorPlan extends JFrame implements ActionListener{
 	JButton library1;
 	JButton corridor3_1;
 	JButton corridor1_1;
+	JButton btnNewButton;
 
 	public void begin()
 	{
@@ -98,6 +100,8 @@ public class SensorPlan extends JFrame implements ActionListener{
 				try {
 					SensorPlan window = new SensorPlan();
 					window.setVisible(true);
+					instance = new Sensors_Add();
+					instance.getFrame().setVisible(false);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -117,12 +121,16 @@ public class SensorPlan extends JFrame implements ActionListener{
 		initialize();
 	}
 
+	public SensorPlan(Sensors_Add sensors_Add) {
+		this.instance = sensors_Add;
+	}
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
 		//frame = new JFrame();
 		sensorPlanBackEnd = new PlanSensorBackEnd(this);
+		instance = new Sensors_Add();
 		getContentPane().setBackground(Color.ORANGE);
 		setBounds(100, 100, 450, 300);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -131,22 +139,25 @@ public class SensorPlan extends JFrame implements ActionListener{
 		setResizable(false);
 
 
-		JButton btnNewButton = new JButton("Add a sensor");
+		btnNewButton = new JButton("Add a sensor");
 		btnNewButton.setBackground(Color.LIGHT_GRAY);
+		btnNewButton.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				instance.getFrame().setVisible(true);
+				
+			}
+			
+		});
 		btnNewButton.setBounds(20, 11, 174, 23);
 		getContentPane().add(btnNewButton);
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-
-				instance = new DeleteSensor();
-				instance.setVisible(true);
-			}
-		});
-
+		
+		
 		btnNewButton_1 = new JButton("Delete a sensor\r\n");
 		btnNewButton_1.setBackground(Color.LIGHT_GRAY);
 		btnNewButton_1.setBounds(20, 44, 174, 23);
 		getContentPane().add(btnNewButton_1);
+		
 		//btnNewButton_1.addActionListener(new ActionListener() {
 			//public void actionPerformed(ActionEvent arg0) {
 
@@ -159,6 +170,7 @@ public class SensorPlan extends JFrame implements ActionListener{
 		btnNewButton_2.setBackground(Color.LIGHT_GRAY);
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				
 			}
 		});
 		btnNewButton_2.setBounds(198, 11, 190, 23);
@@ -172,6 +184,12 @@ public class SensorPlan extends JFrame implements ActionListener{
 		btnNewButton_3.setBackground(Color.LIGHT_GRAY);
 		btnNewButton_3.setBounds(198, 44, 190, 23);
 		getContentPane().add(btnNewButton_3);
+		btnNewButton_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				EhpadPage ehpad = new EhpadPage();
+				ehpad.setVisible(true);
+			}
+		});
 
 		button = new JButton("Refresh");
 		button.setBackground(Color.LIGHT_GRAY);
@@ -183,6 +201,9 @@ public class SensorPlan extends JFrame implements ActionListener{
 		button_1.setBackground(Color.LIGHT_GRAY);
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				MainClient client = new MainClient();
+				
+				client.getFrame().setVisible(true);
 			}
 		});
 		button_1.setBounds(20, 79, 174, 21);
@@ -472,6 +493,11 @@ public class SensorPlan extends JFrame implements ActionListener{
 			}
 		}
 
+	}
+	
+	public JButton getButonAdd()
+	{
+		return btnNewButton;
 	}
 
 

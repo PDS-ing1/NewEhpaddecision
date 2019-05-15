@@ -15,6 +15,7 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Vector;
 
 import javax.swing.DefaultListSelectionModel;
 import javax.swing.JButton;
@@ -27,8 +28,13 @@ import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.table.TableModel;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+//import fr.esipe.pds.ehpaddecision.connectionpool.JDBCConnectionPool;
 import fr.esipe.pds.ehpaddecision.mocksimu.SimulHumidity;
 import fr.esipe.pds.ehpaddecision.mocksimu.SimulSmoke;
+import fr.esipe.pds.ehpaddecision.nicetoadd.Tools;
 
 
 
@@ -39,7 +45,8 @@ public class AlertPage
 	public static void main(String[] args)
 	{
 
-		Connection connection = getConnection();
+	
+		Connection connection = this.connection(); 
 		try
 		{	
 			
@@ -114,7 +121,7 @@ public class AlertPage
 			e.printStackTrace();
 		}
 	}
-
+/*
 	public static Connection getConnection()
 	{
 		Connection connection = null;
@@ -143,10 +150,33 @@ public class AlertPage
 		}
 
 		return connection;
-	}
+	}*/
 	private static final String PILOTE ="com.mysql.jdbc.Driver";
 	private static final String URL_DATABASE ="jdbc:mysql://localhost:3306/pds1";
+	private static final Logger log = LoggerFactory.getLogger(AlertPage.class);
+    private final String url             =  Tools.propertiesFileHandler("url");
+    private final String user            =  Tools.propertiesFileHandler("username");
+    private final String pswd            =  Tools.propertiesFileHandler("password");
+    private int connectionsAvailableNb;
+    private int connectionsRecentlyCreated;
+    private Vector<Connection> connections;
 	
+	public AlertPage() {
+		connections = new Vector<Connection>();
+		connectionsRecentlyCreated = 0;
+		log.info("This Database is linked to this url : " + url);
+		try
+		{
+			connectionsAvailableNb = Integer.parseInt(Tools.propertiesFileHandler("nb_connection"));
+		}
+		catch(Exception e)
+		{
+			log.error("File unloaded from properties !");
+			connectionsAvailableNb = 10;
+		}
+
+		log.info(connectionsAvailableNb + " connection(s) should be put inside the connection pool.");
+	} 
 }
 
 
