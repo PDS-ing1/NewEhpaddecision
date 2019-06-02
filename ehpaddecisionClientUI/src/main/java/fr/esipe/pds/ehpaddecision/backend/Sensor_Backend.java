@@ -49,12 +49,18 @@ import fr.esipe.pds.ehpaddecision.principales.Temperatures_Sensors;
 public class Sensor_Backend implements ActionListener {
 	private static final  Logger log = LoggerFactory.getLogger(Sensor_Backend.class);
 	private Sensors_Add sensors_add;
-		SensorPlan sensorPlan;
-	
+	private SensorsFront1 sensorsfront1;
+	private SensorPlan sensorPlan;
+
 
 
 	public Sensor_Backend(Sensors_Add sensors_add) {
 		this.sensors_add = sensors_add;
+	}
+
+
+	public Sensor_Backend(SensorsFront1 sensorsFront1) {
+		this.sensorsfront1 = sensorsfront1;
 	}
 
 
@@ -224,17 +230,18 @@ public class Sensor_Backend implements ActionListener {
 					log.error(e0.getMessage());
 				}
 
-				
-                
+
+
 
 
 			}
 
 
-			
-
 
 		}
 	}
+
+
+
 }
 

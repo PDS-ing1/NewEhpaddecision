@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +14,7 @@ import com.fasterxml.jackson.core.JsonFactory;
 import fr.esipe.pds.ehpaddecision.dao.AbDAO;
 import fr.esipe.pds.ehpaddecision.locations.LocationDAO;
 import fr.esipe.pds.ehpaddecision.principales.Alerts;
+import fr.esipe.pds.ehpaddecision.principales.Locations;
 import fr.esipe.pds.ehpaddecision.principales.Sensors;
 import fr.esipe.pds.ehpaddecision.principales.Temperatures_Sensors;
 import fr.esipe.pds.ehpaddecision.principales.Users;
@@ -91,16 +93,61 @@ public class SensorsTemperaturesDAO extends AbDAO<Temperatures_Sensors> {
 	}
 
 
-@Override
-public void delete(Temperatures_Sensors obj) {
-	// TODO Auto-generated method stub
+	@Override
+	public void delete(Temperatures_Sensors obj) {
+		// TODO Auto-generated method stub
 
-}
+	}
 
-@Override
-public List<Temperatures_Sensors> find(List<String> values) {
-	// TODO Auto-generated method stub
-	return null;
-}
+	public List<Temperatures_Sensors> DisplayAllTemperaturesSensors() {
+		List<Temperatures_Sensors> temperatures_sensors = new ArrayList<Temperatures_Sensors>();
+		if(connection != null)
+		{
+			try {
+				PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM temperatures_sensors");
+				ResultSet rs = preparedStatement.executeQuery();
+				Temperatures_Sensors temperatures_sensor;
+				while (rs.next()) {
+					temperatures_sensor = sensorsHandler(rs);
+					if(temperatures_sensor != null)
+					{
+						temperatures_sensor.add(temperatures_sensor);
+					}
+				}
+			} catch (Exception e) {
+				log.error("Oh, it looks like a big url.. try again : " + e.getMessage());
+				e.printStackTrace();
+			}
+		}
+
+		return temperatures_sensors;
+	}
+
+	@Override
+	public List<Temperatures_Sensors> find(List<String> values) {
+		
+		List<Temperatures_Sensors> temperatures_sensors = new ArrayList<Temperatures_Sensors>();
+
+		if(connection != null)
+		{
+			try {
+				PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM temperatures_sensors");
+				ResultSet rs = preparedStatement.executeQuery();
+				Temperatures_Sensors temperatures_sensor;
+				while (rs.next()) {
+					temperatures_sensor = sensorsHandler(rs);
+					if(temperatures_sensor != null)
+					{
+						temperatures_sensor.add(temperatures_sensor);
+					}
+				}
+			} catch (Exception e) {
+				log.error("Oh it seems to be a big URL, try again : " + e.getMessage());
+				e.printStackTrace();
+			}
+		}
+
+		return temperatures_sensors;
+	}
 
 }

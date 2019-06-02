@@ -28,6 +28,7 @@ public class Temperatures_Sensors {
 		this.temperatureMin = temperatureMin;
 		this.temperatureMax = temperatureMax;
 	}
+	
 
 	public String getMacAdress() {
 		return macAdress;
@@ -96,6 +97,13 @@ public class Temperatures_Sensors {
 
 	public String toString() {
 		return "temperatures_sensors [macAdress=" + macAdress + ", Brand=" + Brand + ", Location=" + Location + ", mode=" + mode +", date=" + date +", temperatureMin=" + temperatureMin +", temperatureMax=" + temperatureMax +"]";
+	}
+
+
+	public void add(Temperatures_Sensors temperatures_sensor) {
+		// TODO Auto-generated method stub
+		this.add(temperatures_sensor);
+		
 	}
 
 

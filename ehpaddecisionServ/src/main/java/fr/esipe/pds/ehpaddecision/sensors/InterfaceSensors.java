@@ -11,6 +11,6 @@ public interface InterfaceSensors {
 	void delete (int userId);*/
 	
 	// to display all Users.
-	//List<Temperatures_Sensors> DisplayAllUsers(); 
+	List<SensorsTemperaturesDAO> DisplayAllTemperaturesSensors(); 
 
 }
