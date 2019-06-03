@@ -3,29 +3,49 @@ package fr.esipe.pds.ehpaddecision.frontend;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JCheckBoxMenuItem;
 import java.awt.Choice;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JToggleButton;
 
+import fr.esipe.pds.ehpaddecision.backend.Connection123;
 import fr.esipe.pds.ehpaddecision.backend.Sensor_Backend;
+import fr.esipe.pds.ehpaddecision.enumerations.JSONExample;
+import fr.esipe.pds.ehpaddecision.enumerations.Queries;
+import fr.esipe.pds.ehpaddecision.exceptions.AllConnectionUsedException;
 import fr.esipe.pds.ehpaddecision.main.ClientServerConnection;
+import fr.esipe.pds.ehpaddecision.nicetoadd.Tools;
+import fr.esipe.pds.ehpaddecision.principales.Temperatures_Sensors;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.swing.JRadioButtonMenuItem;
 import javax.swing.ButtonGroup;
 
 public class SensorsFront1 extends JPanel implements ActionListener{
+	private static final  Logger log = LoggerFactory.getLogger(SensorsFront1.class);
 
 	private JFrame frame;
 	private static JTextField textField;
@@ -44,6 +64,7 @@ public class SensorsFront1 extends JPanel implements ActionListener{
 	private EhpadPage ehpadPage;
 	private JList list_1;
 	private JList list_2;
+	String query= "SELECT * FROM temperatures_sensors";
 
 	/**
 	 * Launch the application.
@@ -54,8 +75,8 @@ public class SensorsFront1 extends JPanel implements ActionListener{
 				try {
 					SensorsFront1 window = new SensorsFront1();
 					window.frame.setVisible(true);
-					
-					
+
+
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -65,11 +86,12 @@ public class SensorsFront1 extends JPanel implements ActionListener{
 
 	/**
 	 * Create the application.
+	 * @throws SQLException 
 	 */
-	public SensorsFront1() {
+	public SensorsFront1() throws SQLException {
 		initialize();
-		windowOppened(null);
-		
+		populateJList(list_1, query, null);
+
 	}
 
 	/**
@@ -77,8 +99,8 @@ public class SensorsFront1 extends JPanel implements ActionListener{
 	 */
 	private void initialize() {
 		sensor_backend = new Sensor_Backend(this);
-		
-		
+
+
 		frame = new JFrame("Configuration");
 		frame.setBounds(100, 100, 550, 475);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -137,8 +159,8 @@ public class SensorsFront1 extends JPanel implements ActionListener{
 		lblSeuildioxidecarbone.setBounds(10, 115, 150, 14);
 		lblSeuildioxidecarbone.setVisible(false);
 		frame.getContentPane().add(lblSeuildioxidecarbone);
-		
-		
+
+
 
 		textField_4 = new JTextField();
 		textField_4.setBounds(10, 140, 150, 20);
@@ -153,38 +175,38 @@ public class SensorsFront1 extends JPanel implements ActionListener{
 		rdbtnNewRadioButton_1 = new JRadioButton("Temperature_Sensors");rdbtnNewRadioButton_1.addActionListener(this);
 		rdbtnNewRadioButton_1.setBounds(378, 148, 150, 23);
 		frame.getContentPane().add(rdbtnNewRadioButton_1);
-		
+
 		JLabel lblMacadress = new JLabel("Temperatures_Sensors_List");
 		lblMacadress.setBounds(10, 235, 200, 14);
 		frame.getContentPane().add(lblMacadress);
-		
+
 		JButton btnBack = new JButton("Back");
 		btnBack.setBounds(10, 368, 130, 57);
 		frame.getContentPane().add(btnBack);
-		
+
 		comboBox = new JComboBox();
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"off", "on"}));
 		comboBox.setBounds(10, 203, 130, 20);
 		frame.getContentPane().add(comboBox);
-		
+
 		JLabel lblState = new JLabel("State");
 		lblState.setBounds(10, 178, 130, 14);
 		frame.getContentPane().add(lblState);
-		
+
 		list_1 = new JList();
 		list_1.setBounds(264, 260, 260, 97);
 		frame.getContentPane().add(list_1);
 		list_1.setVisibleRowCount(-1);
-		
-		
-		
-		
+
+
+
+
 		list_2 = new JList();
 		list_2.setBounds(10, 260, 244, 97);
 		frame.getContentPane().add(list_2);
 		list_2.setVisibleRowCount(-1);
-		
-		
+
+
 		JLabel lblSmokesensorslist = new JLabel("Smoke_Sensors_List");
 		lblSmokesensorslist.setBounds(264, 235, 200, 14);
 		frame.getContentPane().add(lblSmokesensorslist);
@@ -343,7 +365,7 @@ public class SensorsFront1 extends JPanel implements ActionListener{
 			textField_2.setVisible(false);
 			textField_3.setVisible(false);
 		}
-		
+
 		if(e.getSource() == rdbtnNewRadioButton_1){
 			textField_2.setVisible(true);
 			textField_3.setVisible(true);
@@ -351,32 +373,87 @@ public class SensorsFront1 extends JPanel implements ActionListener{
 			lblSeuildioxidecarbone.setVisible(false);
 			lblNewLabel_1.setVisible(true);
 			lblTempmax.setVisible(true);
-			
-			
+
+
 		}
-		
+
 		if(e.getSource() == btnSubmit1){
-			
+
 			System.out.print(textField.getText());
 			System.out.print(textField_1.getText());
 		}
+
+
+	}
+	
+	@SuppressWarnings("unchecked")
+	public void populateJList(JList list_1, String query, Connection conn) throws SQLException {
+		query= "SELECT * FROM temperatures_sensors";
+		DefaultListModel model = new DefaultListModel();
+		System.out.print("opi");
 		
-
-	}
-	
-	public void windowOppened(java.awt.event.WindowEvent e) {
-
-		try {
-			ClientServerConnection.callSocket();
-			System.out.print("TOT89");
-
-
-
-		} catch(Exception ex){
-			System.out.println(ex.getMessage());
-
+		Connection123 con = new Connection123();
+		Statement statement = con.createStatement();
+		ResultSet resultSet = statement.executeQuery(query);
+		
+		while (resultSet.next())
+		{
+			System.out.println("hello");
+			String macAdress = resultSet.getString("macAdress");
+			model.addElement(macAdress);
+			System.out.println("Hi");
 		}
+		list_1.setModel(model);
+		
+		
+		
+		
+		
 	}
 	
 	
+
+	
+	/*public void windowOppened(java.awt.event.WindowEvent e) throws AllConnectionUsedException {
+
+		Temperatures_Sensors temperatures_sensors = new Temperatures_Sensors(null, null, null, null, 0, 0, 0);
+		System.out.println(temperatures_sensors.toString());
+		String serializedObject = Tools.serializeObject(temperatures_sensors, temperatures_sensors.getClass(), "");
+		String jsRequest = Tools.serializeQuery(Queries.SELECT, Temperatures_Sensors.class, serializedObject,null);
+		System.out.println(serializedObject);
+		System.out.println("VAR45");
+
+		// String jsRequest = Tools.serializeObject(Queries.SELECT, Alerts.class, null);
+		// String jsRequest = Tools.serializeQuery(Queries.SELECT, Alerts.class, serializedObject,null);
+
+		System.out.println(jsRequest);
+		try 
+		{
+			String answer = ClientServerConnection.returnClientSocket().sendToServer(jsRequest);
+			log.info("Getting the answer from the server..." + Tools.getPrettyJson(answer));
+			String error = Tools.jsonNode(JSONExample.ERROR, answer).trim();
+			if(error.equals(""))
+			{
+				@SuppressWarnings("unchecked")
+				List<Temperatures_Sensors> temperatures_sensor = (List<Temperatures_Sensors>) Tools.deserializeObject(answer);
+				String TemperatureSensorText = "";
+				for(Temperatures_Sensors Temperatures_sensor : temperatures_sensor)
+				{
+					TemperatureSensorText += Temperatures_sensor+ "\n";
+				}
+				System.out.println(TemperatureSensorText);
+				//homePageFront.getTextArea().setText(locationsText);
+			}
+			else {
+				JOptionPane.showMessageDialog(this, error, "Error", JOptionPane.ERROR_MESSAGE);
+			}
+
+		} 
+		catch (IOException e1){
+			log.error(e1.getMessage());
+		} 
+	}*/
+
+
+
 }

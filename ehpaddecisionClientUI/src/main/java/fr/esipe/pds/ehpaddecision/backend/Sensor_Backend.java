@@ -128,8 +128,6 @@ public class Sensor_Backend implements ActionListener {
 
 
 
-
-
 								log.info("Getting the answer from the server..." + Tools.getPrettyJson(answer1));
 								String error1 = Tools.jsonNode(JSONExample.ERROR, answer1).trim();
 								if(error1.equals("")) {
