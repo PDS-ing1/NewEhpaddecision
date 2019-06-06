@@ -40,6 +40,7 @@ public class SensorsSmokeDAO extends AbDAO<SensorsSmokeDAO>{
 		}
 	}
 
+	@Override
 	public Smoke_Sensors create(Smoke_Sensors smoke_sensors) {
 		// TODO Auto-generated method stub
 		if(connection != null)

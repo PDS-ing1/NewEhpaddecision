@@ -79,11 +79,16 @@ public class SensorsTemperaturesDAO extends AbDAO<Temperatures_Sensors> {
 		// quick check if there is any free connection to use 
 		if(connection != null)
 		{
+			System.out.println("Bien jouéééééé");
 			try {
+				System.out.println("ALALALALALA");
 				PreparedStatement preparedStatement = connection
-						.prepareStatement("UPDATE temperatures_sensors SET mode = ? WHERE macAdress =" + temperatures_sensors.getMacAdress());
-				preparedStatement.setString(1, temperatures_sensors.getMacAdress());
-				preparedStatement.execute();
+						.prepareStatement("UPDATE temperatures_sensors SET temperatureMin = ?, temperatureMax = ? WHERE macAdress =" + temperatures_sensors.getMacAdress());
+				preparedStatement.setInt(1, temperatures_sensors.getTemperatureMin());
+				preparedStatement.setInt(2, temperatures_sensors.getTemperatureMax());
+				
+				preparedStatement.executeUpdate();
+				System.out.println("C'est passer");
 			} catch (Exception e) {
 				log.error("An error occurred during the update of a location : " + e.getMessage());
 				e.printStackTrace();
@@ -91,6 +96,23 @@ public class SensorsTemperaturesDAO extends AbDAO<Temperatures_Sensors> {
 		}
 
 	}
+	
+	/*public void update(Alerts alert) {
+		// quick check if there is any free connection to use 
+		if(connection != null)
+		{
+			try {
+				PreparedStatement preparedStatement = connection
+						.prepareStatement("UPDATE ALERT SET NAME = ? WHERE ID_ALERT =" + alert.getIdAlert());
+				preparedStatement.setString(1, alert.getNameAlert());
+				preparedStatement.execute();
+			} catch (Exception e) {
+				log.error("An error occurred during the update of a location : " + e.getMessage());
+				e.printStackTrace();
+			}
+		}
+
+	}*/
 
 
 	@Override

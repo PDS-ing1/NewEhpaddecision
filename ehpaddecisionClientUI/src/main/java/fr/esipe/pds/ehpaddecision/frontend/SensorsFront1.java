@@ -48,11 +48,13 @@ public class SensorsFront1 extends JPanel implements ActionListener{
 	private static final  Logger log = LoggerFactory.getLogger(SensorsFront1.class);
 
 	private JFrame frame;
-	private static JTextField textField;
-	private static JTextField textField_1;
-	private static JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
+	private static JTextField User_Name_Field;
+	private static JTextField User_firstName_Field;
+	private static JTextField Temp_Min_Field;
+	private static JTextField Temp_Max_Field;
+	private static JTextField PPM_Field;
+	private static JTextField MacAdressTextField;
+	
 	JLabel lblNewLabel_1;
 	JLabel lblTempmax;
 	static JComboBox comboBox;
@@ -64,7 +66,6 @@ public class SensorsFront1 extends JPanel implements ActionListener{
 	private EhpadPage ehpadPage;
 	private JList list_1;
 	private JList list_2;
-	String query= "SELECT * FROM temperatures_sensors";
 
 	/**
 	 * Launch the application.
@@ -90,7 +91,6 @@ public class SensorsFront1 extends JPanel implements ActionListener{
 	 */
 	public SensorsFront1() throws SQLException {
 		initialize();
-		populateJList(list_1, query, null);
 
 	}
 
@@ -106,19 +106,19 @@ public class SensorsFront1 extends JPanel implements ActionListener{
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 
-		textField = new JTextField();
-		textField.setBounds(378, 36, 130, 20);
-		frame.getContentPane().add(textField);
-		textField.setColumns(10);
+		User_Name_Field = new JTextField();
+		User_Name_Field.setBounds(378, 36, 130, 20);
+		frame.getContentPane().add(User_Name_Field);
+		User_Name_Field.setColumns(10);
 
 		JLabel lblAdresseMac = new JLabel("User_Name");
 		lblAdresseMac.setBounds(378, 11, 130, 14);
 		frame.getContentPane().add(lblAdresseMac);
 
-		textField_1 = new JTextField();
-		textField_1.setBounds(378, 84, 130, 20);
-		frame.getContentPane().add(textField_1);
-		textField_1.setColumns(10);
+		User_firstName_Field = new JTextField();
+		User_firstName_Field.setBounds(378, 84, 130, 20);
+		frame.getContentPane().add(User_firstName_Field);
+		User_firstName_Field.setColumns(10);
 
 		JLabel lblNewLabel = new JLabel("User_firstName");
 		lblNewLabel.setBounds(378, 59, 130, 14);
@@ -133,11 +133,11 @@ public class SensorsFront1 extends JPanel implements ActionListener{
 		frame.getContentPane().add(btnSubmit1);
 		btnSubmit1.addActionListener(sensor_backend);
 
-		textField_2 = new JTextField();
-		textField_2.setBounds(10, 36, 130, 20);
-		frame.getContentPane().add(textField_2);
-		textField_2.setColumns(10);
-		textField_2.setVisible(false);
+		Temp_Min_Field = new JTextField();
+		Temp_Min_Field.setBounds(10, 36, 130, 20);
+		frame.getContentPane().add(Temp_Min_Field);
+		Temp_Min_Field.setColumns(10);
+		Temp_Min_Field.setVisible(false);
 
 		lblNewLabel_1 = new JLabel("Temp_Min");
 		lblNewLabel_1.setBounds(10, 11, 130, 14);
@@ -149,24 +149,29 @@ public class SensorsFront1 extends JPanel implements ActionListener{
 		frame.getContentPane().add(lblTempmax);
 		lblTempmax.setVisible(false);
 
-		textField_3 = new JTextField();
-		textField_3.setBounds(10, 84, 130, 20);
-		frame.getContentPane().add(textField_3);
-		textField_3.setColumns(10);
-		textField_3.setVisible(false);
+		Temp_Max_Field = new JTextField();
+		Temp_Max_Field.setBounds(10, 84, 130, 20);
+		frame.getContentPane().add(Temp_Max_Field);
+		Temp_Max_Field.setColumns(10);
+		Temp_Max_Field.setVisible(false);
 
 		lblSeuildioxidecarbone = new JLabel("Seuil_DioxideCarbone");
 		lblSeuildioxidecarbone.setBounds(10, 115, 150, 14);
 		lblSeuildioxidecarbone.setVisible(false);
+		
+		MacAdressTextField = new JTextField();
+		MacAdressTextField.setBounds(180, 36, 130, 20);
+		frame.getContentPane().add(MacAdressTextField);
+		MacAdressTextField.setColumns(10);
 		frame.getContentPane().add(lblSeuildioxidecarbone);
 
 
 
-		textField_4 = new JTextField();
-		textField_4.setBounds(10, 140, 150, 20);
-		frame.getContentPane().add(textField_4);
-		textField_4.setColumns(10);
-		textField_4.setVisible(false);
+		PPM_Field = new JTextField();
+		PPM_Field.setBounds(10, 140, 150, 20);
+		frame.getContentPane().add(PPM_Field);
+		PPM_Field.setColumns(10);
+		PPM_Field.setVisible(false);
 
 		rdbtnNewRadioButton = new JRadioButton("Smoke_Sensors");rdbtnNewRadioButton.addActionListener(this);
 		rdbtnNewRadioButton.setBounds(378, 111, 130, 23);
@@ -210,31 +215,13 @@ public class SensorsFront1 extends JPanel implements ActionListener{
 		JLabel lblSmokesensorslist = new JLabel("Smoke_Sensors_List");
 		lblSmokesensorslist.setBounds(264, 235, 200, 14);
 		frame.getContentPane().add(lblSmokesensorslist);
+		
+		JLabel lblMacadress_1 = new JLabel("MacAdress");
+		lblMacadress_1.setBounds(180, 11, 130, 14);
+		frame.getContentPane().add(lblMacadress_1);
 	}
 
-	public JList getList_1() {
-		return list_1;
-	}
-
-	public void setList_1(JList list_1) {
-		this.list_1 = list_1;
-	}
-
-	public JList getList_2() {
-		return list_2;
-	}
-
-	public void setList_2(JList list_2) {
-		this.list_2 = list_2;
-	}
-
-	public static JComboBox getComboBox() {
-		return comboBox;
-	}
-
-	public void setComboBox(JComboBox comboBox) {
-		this.comboBox = comboBox;
-	}
+	
 
 	public JFrame getFrame() {
 		return frame;
@@ -244,52 +231,52 @@ public class SensorsFront1 extends JPanel implements ActionListener{
 		this.frame = frame;
 	}
 
-	public static JTextField getTextField() {
-		return textField;
+	public static JTextField getUser_Name_Field() {
+		return User_Name_Field;
 	}
 
-	public void setTextField(JTextField textField) {
-		this.textField = textField;
+	public static void setUser_Name_Field(JTextField user_Name_Field) {
+		User_Name_Field = user_Name_Field;
 	}
 
-	public static JTextField getTextField_1() {
-		return textField_1;
+	public static JTextField getUser_firstName_Field() {
+		return User_firstName_Field;
 	}
 
-	public void setTextField_1(JTextField textField_1) {
-		this.textField_1 = textField_1;
+	public static void setUser_firstName_Field(JTextField user_firstName_Field) {
+		User_firstName_Field = user_firstName_Field;
 	}
 
-	public static JTextField getTextField_2() {
-		return textField_2;
+	public static JTextField getTemp_Min_Field() {
+		return Temp_Min_Field;
 	}
 
-	public void setTextField_2(JTextField textField_2) {
-		this.textField_2 = textField_2;
+	public static void setTemp_Min_Field(JTextField temp_Min_Field) {
+		Temp_Min_Field = temp_Min_Field;
 	}
 
-	public JTextField getTextField_3() {
-		return textField_3;
+	public static JTextField getTemp_Max_Field() {
+		return Temp_Max_Field;
 	}
 
-	public void setTextField_3(JTextField textField_3) {
-		this.textField_3 = textField_3;
+	public void setTemp_Max_Field(JTextField temp_Max_Field) {
+		Temp_Max_Field = temp_Max_Field;
 	}
 
-	public JTextField getTextField_4() {
-		return textField_4;
+	public static JTextField getPPM_Field() {
+		return PPM_Field;
 	}
 
-	public void setTextField_4(JTextField textField_4) {
-		this.textField_4 = textField_4;
+	public void setPPM_Field(JTextField pPM_Field) {
+		PPM_Field = pPM_Field;
 	}
 
-	public JTextField getTextField_5() {
-		return textField_5;
+	public static JTextField getMacAdressTextField() {
+		return MacAdressTextField;
 	}
 
-	public void setTextField_5(JTextField textField_5) {
-		this.textField_5 = textField_5;
+	public void setMacAdressTextField(JTextField macAdressTextField) {
+		MacAdressTextField = macAdressTextField;
 	}
 
 	public JLabel getLblNewLabel_1() {
@@ -308,6 +295,14 @@ public class SensorsFront1 extends JPanel implements ActionListener{
 		this.lblTempmax = lblTempmax;
 	}
 
+	public static JComboBox getComboBox() {
+		return comboBox;
+	}
+
+	public static void setComboBox(JComboBox comboBox) {
+		SensorsFront1.comboBox = comboBox;
+	}
+
 	public JRadioButton getRdbtnNewRadioButton() {
 		return rdbtnNewRadioButton;
 	}
@@ -320,16 +315,16 @@ public class SensorsFront1 extends JPanel implements ActionListener{
 		return rdbtnNewRadioButton_1;
 	}
 
-	public void setRdbtnNewRadioButton_1(JRadioButton rdbtnNewRadioButton_1) {
-		this.rdbtnNewRadioButton_1 = rdbtnNewRadioButton_1;
+	public static void setRdbtnNewRadioButton_1(JRadioButton rdbtnNewRadioButton_1) {
+		SensorsFront1.rdbtnNewRadioButton_1 = rdbtnNewRadioButton_1;
 	}
 
 	public static JButton getBtnSubmit1() {
 		return btnSubmit1;
 	}
 
-	public void setBtnSubmit1(JButton btnSubmit1) {
-		this.btnSubmit1 = btnSubmit1;
+	public static void setBtnSubmit1(JButton btnSubmit1) {
+		SensorsFront1.btnSubmit1 = btnSubmit1;
 	}
 
 	public JLabel getLblSeuildioxidecarbone() {
@@ -356,20 +351,40 @@ public class SensorsFront1 extends JPanel implements ActionListener{
 		this.ehpadPage = ehpadPage;
 	}
 
+	public JList getList_1() {
+		return list_1;
+	}
+
+	public void setList_1(JList list_1) {
+		this.list_1 = list_1;
+	}
+
+	public JList getList_2() {
+		return list_2;
+	}
+
+	public void setList_2(JList list_2) {
+		this.list_2 = list_2;
+	}
+
+	public static Logger getLog() {
+		return log;
+	}
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if(e.getSource() == rdbtnNewRadioButton){
-			textField_4.setVisible(true);
+			PPM_Field.setVisible(true);
 			lblSeuildioxidecarbone.setVisible(true);
-			textField_2.setVisible(false);
-			textField_3.setVisible(false);
+			Temp_Min_Field.setVisible(false);
+			Temp_Max_Field.setVisible(false);
 		}
 
 		if(e.getSource() == rdbtnNewRadioButton_1){
-			textField_2.setVisible(true);
-			textField_3.setVisible(true);
-			textField_4.setVisible(false);
+			Temp_Min_Field.setVisible(true);
+			Temp_Max_Field.setVisible(true);
+			PPM_Field.setVisible(false);
 			lblSeuildioxidecarbone.setVisible(false);
 			lblNewLabel_1.setVisible(true);
 			lblTempmax.setVisible(true);
@@ -379,81 +394,10 @@ public class SensorsFront1 extends JPanel implements ActionListener{
 
 		if(e.getSource() == btnSubmit1){
 
-			System.out.print(textField.getText());
-			System.out.print(textField_1.getText());
+			System.out.print(User_Name_Field.getText());
+			System.out.print(User_firstName_Field.getText());
 		}
 
 
 	}
-	
-	@SuppressWarnings("unchecked")
-	public void populateJList(JList list_1, String query, Connection conn) throws SQLException {
-		query= "SELECT * FROM temperatures_sensors";
-		DefaultListModel model = new DefaultListModel();
-		System.out.print("opi");
-		
-		Connection123 con = new Connection123();
-		Statement statement = con.createStatement();
-		ResultSet resultSet = statement.executeQuery(query);
-		
-		while (resultSet.next())
-		{
-			System.out.println("hello");
-			String macAdress = resultSet.getString("macAdress");
-			model.addElement(macAdress);
-			System.out.println("Hi");
-		}
-		list_1.setModel(model);
-		
-		
-		
-		
-		
-	}
-	
-	
-
-	
-	/*public void windowOppened(java.awt.event.WindowEvent e) throws AllConnectionUsedException {
-
-		Temperatures_Sensors temperatures_sensors = new Temperatures_Sensors(null, null, null, null, 0, 0, 0);
-		System.out.println(temperatures_sensors.toString());
-		String serializedObject = Tools.serializeObject(temperatures_sensors, temperatures_sensors.getClass(), "");
-		String jsRequest = Tools.serializeQuery(Queries.SELECT, Temperatures_Sensors.class, serializedObject,null);
-		System.out.println(serializedObject);
-		System.out.println("VAR45");
-
-		// String jsRequest = Tools.serializeObject(Queries.SELECT, Alerts.class, null);
-		// String jsRequest = Tools.serializeQuery(Queries.SELECT, Alerts.class, serializedObject,null);
-
-		System.out.println(jsRequest);
-		try 
-		{
-			String answer = ClientServerConnection.returnClientSocket().sendToServer(jsRequest);
-			log.info("Getting the answer from the server..." + Tools.getPrettyJson(answer));
-			String error = Tools.jsonNode(JSONExample.ERROR, answer).trim();
-			if(error.equals(""))
-			{
-				@SuppressWarnings("unchecked")
-				List<Temperatures_Sensors> temperatures_sensor = (List<Temperatures_Sensors>) Tools.deserializeObject(answer);
-				String TemperatureSensorText = "";
-				for(Temperatures_Sensors Temperatures_sensor : temperatures_sensor)
-				{
-					TemperatureSensorText += Temperatures_sensor+ "\n";
-				}
-				System.out.println(TemperatureSensorText);
-				//homePageFront.getTextArea().setText(locationsText);
-			}
-			else {
-				JOptionPane.showMessageDialog(this, error, "Error", JOptionPane.ERROR_MESSAGE);
-			}
-
-		} 
-		catch (IOException e1){
-			log.error(e1.getMessage());
-		} 
-	}*/
-
-
-
 }

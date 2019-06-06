@@ -34,6 +34,8 @@ import fr.esipe.pds.ehpaddecision.principales.Users;
 import fr.esipe.pds.ehpaddecision.principales.Temperatures_Sensors;
 
 public class HomePageFront extends JPanel {
+	
+	
 
 	private static final  Logger log = LoggerFactory.getLogger(HomePageFront.class);
 	private JPanel firstpanel = new JPanel(new CardLayout());

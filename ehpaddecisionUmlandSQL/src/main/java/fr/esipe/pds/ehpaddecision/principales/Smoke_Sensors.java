@@ -11,8 +11,6 @@ public class Smoke_Sensors {
 	private String Type;
 	private String mode = "off";
 	private long date = System.currentTimeMillis();
-	private int temperatureMin = 5;
-	private int temperatureMax = 39;
 	
 	@JsonCreator
 	public Smoke_Sensors(@JsonProperty("macAdress") String macAdress,@JsonProperty("Brand") String Brand,@JsonProperty("Location") String Location,@JsonProperty("mode") String mode, @JsonProperty("date") long date ){
@@ -22,28 +20,10 @@ public class Smoke_Sensors {
 		this.Location = Location;
 		this.mode = mode;
 		this.date = date;
-		this.temperatureMin = temperatureMin;
-		this.temperatureMax = temperatureMax;
 	}
 
 	public String getMacAdress() {
 		return macAdress;
-	}
-
-	public int getTemperatureMin() {
-		return temperatureMin;
-	}
-
-	public void setTemperatureMin(int temperatureMin) {
-		this.temperatureMin = temperatureMin;
-	}
-
-	public int getTemperatureMax() {
-		return temperatureMax;
-	}
-
-	public void setTemperatureMax(int temperatureMax) {
-		this.temperatureMax = temperatureMax;
 	}
 
 	public void setMacAdress(String macAdress) {

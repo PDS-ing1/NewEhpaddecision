@@ -97,8 +97,9 @@ public class ServerHandler implements Runnable {
 			System.out.println(perim);
 			Class<?> perimCl = Class.forName(perim);
 			JsonNode seriaObjN = js.get(JSONExample.SERIALIZE.baseExample());
+			System.out.println("ON I EST!!!!!!!!!!!!!!");
 			Queries siud = Queries.getQueries(QNode.get(JSONExample.QUERY.baseExample()).textValue());
-			
+			System.out.println("ON Y EST!!!!!!!!!!!!!!");
 			switch(siud){
 			case SELECT:
 				execution = select(perimCl, seriaObjN);
@@ -150,8 +151,13 @@ public class ServerHandler implements Runnable {
 	// this function will handle the update request. 
 	private String update(Class<?> perimCl,JsonNode srzdONode) throws Exception {
 		
-		Object deserObj = Tools.deserializeObject(srzdONode.toString());		
+		
+		System.out.println(" deserialize start ");
+		Object deserObj = Tools.deserializeObject(srzdONode.toString());
+		System.out.println(" deserialize start ");
+		System.out.println(perimCl.toString());
 		AbDAO d = DAOHandler.getDAOHandler(connection, perimCl);
+		System.out.println("Step10 start");
 		d.update(perimCl.cast(deserializedObject));
 		String result = Tools.serializeObject(null, perimCl, "");
 		return result;

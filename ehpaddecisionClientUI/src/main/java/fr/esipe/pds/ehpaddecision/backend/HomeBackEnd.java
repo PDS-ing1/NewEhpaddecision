@@ -20,8 +20,8 @@ import fr.esipe.pds.ehpaddecision.principales.Alerts;
 import fr.esipe.pds.ehpaddecision.principales.Locations;
 import fr.esipe.pds.ehpaddecision.principales.Users;
 
-public class HomeBackEnd { //implements ActionListener {
-	/*
+public class HomeBackEnd implements ActionListener {
+	
 	private static final  Logger log = LoggerFactory.getLogger(HomeBackEnd.class);
 	private HomePageFront homePageFront;
 	public HomeBackEnd (HomePageFront homePageFront){
@@ -91,7 +91,7 @@ public class HomeBackEnd { //implements ActionListener {
 				}
 			}
 			// Test Location 
-			if(ae.getSource()==homePageFront.getButtonDisplay()) {
+			/*if(ae.getSource()==homePageFront.getButtonDisplay()) {
 				
 				Locations Location = new Locations ();
 				System.out.println(Location.toString());
@@ -130,7 +130,7 @@ public class HomeBackEnd { //implements ActionListener {
 				catch (AllConnectionUsedException usedConnection){
 					log.error(usedConnection.getMessage());
 				}
-			}
+			}*/
 			
 			// test user 
 			/*
@@ -217,7 +217,8 @@ public class HomeBackEnd { //implements ActionListener {
 					log.error(usedConnection.getMessage());
 				}
 			}
-			 *  /
+			 */
+			/*
 			if(ae.getSource() == homePageFront.getButtonDelete()){
 				String idInString = JOptionPane.showInputDialog(null, "Please enter the ID of the alert to delete :"
 						, "Delete", JOptionPane.QUESTION_MESSAGE);
@@ -239,7 +240,7 @@ public class HomeBackEnd { //implements ActionListener {
 					log.error("Failed conversion, try again...");
 					JOptionPane.showMessageDialog(null, "Sorry, something is wrong with it", "Cannot convert", JOptionPane.WARNING_MESSAGE);
 				}
-			}
+			}*/
 
 			if(ae.getSource() == homePageFront.getButtonUpdate()) {
 				String idInString = JOptionPane.showInputDialog(null, "Please enter an ID of alert to update :"
@@ -270,5 +271,5 @@ public class HomeBackEnd { //implements ActionListener {
 		}
 
 	}
-	*/
+	
 }
