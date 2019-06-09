@@ -14,7 +14,7 @@ public class Temperatures_Sensors {
 	private String Location;
 	private String Type;
 	private String mode;
-	private long date;
+	private Long date;
 	private int temperatureMin = 5;
 	private int temperatureMax = 39;
 
@@ -110,9 +110,9 @@ public class Temperatures_Sensors {
 		return "temperatures_sensors [macAdress=" + macAdress + ", Brand=" + Brand + ", Location=" + Location + ", mode=" + mode +", date=" + date +", temperatureMin=" + temperatureMin +", temperatureMax=" + temperatureMax +"]";
 	}
 	
-	/*public String toString1() {
+	public String toString1() {
 		return "temperatures_sensors [macAdress=" + macAdress + ", Brand=" + Brand +"]";
-	}*/
+	}
 
 
 

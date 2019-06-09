@@ -107,6 +107,7 @@ public class Tools {
 
 			
 			String className = perimNode.textValue();
+			System.out.println(className);
 			// the object <?> it is called a wildcard and it takes all kinds of objects in Java 
 			Class<?> objectClass = Class.forName(className);
 

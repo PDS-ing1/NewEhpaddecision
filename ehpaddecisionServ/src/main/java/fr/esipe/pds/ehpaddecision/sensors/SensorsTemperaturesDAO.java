@@ -36,12 +36,11 @@ public class SensorsTemperaturesDAO extends AbDAO<Temperatures_Sensors> implemen
 		{
 			Temperatures_Sensors temperatures_sensors = null;
 			try {
-				//temperatures_sensors = new Temperatures_Sensors(rs.getString("macAdress"), rs.getString("Brand"), rs.getString("Location"), rs.getString("mode"), rs.getLong("date"), rs.getInt("temperatureMin"), rs.getInt("temperatureMax"));
-				temperatures_sensors = new Temperatures_Sensors(rs.getString("macAdress"), rs.getString("Brand"));
-				System.out.println(temperatures_sensors);
+				temperatures_sensors = new Temperatures_Sensors(rs.getString("macAdress"), rs.getString("Brand"), rs.getString("Location"), rs.getString("mode"), rs.getLong("date"), rs.getInt("temperatureMin"), rs.getInt("temperatureMax"));
+				//temperatures_sensors = new Temperatures_Sensors(rs.getString("macAdress"), rs.getString("Brand"));
 			} catch (SQLException e) {
 				log.error("Sorry, we occured an error while retrieving this sensor from the result : " + e.getMessage());
-			}
+			}	
 			return temperatures_sensors;
 		}
 	}
@@ -78,7 +77,7 @@ public class SensorsTemperaturesDAO extends AbDAO<Temperatures_Sensors> implemen
 
 
 
-	public void update (Temperatures_Sensors temperatures_sensors) {
+	public void update(Temperatures_Sensors temperatures_sensors) {
 		// quick check if there is any free connection to use 
 		if(connection != null)
 		{
@@ -89,9 +88,9 @@ public class SensorsTemperaturesDAO extends AbDAO<Temperatures_Sensors> implemen
 				System.out.println(temperatures_sensors.getMacAdress());
 				System.out.println(temperatures_sensors.getBrand());
 				PreparedStatement preparedStatement = connection
-						.prepareStatement("UPDATE temperatures_sensors SET Brand = ? WHERE macAdress = ?");
-				preparedStatement.setString(1, temperatures_sensors.getBrand());
-				preparedStatement.setString(2, temperatures_sensors.getMacAdress());
+						.prepareStatement("UPDATE temperatures_sensors SET Brand = 'nawfal' WHERE macAdress = 'sensor3'");
+				//preparedStatement.setString(1, temperatures_sensors.getBrand());
+				//preparedStatement.setString(2, temperatures_sensors.getMacAdress());
 				System.out.println(preparedStatement);
 				preparedStatement.execute();
 				System.out.println("C'est passer");

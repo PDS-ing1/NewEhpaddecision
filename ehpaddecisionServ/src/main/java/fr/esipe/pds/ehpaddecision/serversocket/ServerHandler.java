@@ -164,7 +164,7 @@ public class ServerHandler implements Runnable {
 		
 		
 		System.out.println(" deserialize start ");
-		Object deserObj = Tools.deserializeObject(srzdONode.toString());
+		Object deserializedObject = Tools.deserializeObject(srzdONode.toString());
 		System.out.println(" deserialize fin ");
 		System.out.println(perimCl.toString());
 		AbDAO d = DAOHandler.getDAOHandler(connection, perimCl);

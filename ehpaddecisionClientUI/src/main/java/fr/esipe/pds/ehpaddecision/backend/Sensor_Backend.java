@@ -92,6 +92,7 @@ public class Sensor_Backend implements ActionListener {
 
 						if(type == "Temperatures_Sensors"){
 							Temperatures_Sensors temperatures_sensors = new Temperatures_Sensors(macAdress, brand , location, mode, date, temperatureMin, temperatureMax);
+							//Temperatures_Sensors temperatures_sensors = new Temperatures_Sensors(macAdress, brand);
 
 							System.out.println(temperatures_sensors.toString());
 							String serializedObject = Tools.serializeObject(temperatures_sensors, temperatures_sensors.getClass(), "");
@@ -266,10 +267,13 @@ public class Sensor_Backend implements ActionListener {
 				System.out.println("Action Button Submit1");
 
 				try {
+					
 					String macAdress = SensorsFront1.getMacAdressTextField().getText();
 					//String Temperature_Min = SensorsFront1.getTemp_Min_Field().getText();
 					//String Temperature_Max = SensorsFront1.getTemp_Max_Field().getText();
 					String Brand = SensorsFront1.getUser_firstName_Field().getText();
+					
+					System.out.println("Mac_adress"+macAdress+Brand);
 					ClientServerConnection.callSocket();
 					
 					//String id = Integer.parseInt(idInString);
