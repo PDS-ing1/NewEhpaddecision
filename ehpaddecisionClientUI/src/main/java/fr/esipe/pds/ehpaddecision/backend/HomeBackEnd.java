@@ -51,7 +51,7 @@ public class HomeBackEnd implements ActionListener {
 					    System.out.println(jsRequest);
 					    String answer = ClientServerConnection.returnClientSocket().sendToServer(jsRequest);
 					    
-					    user test
+					    Users test;
 					    Users user = new Users (nameAlert);
 						System.out.println(user.toString());
 					    String serializedObject = Tools.serializeObject(user, user.getClass(), "");

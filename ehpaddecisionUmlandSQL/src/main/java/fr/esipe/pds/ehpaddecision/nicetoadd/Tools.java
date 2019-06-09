@@ -46,6 +46,7 @@ public class Tools {
 		ObjectMapper mapper = new ObjectMapper();
 		ObjectNode node = mapper.createObjectNode();
 		message = (message == null) ? "" : message;
+		System.out.println(message);
 		node.put(JSONExample.ERROR.baseExample(), message);
 		try {
 

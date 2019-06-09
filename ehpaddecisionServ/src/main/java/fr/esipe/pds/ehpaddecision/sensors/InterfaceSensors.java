@@ -7,7 +7,7 @@ import fr.esipe.pds.ehpaddecision.principales.Sensors;
 import fr.esipe.pds.ehpaddecision.principales.Temperatures_Sensors;
 
 public interface InterfaceSensors {
-	void create (Temperatures_Sensors temperatures_sensors);
+	Temperatures_Sensors create (Temperatures_Sensors temperatures_sensors);
 	void update (Temperatures_Sensors temperatures_sensors);
 	//void delete (int userId);*/
 	

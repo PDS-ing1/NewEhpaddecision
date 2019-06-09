@@ -73,6 +73,7 @@ public class SClient {
 		
 		// Send the request to the server
 		System.out.println("WriteToServer will be executed");
+		System.out.println(requestToSendToServer);
 		writeToServer.println(requestToSendToServer);
 		System.out.println("WriteToServer have been executed");
 		

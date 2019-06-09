@@ -90,15 +90,24 @@ public class ServerHandler implements Runnable {
 	public String getDoneQuery(String jsQuery){		
 		String execution = "";
 		try {
+			System.out.println("Debut1");
 			ObjectMapper mapper = new ObjectMapper();
+			System.out.println("111111111");
 			JsonNode js = mapper.readTree(jsQuery);
-			JsonNode QNode = js.get(JSONExample.INFO.baseExample());	
+			System.out.println(js);
+			JsonNode QNode = js.get(JSONExample.INFO.baseExample());
+			System.out.println("3333333333");
+			System.out.println(QNode);
 			String perim = QNode.get(JSONExample.PERIM.baseExample()).textValue();
+			System.out.println("4444444444");
 			System.out.println(perim);
 			Class<?> perimCl = Class.forName(perim);
+			System.out.println(perimCl);
 			JsonNode seriaObjN = js.get(JSONExample.SERIALIZE.baseExample());
 			System.out.println("ON I EST!!!!!!!!!!!!!!");
+			System.out.println(seriaObjN);
 			Queries siud = Queries.getQueries(QNode.get(JSONExample.QUERY.baseExample()).textValue());
+			System.out.println(siud);
 			System.out.println("ON Y EST!!!!!!!!!!!!!!");
 			switch(siud){
 			case SELECT:
@@ -119,7 +128,9 @@ public class ServerHandler implements Runnable {
 		catch (Exception e) {
 			log.error("Sorry, something is wrong during the execution of the client request :\n" + e.getMessage());
 		}
-			return execution;
+		System.out.println(execution);	
+		return execution;
+			
 	}
 	
 	
@@ -154,12 +165,13 @@ public class ServerHandler implements Runnable {
 		
 		System.out.println(" deserialize start ");
 		Object deserObj = Tools.deserializeObject(srzdONode.toString());
-		System.out.println(" deserialize start ");
+		System.out.println(" deserialize fin ");
 		System.out.println(perimCl.toString());
 		AbDAO d = DAOHandler.getDAOHandler(connection, perimCl);
 		System.out.println("Step10 start");
 		d.update(perimCl.cast(deserializedObject));
 		String result = Tools.serializeObject(null, perimCl, "");
+		System.out.println(result);
 		return result;
 	}
 	

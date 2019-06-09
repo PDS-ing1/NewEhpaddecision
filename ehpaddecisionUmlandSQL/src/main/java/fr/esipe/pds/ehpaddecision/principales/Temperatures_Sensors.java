@@ -1,5 +1,6 @@
 package fr.esipe.pds.ehpaddecision.principales;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Timestamp;
 
@@ -17,8 +18,10 @@ public class Temperatures_Sensors {
 	private int temperatureMin = 5;
 	private int temperatureMax = 39;
 
-	@JsonCreator
-	public Temperatures_Sensors(@JsonProperty("macAdress") String macAdress,@JsonProperty("Brand") String Brand,@JsonProperty("Location") String Location,@JsonProperty("mode") String mode, @JsonProperty("date") long date, @JsonProperty("temperatureMin") int temperatureMin, @JsonProperty("temperatureMax") int temperatureMax ){
+	
+	//@JsonCreator
+	//public Temperatures_Sensors(@JsonProperty("macAdress") String macAdress,@JsonProperty("Brand") String Brand,@JsonProperty("Location") String Location,@JsonProperty("mode") String mode,@JsonProperty("date") long date,@JsonProperty("temperatureMin") int temperatureMin,@JsonProperty("temperatureMax") int temperatureMax ){
+		public Temperatures_Sensors(String macAdress, String Brand, String Location, String mode, long date, int temperatureMin, int temperatureMax ){
 
 		this.macAdress = macAdress;
 		this.Brand = Brand;
@@ -28,6 +31,14 @@ public class Temperatures_Sensors {
 		this.temperatureMin = temperatureMin;
 		this.temperatureMax = temperatureMax;
 	}
+	
+	@JsonCreator
+	public Temperatures_Sensors(@JsonProperty("macAdress") String macAdress,@JsonProperty("Brand") String Brand) {
+		this.macAdress = macAdress;
+		this.Brand = Brand;
+		
+	}
+	
 	
 
 	public String getMacAdress() {
@@ -98,13 +109,11 @@ public class Temperatures_Sensors {
 	public String toString() {
 		return "temperatures_sensors [macAdress=" + macAdress + ", Brand=" + Brand + ", Location=" + Location + ", mode=" + mode +", date=" + date +", temperatureMin=" + temperatureMin +", temperatureMax=" + temperatureMax +"]";
 	}
+	
+	/*public String toString1() {
+		return "temperatures_sensors [macAdress=" + macAdress + ", Brand=" + Brand +"]";
+	}*/
 
-
-	public void add(Temperatures_Sensors temperatures_sensor) {
-		// TODO Auto-generated method stub
-		this.add(temperatures_sensor);
-		
-	}
 
 
 }

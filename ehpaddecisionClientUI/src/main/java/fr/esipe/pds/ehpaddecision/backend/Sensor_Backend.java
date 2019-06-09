@@ -64,6 +64,7 @@ public class Sensor_Backend implements ActionListener {
 	}
 
 
+	
 	public void actionPerformed(ActionEvent ae) {
 		{
 			if(ae.getSource()== Sensors_Add.getBtnSubmit()){
@@ -266,28 +267,33 @@ public class Sensor_Backend implements ActionListener {
 
 				try {
 					String macAdress = SensorsFront1.getMacAdressTextField().getText();
-					String Temperature_Min = SensorsFront1.getTemp_Min_Field().getText();
-					String Temperature_Max = SensorsFront1.getTemp_Max_Field().getText();
+					//String Temperature_Min = SensorsFront1.getTemp_Min_Field().getText();
+					//String Temperature_Max = SensorsFront1.getTemp_Max_Field().getText();
+					String Brand = SensorsFront1.getUser_firstName_Field().getText();
 					ClientServerConnection.callSocket();
 					
 					//String id = Integer.parseInt(idInString);
 					
-					long date = System.currentTimeMillis();
-					int temperature_min = Integer.parseInt(Temperature_Min.trim());
+					//long date = System.currentTimeMillis();
+					//int temperature_min = Integer.parseInt(Temperature_Min.trim());
 					JOptionPane.showMessageDialog(null, "OKKKKKK", "convert", JOptionPane.WARNING_MESSAGE);
-					int temperature_max = Integer.parseInt(Temperature_Max.trim());
+					//int temperature_max = Integer.parseInt(Temperature_Max.trim());
 					JOptionPane.showMessageDialog(null, "OKKKKKK", "convert", JOptionPane.WARNING_MESSAGE);
 
 					/*String newAlertName = JOptionPane.showInputDialog(null, "Please enter the new name of your alert :"
 							, "Creating", JOptionPane.QUESTION_MESSAGE); */
 
-					Temperatures_Sensors temperaturesSensorsUpdating = new Temperatures_Sensors(macAdress,  null, null, null, date, temperature_min, temperature_max);
+					Temperatures_Sensors temperaturesSensorsUpdating = new Temperatures_Sensors(macAdress,  Brand, Brand, Brand, 0, 0, 0);
+					//Temperatures_Sensors temperaturesSensorsUpdating = new Temperatures_Sensors(macAdress, Brand);
 					System.out.println(temperaturesSensorsUpdating.toString());
 					String serializedObject = Tools.serializeObject(temperaturesSensorsUpdating, temperaturesSensorsUpdating.getClass(), "");
-					String jsRequest = Tools.serializeObject(Queries.UPDATE, Temperatures_Sensors.class, serializedObject);
+					System.out.println(serializedObject);
+					String jsRequest = Tools.serializeQuery(Queries.UPDATE, Temperatures_Sensors.class, serializedObject, null);
+					System.out.println(jsRequest);
+					
+					
 					System.out.println("Ca avance ?");
 					String answer = ClientServerConnection.returnClientSocket().sendToServer(jsRequest);
-					System.out.println(jsRequest);
 					System.out.println(answer);
 					
 					log.info("Getting the answer from the server..." + Tools.getPrettyJson(answer));
@@ -302,6 +308,7 @@ public class Sensor_Backend implements ActionListener {
 					JOptionPane.showMessageDialog(null, "Sorry, something is wrong with it", "Cannot convert", JOptionPane.WARNING_MESSAGE);
 				}
 			}
+			
 
 
 
