@@ -40,6 +40,7 @@ public class Sensors_Add extends JPanel implements ActionListener{
 
 	public static JTextField textField = new JTextField();
 	public static JButton btnSubmit;
+	public static JButton btnDelete;
 	public JLabel lblMacadress;
 	public JLabel lblBrand;
 	public static JComboBox comboBox;
@@ -91,13 +92,13 @@ public class Sensors_Add extends JPanel implements ActionListener{
 	 * Initialize the contents of the frame.
 	 */
 	public void initialize() {
-		//homebackend = new HomeBackEnd(this);
 		sensor_backend = new Sensor_Backend(this);
 		
 		frame = new JFrame("Add_Sensors");
-		frame.setBounds(100, 100, 450, 300);
+		frame.setBounds(100, 100, 480, 340);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		//frame.addWindowListener(sensor_backend);
 
 		lblMacadress = new JLabel("Mac_adress");
 		lblMacadress.setFont(new Font("Trebuchet MS", Font.PLAIN, 14));
@@ -105,7 +106,7 @@ public class Sensors_Add extends JPanel implements ActionListener{
 		frame.getContentPane().add(lblMacadress);
 
 		textField = new JTextField();
-		textField.setBounds(244, 9, 180, 20);
+		textField.setBounds(274, 9, 180, 20);
 		frame.getContentPane().add(textField);
 		textField.setColumns(10);
 
@@ -116,7 +117,7 @@ public class Sensors_Add extends JPanel implements ActionListener{
 
 		comboBox = new JComboBox();
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"X-Sense", "Nest Protect", "Fire Angel", "Heiman", "Jalo Helsinki", "AngelEye", "Cavius", "Siemens"}));
-		comboBox.setBounds(244, 40, 180, 20);
+		comboBox.setBounds(274, 40, 180, 20);
 		frame.getContentPane().add(comboBox);
 
 		lblNewLabel = new JLabel("Location");
@@ -126,7 +127,7 @@ public class Sensors_Add extends JPanel implements ActionListener{
 
 		comboBox_1 = new JComboBox();
 		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"Living room", "Kitchen", "Dinning Room", "Library", "Corridor1", "Corridor2", "Corridor3", "Corridor4"}));
-		comboBox_1.setBounds(244, 83, 180, 20);
+		comboBox_1.setBounds(274, 83, 180, 20);
 		frame.getContentPane().add(comboBox_1);
 
 		lblType = new JLabel("Type");
@@ -136,17 +137,22 @@ public class Sensors_Add extends JPanel implements ActionListener{
 
 		comboBox_2 = new JComboBox();
 		comboBox_2.setModel(new DefaultComboBoxModel(new String[] {"Temperatures_Sensors", "Smoke_Sensors"}));
-		comboBox_2.setBounds(244, 118, 180, 20);
+		comboBox_2.setBounds(274, 114, 180, 20);
 		frame.getContentPane().add(comboBox_2);
 
 		btnBack = new JButton("Back");
-		btnBack.setBounds(10, 183, 116, 65);
+		btnBack.setBounds(10, 225, 116, 65);
 		frame.getContentPane().add(btnBack);
 
 		btnSubmit = new JButton("Submit");
-		btnSubmit.setBounds(308, 183, 116, 65);
+		btnSubmit.setBounds(338, 225, 116, 65);
 		frame.getContentPane().add(btnSubmit);
 		btnSubmit.addActionListener(sensor_backend);
+		
+		btnDelete = new JButton("Delete");
+		btnDelete.setBounds(243, 233, 85, 49);
+		frame.getContentPane().add(btnDelete);
+		btnDelete.addActionListener(sensor_backend);
 		
 		/*{
 			public void actionPerformed(ActionEvent ae) {
@@ -186,6 +192,38 @@ public class Sensors_Add extends JPanel implements ActionListener{
 
 
 
+
+	public static JButton getBtnDelete() {
+		return btnDelete;
+	}
+
+	public static void setBtnDelete(JButton btnDelete) {
+		Sensors_Add.btnDelete = btnDelete;
+	}
+
+	public HomeBackEnd getHomebackend() {
+		return homebackend;
+	}
+
+	public void setHomebackend(HomeBackEnd homebackend) {
+		this.homebackend = homebackend;
+	}
+
+	public Sensor_Backend getSensor_backend() {
+		return sensor_backend;
+	}
+
+	public void setSensor_backend(Sensor_Backend sensor_backend) {
+		this.sensor_backend = sensor_backend;
+	}
+
+	public EhpadPage getEhpadPage() {
+		return ehpadPage;
+	}
+
+	public void setEhpadPage(EhpadPage ehpadPage) {
+		this.ehpadPage = ehpadPage;
+	}
 
 	public static JButton getBtnSubmit() {
 		return btnSubmit;
@@ -275,5 +313,4 @@ public class Sensors_Add extends JPanel implements ActionListener{
 		// TODO Auto-generated method stub
 
 	}
-
 }

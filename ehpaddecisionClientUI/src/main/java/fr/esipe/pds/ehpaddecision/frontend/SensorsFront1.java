@@ -58,7 +58,7 @@ public class SensorsFront1 extends JPanel implements ActionListener{
 	JLabel lblNewLabel_1;
 	JLabel lblTempmax;
 	static JComboBox comboBox;
-	JRadioButton rdbtnNewRadioButton ;
+	static JRadioButton rdbtnNewRadioButton ;
 	static JRadioButton rdbtnNewRadioButton_1;
 	static JButton btnSubmit1;
 	JLabel lblSeuildioxidecarbone;
@@ -105,6 +105,7 @@ public class SensorsFront1 extends JPanel implements ActionListener{
 		frame.setBounds(100, 100, 550, 475);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		frame.addWindowListener(sensor_backend);
 
 		User_Name_Field = new JTextField();
 		User_Name_Field.setBounds(378, 36, 130, 20);
@@ -303,12 +304,12 @@ public class SensorsFront1 extends JPanel implements ActionListener{
 		SensorsFront1.comboBox = comboBox;
 	}
 
-	public JRadioButton getRdbtnNewRadioButton() {
+	public static JRadioButton getRdbtnNewRadioButton() {
 		return rdbtnNewRadioButton;
 	}
 
-	public void setRdbtnNewRadioButton(JRadioButton rdbtnNewRadioButton) {
-		this.rdbtnNewRadioButton = rdbtnNewRadioButton;
+	public static void setRdbtnNewRadioButton(JRadioButton rdbtnNewRadioButton) {
+		SensorsFront1.rdbtnNewRadioButton = rdbtnNewRadioButton;
 	}
 
 	public static JRadioButton getRdbtnNewRadioButton_1() {

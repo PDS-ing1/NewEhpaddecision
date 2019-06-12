@@ -2,10 +2,13 @@ package fr.esipe.pds.ehpaddecision.backend;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.IOException;
 import java.util.List;
 
 import javax.swing.JOptionPane;
+import javax.swing.JRadioButton;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,7 +49,7 @@ import fr.esipe.pds.ehpaddecision.main.ClientServerConnection;
 import fr.esipe.pds.ehpaddecision.nicetoadd.Tools;
 import fr.esipe.pds.ehpaddecision.principales.Temperatures_Sensors;
 
-public class Sensor_Backend implements ActionListener {
+public class Sensor_Backend implements ActionListener, WindowListener {
 	private static final  Logger log = LoggerFactory.getLogger(Sensor_Backend.class);
 	private Sensors_Add sensors_add;
 	private SensorsFront1 sensorsfront1;
@@ -64,7 +67,7 @@ public class Sensor_Backend implements ActionListener {
 	}
 
 
-	
+
 	public void actionPerformed(ActionEvent ae) {
 		{
 			if(ae.getSource()== Sensors_Add.getBtnSubmit()){
@@ -160,12 +163,12 @@ public class Sensor_Backend implements ActionListener {
 
 							System.out.println(smoke_sensors.toString());
 							String serializedObject = Tools.serializeObject(smoke_sensors, smoke_sensors.getClass(), "");
-							String jsRequest2 = Tools.serializeQuery(Queries.INSERT, Smoke_Sensors.class, serializedObject,null);
-							System.out.println(jsRequest2);
+							String jsRequest = Tools.serializeQuery(Queries.INSERT, Smoke_Sensors.class, serializedObject, null);
+							System.out.println(jsRequest);
 							System.out.println("toto3");
 							//ClientServerConnection.callSocket();
 							System.out.print("TOT5");
-							String answer2 = ClientServerConnection.returnClientSocket().sendToServer(jsRequest2);
+							String answer2 = ClientServerConnection.returnClientSocket().sendToServer(jsRequest);
 							System.out.println(answer2);
 
 
@@ -239,6 +242,59 @@ public class Sensor_Backend implements ActionListener {
 
 
 			}
+			
+			
+			if(ae.getSource() == Sensors_Add.getBtnDelete()){
+			System.out.println("Action button Delete");
+			try
+			{
+				String macAdress = Sensors_Add.getTextField().getText();
+				String brand = Sensors_Add.getComboBox().getSelectedItem().toString();
+				String location = Sensors_Add.getComboBox_1().getSelectedItem().toString();
+				String type = Sensors_Add.getComboBox_2().getSelectedItem().toString();
+				String mode = "off";
+				long date = System.currentTimeMillis();
+				int temperatureMin = 5;
+				int temperatureMax = 39;
+				ClientServerConnection.callSocket();
+
+
+				System.out.println("Mac_adress"+macAdress+brand+location+type);
+				if(macAdress.length() <= 0)
+				{
+					JOptionPane.showMessageDialog(null, "False mac_adress, try again");
+				}
+				else {
+					System.out.println("Pas encore Fait");
+					//ClientServerConnection.callSocket();
+				if(type == "Temperatures_Sensors"){
+						Temperatures_Sensors temperatures_sensors = new Temperatures_Sensors(macAdress, brand , location, mode, date, temperatureMin, temperatureMax);
+						//Temperatures_Sensors temperatures_sensors = new Temperatures_Sensors(macAdress, brand);
+
+						System.out.println(temperatures_sensors.toString());
+						String serializedObject = Tools.serializeObject(temperatures_sensors, temperatures_sensors.getClass(), "");
+						String jsRequest = Tools.serializeQuery(Queries.DELETE, Temperatures_Sensors.class, serializedObject,null);
+						System.out.println(jsRequest);
+						System.out.println("toto218");
+						System.out.print("TOT537");
+						String answer = ClientServerConnection.returnClientSocket().sendToServer(jsRequest);
+						System.out.println(answer);
+					
+					
+					
+					
+				}
+				
+				
+				}
+			} catch(Exception exp){
+				log.error("The Delete Failed");
+				JOptionPane.showMessageDialog(null, "Sorry, something is wrong with it", "Cannot convert", JOptionPane.WARNING_MESSAGE);
+			}
+			}
+			
+			
+			
 
 			/*if(ae.getSource()== SensorsFront1.getBtnSubmit1()){
 			System.out.println("action button Submit1");
@@ -260,51 +316,73 @@ public class Sensor_Backend implements ActionListener {
 			} catch(Exception e0){
 				log.error(e0.getMessage());
 			}*/
-			
-			
-			
+
+
+
 			if(ae.getSource() == SensorsFront1.getBtnSubmit1()) {
 				System.out.println("Action Button Submit1");
 
 				try {
-					
+
 					String macAdress = SensorsFront1.getMacAdressTextField().getText();
-					//String Temperature_Min = SensorsFront1.getTemp_Min_Field().getText();
-					//String Temperature_Max = SensorsFront1.getTemp_Max_Field().getText();
 					String Brand = SensorsFront1.getUser_firstName_Field().getText();
-					
+					String mode = SensorsFront1.getComboBox().getSelectedItem().toString();
+					String Seuil_DioxideCarbone = SensorsFront1.getPPM_Field().getText();
+					JRadioButton ButtonTemperatures = SensorsFront1.getRdbtnNewRadioButton_1();
+					JRadioButton ButtonSmoke = SensorsFront1.getRdbtnNewRadioButton();
+					String Temperature_Min = SensorsFront1.getTemp_Min_Field().getText();
+					String Temperature_Max = SensorsFront1.getTemp_Max_Field().getText();
+					Long date = System.currentTimeMillis();
+
 					System.out.println("Mac_adress"+macAdress+Brand);
 					ClientServerConnection.callSocket();
-					
+
 					//String id = Integer.parseInt(idInString);
-					
-					//long date = System.currentTimeMillis();
-					//int temperature_min = Integer.parseInt(Temperature_Min.trim());
+
+					int temperature_min = Integer.parseInt(Temperature_Min.trim());
 					JOptionPane.showMessageDialog(null, "OKKKKKK", "convert", JOptionPane.WARNING_MESSAGE);
-					//int temperature_max = Integer.parseInt(Temperature_Max.trim());
+					int temperature_max = Integer.parseInt(Temperature_Max.trim());
 					JOptionPane.showMessageDialog(null, "OKKKKKK", "convert", JOptionPane.WARNING_MESSAGE);
 
 					/*String newAlertName = JOptionPane.showInputDialog(null, "Please enter the new name of your alert :"
 							, "Creating", JOptionPane.QUESTION_MESSAGE); */
 
-					Temperatures_Sensors temperaturesSensorsUpdating = new Temperatures_Sensors(macAdress,  Brand, Brand, Brand, 0, 0, 0);
-					//Temperatures_Sensors temperaturesSensorsUpdating = new Temperatures_Sensors(macAdress, Brand);
-					System.out.println(temperaturesSensorsUpdating.toString());
-					String serializedObject = Tools.serializeObject(temperaturesSensorsUpdating, temperaturesSensorsUpdating.getClass(), "");
-					System.out.println(serializedObject);
-					String jsRequest = Tools.serializeQuery(Queries.UPDATE, Temperatures_Sensors.class, serializedObject, null);
-					System.out.println(jsRequest);
-					
-					
-					System.out.println("Ca avance ?");
-					String answer = ClientServerConnection.returnClientSocket().sendToServer(jsRequest);
-					System.out.println(answer);
-					
-					log.info("Getting the answer from the server..." + Tools.getPrettyJson(answer));
-					String error = Tools.jsonNode(JSONExample.ERROR, answer).trim();
-					if(!error.equals(""))
+
+					if(macAdress.length() <= 0)
 					{
-						JOptionPane.showMessageDialog(sensorsfront1, error, "Error", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null, "False mac_adress, try again");
+					}
+					else {
+						System.out.println("Pas encore Fait");
+
+						if(ButtonTemperatures.getSelectedObjects() != null) {
+
+
+							Temperatures_Sensors temperaturesSensorsUpdating = new Temperatures_Sensors(macAdress, Brand, null, mode, date, temperature_min, temperature_max);
+							//Temperatures_Sensors temperaturesSensorsUpdating = new Temperatures_Sensors(macAdress, Brand);
+							System.out.println(temperaturesSensorsUpdating.toString());
+							String serializedObject = Tools.serializeObject(temperaturesSensorsUpdating, temperaturesSensorsUpdating.getClass(), "");
+							System.out.println(serializedObject);
+							String jsRequest = Tools.serializeQuery(Queries.UPDATE, Temperatures_Sensors.class, serializedObject, null);
+							System.out.println(jsRequest);
+
+
+							System.out.println("Ca avance ?");
+							String answer = ClientServerConnection.returnClientSocket().sendToServer(jsRequest);
+							
+							
+							JOptionPane.showMessageDialog(sensorsfront1, "A new Sensors has been updated  " + macAdress + Brand + mode + temperature_min + temperature_max, null, JOptionPane.INFORMATION_MESSAGE);
+							System.out.println(answer);
+
+							log.info("Getting the answer from the server..." + Tools.getPrettyJson(answer));
+							String error = Tools.jsonNode(JSONExample.ERROR, answer).trim();
+							if(!error.equals(""))
+							{
+								JOptionPane.showMessageDialog(sensorsfront1, error, "Error", JOptionPane.ERROR_MESSAGE);
+							}
+							
+							
+						}
 					}
 				}
 				catch(Exception exp){
@@ -313,10 +391,63 @@ public class Sensor_Backend implements ActionListener {
 				}
 			}
 			
+			
+			
+
 
 
 
 		}
+	}
+	
+
+
+	@Override
+	public void windowActivated(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void windowClosed(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void windowClosing(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void windowDeactivated(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void windowDeiconified(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void windowIconified(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void windowOpened(WindowEvent e) {
+		// TODO Auto-generated method stub
+		System.out.println("CA COMEEEEEEENNNNNNNNNNCCCCCCEEEEEEEE");
 	}
 
 

@@ -17,11 +17,11 @@ import fr.esipe.pds.ehpaddecision.locations.LocationDAO;
 import fr.esipe.pds.ehpaddecision.principales.Sensors;
 import fr.esipe.pds.ehpaddecision.principales.Smoke_Sensors;
 
-public class SensorsSmokeDAO extends AbDAO<SensorsSmokeDAO>{
+public class SensorsSmokeDAO extends AbDAO<SensorsSmokeDAO> implements InterfaceSmokeSensors {
 	// to be able to convert Json into a readable file
 	private JsonFactory factory = new JsonFactory();
 	// to track all steps (logs)
-	private final Logger log = LoggerFactory.getLogger(LocationDAO.class);
+	private final Logger log = LoggerFactory.getLogger(SensorsSmokeDAO.class);
 
 	public SensorsSmokeDAO(Connection connection) {
 		super(connection);
@@ -32,7 +32,7 @@ public class SensorsSmokeDAO extends AbDAO<SensorsSmokeDAO>{
 		{
 			Smoke_Sensors smoke_sensors = null;
 			try {
-				smoke_sensors = new Smoke_Sensors(rs.getString("macAdress"), rs.getString("Brand"), rs.getString("Location"), rs.getString("Type"), rs.getLong("date"));
+				smoke_sensors = new Smoke_Sensors(rs.getString("macAdress"), rs.getString("Brand"), rs.getString("Location"), rs.getString("mode"), rs.getLong("date"));
 			} catch (SQLException e) {
 				log.error("Sorry, we occured an error while retrieving this sensor from the result : " + e.getMessage());
 			}
@@ -45,6 +45,7 @@ public class SensorsSmokeDAO extends AbDAO<SensorsSmokeDAO>{
 		// TODO Auto-generated method stub
 		if(connection != null)
 		{
+			System.out.println("Ca va commencer");
 			try {
 				PreparedStatement preparedStatement = connection
 						.prepareStatement("INSERT INTO smoke_sensor (macAdress, Brand, Location, Type, mode, date)"
@@ -55,6 +56,7 @@ public class SensorsSmokeDAO extends AbDAO<SensorsSmokeDAO>{
 				preparedStatement.setString(4, smoke_sensors.getType());
 				preparedStatement.setString(5, smoke_sensors.getMode());
 				preparedStatement.setLong(6, smoke_sensors.getDate());
+				
 				preparedStatement.execute();
 				ResultSet rs = preparedStatement.getGeneratedKeys();
 			} catch (Exception e) {

@@ -9,7 +9,7 @@ import fr.esipe.pds.ehpaddecision.principales.Temperatures_Sensors;
 public interface InterfaceSensors {
 	Temperatures_Sensors create (Temperatures_Sensors temperatures_sensors);
 	void update (Temperatures_Sensors temperatures_sensors);
-	//void delete (int userId);*/
+	void delete (Temperatures_Sensors temperatures_sensors);
 	
 	// to display all Users.
 	List<SensorsTemperaturesDAO> DisplayAllTemperaturesSensors(); 

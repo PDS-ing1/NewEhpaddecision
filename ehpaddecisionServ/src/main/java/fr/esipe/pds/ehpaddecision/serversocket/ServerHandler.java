@@ -140,7 +140,9 @@ public class ServerHandler implements Runnable {
 		Object deserializedObject = Tools.deserializeObject(srzdONode.toString());
 		System.out.println(" deserialize fin ");
 		System.out.println(perimCl);
+		System.out.println(deserializedObject);
 		AbDAO d = DAOHandler.getDAOHandler(connection, perimCl);
+		System.out.println(d);
 		System.out.println(" step 1 start ");
 		Object obj = d.create(perimCl.cast(deserializedObject));
 		System.out.println(" step 2 start ");
@@ -154,7 +156,7 @@ public class ServerHandler implements Runnable {
 	private String delete(Class<?> perimCl, JsonNode srzdONode) throws Exception{
 		Object deserObjt = Tools.deserializeObject(srzdONode.toString());
 		AbDAO d = DAOHandler.getDAOHandler(connection, perimCl);
-		d.delete(perimCl.cast(deserializedObject));
+		d.delete(perimCl.cast(deserObjt));
 		String result = Tools.serializeObject(null, perimCl, "");
 		return result;
 	}

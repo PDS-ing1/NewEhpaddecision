@@ -88,12 +88,17 @@ public class SensorsTemperaturesDAO extends AbDAO<Temperatures_Sensors> implemen
 				System.out.println(temperatures_sensors.getMacAdress());
 				System.out.println(temperatures_sensors.getBrand());
 				PreparedStatement preparedStatement = connection
-						.prepareStatement("UPDATE temperatures_sensors SET Brand = 'nawfal' WHERE macAdress = 'sensor3'");
-				//preparedStatement.setString(1, temperatures_sensors.getBrand());
-				//preparedStatement.setString(2, temperatures_sensors.getMacAdress());
+						.prepareStatement("UPDATE temperatures_sensors SET Brand = ?, mode = ?, date = ?, temperatureMin = ?, temperatureMax = ? WHERE macAdress = ? ");
+				preparedStatement.setString(1, temperatures_sensors.getBrand());
+				preparedStatement.setString(2, temperatures_sensors.getMode());
+				preparedStatement.setLong(3, temperatures_sensors.getDate());
+				preparedStatement.setInt(4, temperatures_sensors.getTemperatureMin());
+				preparedStatement.setInt(5, temperatures_sensors.getTemperatureMax());
+				preparedStatement.setString(6, temperatures_sensors.getMacAdress());
 				System.out.println(preparedStatement);
 				preparedStatement.execute();
 				System.out.println("C'est passer");
+
 			} catch (Exception e) {
 				log.error("An error occurred during the update of a temperatures_sensors : " + e.getMessage());
 				e.printStackTrace();
@@ -101,7 +106,7 @@ public class SensorsTemperaturesDAO extends AbDAO<Temperatures_Sensors> implemen
 		}
 
 	}
-	
+
 	/*public void update(Alerts alert) {
 		// quick check if there is any free connection to use 
 		if(connection != null)
@@ -121,10 +126,29 @@ public class SensorsTemperaturesDAO extends AbDAO<Temperatures_Sensors> implemen
 
 
 	@Override
-	public void delete(Temperatures_Sensors obj) {
+	public void delete(Temperatures_Sensors temperatures_sensors) {
 		// TODO Auto-generated method stub
+		if(connection != null)
+		{ System.out.println("Delete Begin");
 
+			try {
+				PreparedStatement preparedStatement = connection
+						.prepareStatement("DELETE FROM temperatures_sensors where macAdress = ?");
+				preparedStatement.setString(1, temperatures_sensors.getMacAdress());
+				System.out.println(preparedStatement);
+				preparedStatement.execute();
+				System.out.println("C'est tt Bon");
+				
+			} catch (Exception e) {
+				log.error("Sorry, it seems like something wrong was happened with deleting this alert, try again : " + e.getMessage());
+				e.printStackTrace();
+			}
+
+
+
+		}
 	}
+
 
 	public List<Temperatures_Sensors> DisplayAllTemperaturesSensors() {
 		List<Temperatures_Sensors> temperatures_sensors = new ArrayList<Temperatures_Sensors>();
@@ -152,7 +176,7 @@ public class SensorsTemperaturesDAO extends AbDAO<Temperatures_Sensors> implemen
 
 	@Override
 	public List<Temperatures_Sensors> find(List<String> values) {
-		
+
 		List<Temperatures_Sensors> temperatures_sensors = new ArrayList<Temperatures_Sensors>();
 
 		if(connection != null)

@@ -9,12 +9,12 @@ public class Smoke_Sensors {
 	private String Brand;
 	private String Location;
 	private String Type;
-	private String mode = "off";
+	private String mode;
 	private long date = System.currentTimeMillis();
 	
 	@JsonCreator
 	public Smoke_Sensors(@JsonProperty("macAdress") String macAdress,@JsonProperty("Brand") String Brand,@JsonProperty("Location") String Location,@JsonProperty("mode") String mode, @JsonProperty("date") long date ){
-
+		//public Smoke_Sensors(String macAdress, String Brand, String Location, String mode, long date){
 		this.macAdress = macAdress;
 		this.Brand = Brand;
 		this.Location = Location;
