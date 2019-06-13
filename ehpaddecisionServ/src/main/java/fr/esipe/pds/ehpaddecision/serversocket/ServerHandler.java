@@ -40,6 +40,8 @@ public class ServerHandler implements Runnable {
 		// to be able to response the client
 	private PrintWriter answerServer;
 	private Object deserializedObject;
+	//private ObjectMapper mapper;
+	
 	
 	
 	public ServerHandler(Socket socket, Connection connection){
@@ -183,6 +185,8 @@ public class ServerHandler implements Runnable {
 		System.out.println(perimCl.toString());
 		System.out.println("1");
 		ObjectMapper mapper = new ObjectMapper();
+		Object deserializedObject = Tools.deserializeObject(srzdONode.toString());
+		System.out.println(deserializedObject);
 		String result = "";		
 		String getStringJson = srzdONode.get(JSONExample.INFO.baseExample()).textValue();
 		List<String> values = null;
@@ -191,7 +195,8 @@ public class ServerHandler implements Runnable {
 			values = mapper.readValue(getStringJson, mapper.getTypeFactory().constructCollectionType(List.class, String.class));
 		}
 		AbDAO d = DAOHandler.getDAOHandler(connection, perimCl);
-		result = Tools.serializeObject(d.find(values), perimCl, "");
+		//result = Tools.serializeObject(d.find(values), perimCl, "");
+		result = Tools.serializeObject(d.findAll(), perimCl, "");
 		return result;		
 	}
 

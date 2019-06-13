@@ -131,18 +131,18 @@ public class SensorsTemperaturesDAO extends AbDAO<Temperatures_Sensors> implemen
 		if(connection != null)
 		{ System.out.println("Delete Begin");
 
-			try {
-				PreparedStatement preparedStatement = connection
-						.prepareStatement("DELETE FROM temperatures_sensors where macAdress = ?");
-				preparedStatement.setString(1, temperatures_sensors.getMacAdress());
-				System.out.println(preparedStatement);
-				preparedStatement.execute();
-				System.out.println("C'est tt Bon");
-				
-			} catch (Exception e) {
-				log.error("Sorry, it seems like something wrong was happened with deleting this alert, try again : " + e.getMessage());
-				e.printStackTrace();
-			}
+		try {
+			PreparedStatement preparedStatement = connection
+					.prepareStatement("DELETE FROM temperatures_sensors where macAdress = ?");
+			preparedStatement.setString(1, temperatures_sensors.getMacAdress());
+			System.out.println(preparedStatement);
+			preparedStatement.execute();
+			System.out.println("C'est tt Bon");
+
+		} catch (Exception e) {
+			log.error("Sorry, it seems like something wrong was happened with deleting this alert, try again : " + e.getMessage());
+			e.printStackTrace();
+		}
 
 
 
@@ -150,19 +150,52 @@ public class SensorsTemperaturesDAO extends AbDAO<Temperatures_Sensors> implemen
 	}
 
 
-	public List<Temperatures_Sensors> DisplayAllTemperaturesSensors() {
+	/*public List<Temperatures_Sensors> DisplayAllTemperaturesSensors() {
 		List<Temperatures_Sensors> temperatures_sensors = new ArrayList<Temperatures_Sensors>();
+
 		if(connection != null)
 		{
 			try {
 				PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM temperatures_sensors");
 				ResultSet rs = preparedStatement.executeQuery();
-				Temperatures_Sensors temperatures_sensor;
+				Temperatures_Sensors temperatures_Sensors;
 				while (rs.next()) {
-					temperatures_sensor = sensorsHandler(rs);
-					if(temperatures_sensor != null)
+					temperatures_Sensors = sensorsHandler(rs);
+					if(temperatures_Sensors != null)
 					{
-						temperatures_sensor.add(temperatures_sensor);
+						temperatures_sensors.add(temperatures_Sensors);
+					}
+				}
+			} catch (Exception e) {
+				log.error("Oh, it looks like a big url.. try again : " + e.getMessage());
+				e.printStackTrace();
+			}
+		}
+
+		return temperatures_sensors;
+	}*/
+
+	@Override
+	public List<Temperatures_Sensors> find(List<String> values) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Temperatures_Sensors> findAll() {
+		List<Temperatures_Sensors> temperatures_sensors = new ArrayList<Temperatures_Sensors>();
+
+		if(connection != null)
+		{
+			try {
+				PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM temperatures_sensors");
+				ResultSet rs = preparedStatement.executeQuery();
+				Temperatures_Sensors temperatures_Sensors;
+				while (rs.next()) {
+					temperatures_Sensors = sensorsHandler(rs);
+					if(temperatures_Sensors != null)
+					{
+						temperatures_sensors.add(temperatures_Sensors);
 					}
 				}
 			} catch (Exception e) {
@@ -174,8 +207,8 @@ public class SensorsTemperaturesDAO extends AbDAO<Temperatures_Sensors> implemen
 		return temperatures_sensors;
 	}
 
-	@Override
-	public List<Temperatures_Sensors> find(List<String> values) {
+	/*@Override
+	  public List<Temperatures_Sensors> find(List<String> values) {
 
 		List<Temperatures_Sensors> temperatures_sensors = new ArrayList<Temperatures_Sensors>();
 
@@ -199,6 +232,6 @@ public class SensorsTemperaturesDAO extends AbDAO<Temperatures_Sensors> implemen
 		}
 
 		return temperatures_sensors;
-	}
+	}*/
 
 }

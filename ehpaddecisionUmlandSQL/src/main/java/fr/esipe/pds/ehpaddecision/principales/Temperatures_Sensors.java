@@ -14,7 +14,7 @@ public class Temperatures_Sensors {
 	private String Location;
 	private String Type;
 	private String mode;
-	private Long date;
+	private Long date = System.currentTimeMillis() ;
 	private int temperatureMin = 5;
 	private int temperatureMax = 39;
 
@@ -40,6 +40,14 @@ public class Temperatures_Sensors {
 	}
 	
 	
+
+	public Temperatures_Sensors() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public Temperatures_Sensors(Object object) {
+		// TODO Auto-generated constructor stub
+	}
 
 	public String getMacAdress() {
 		return macAdress;

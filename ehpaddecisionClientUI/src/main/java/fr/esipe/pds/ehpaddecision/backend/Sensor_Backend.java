@@ -242,59 +242,59 @@ public class Sensor_Backend implements ActionListener, WindowListener {
 
 
 			}
-			
-			
+
+
 			if(ae.getSource() == Sensors_Add.getBtnDelete()){
-			System.out.println("Action button Delete");
-			try
-			{
-				String macAdress = Sensors_Add.getTextField().getText();
-				String brand = Sensors_Add.getComboBox().getSelectedItem().toString();
-				String location = Sensors_Add.getComboBox_1().getSelectedItem().toString();
-				String type = Sensors_Add.getComboBox_2().getSelectedItem().toString();
-				String mode = "off";
-				long date = System.currentTimeMillis();
-				int temperatureMin = 5;
-				int temperatureMax = 39;
-				ClientServerConnection.callSocket();
-
-
-				System.out.println("Mac_adress"+macAdress+brand+location+type);
-				if(macAdress.length() <= 0)
+				System.out.println("Action button Delete");
+				try
 				{
-					JOptionPane.showMessageDialog(null, "False mac_adress, try again");
-				}
-				else {
-					System.out.println("Pas encore Fait");
-					//ClientServerConnection.callSocket();
-				if(type == "Temperatures_Sensors"){
-						Temperatures_Sensors temperatures_sensors = new Temperatures_Sensors(macAdress, brand , location, mode, date, temperatureMin, temperatureMax);
-						//Temperatures_Sensors temperatures_sensors = new Temperatures_Sensors(macAdress, brand);
+					String macAdress = Sensors_Add.getTextField().getText();
+					String brand = Sensors_Add.getComboBox().getSelectedItem().toString();
+					String location = Sensors_Add.getComboBox_1().getSelectedItem().toString();
+					String type = Sensors_Add.getComboBox_2().getSelectedItem().toString();
+					String mode = "off";
+					long date = System.currentTimeMillis();
+					int temperatureMin = 5;
+					int temperatureMax = 39;
+					ClientServerConnection.callSocket();
 
-						System.out.println(temperatures_sensors.toString());
-						String serializedObject = Tools.serializeObject(temperatures_sensors, temperatures_sensors.getClass(), "");
-						String jsRequest = Tools.serializeQuery(Queries.DELETE, Temperatures_Sensors.class, serializedObject,null);
-						System.out.println(jsRequest);
-						System.out.println("toto218");
-						System.out.print("TOT537");
-						String answer = ClientServerConnection.returnClientSocket().sendToServer(jsRequest);
-						System.out.println(answer);
-					
-					
-					
-					
+
+					System.out.println("Mac_adress"+macAdress+brand+location+type);
+					if(macAdress.length() <= 0)
+					{
+						JOptionPane.showMessageDialog(null, "False mac_adress, try again");
+					}
+					else {
+						System.out.println("Pas encore Fait");
+						//ClientServerConnection.callSocket();
+						if(type == "Temperatures_Sensors"){
+							Temperatures_Sensors temperatures_sensors = new Temperatures_Sensors(macAdress, brand , location, mode, date, temperatureMin, temperatureMax);
+							//Temperatures_Sensors temperatures_sensors = new Temperatures_Sensors(macAdress, brand);
+
+							System.out.println(temperatures_sensors.toString());
+							String serializedObject = Tools.serializeObject(temperatures_sensors, temperatures_sensors.getClass(), "");
+							String jsRequest = Tools.serializeQuery(Queries.DELETE, Temperatures_Sensors.class, serializedObject,null);
+							System.out.println(jsRequest);
+							System.out.println("toto218");
+							System.out.print("TOT537");
+							String answer = ClientServerConnection.returnClientSocket().sendToServer(jsRequest);
+							System.out.println(answer);
+
+
+
+
+						}
+
+
+					}
+				} catch(Exception exp){
+					log.error("The Delete Failed");
+					JOptionPane.showMessageDialog(null, "Sorry, something is wrong with it", "Cannot convert", JOptionPane.WARNING_MESSAGE);
 				}
-				
-				
-				}
-			} catch(Exception exp){
-				log.error("The Delete Failed");
-				JOptionPane.showMessageDialog(null, "Sorry, something is wrong with it", "Cannot convert", JOptionPane.WARNING_MESSAGE);
 			}
-			}
-			
-			
-			
+
+
+
 
 			/*if(ae.getSource()== SensorsFront1.getBtnSubmit1()){
 			System.out.println("action button Submit1");
@@ -369,8 +369,8 @@ public class Sensor_Backend implements ActionListener, WindowListener {
 
 							System.out.println("Ca avance ?");
 							String answer = ClientServerConnection.returnClientSocket().sendToServer(jsRequest);
-							
-							
+
+
 							JOptionPane.showMessageDialog(sensorsfront1, "A new Sensors has been updated  " + macAdress + Brand + mode + temperature_min + temperature_max, null, JOptionPane.INFORMATION_MESSAGE);
 							System.out.println(answer);
 
@@ -380,8 +380,8 @@ public class Sensor_Backend implements ActionListener, WindowListener {
 							{
 								JOptionPane.showMessageDialog(sensorsfront1, error, "Error", JOptionPane.ERROR_MESSAGE);
 							}
-							
-							
+
+
 						}
 					}
 				}
@@ -390,65 +390,160 @@ public class Sensor_Backend implements ActionListener, WindowListener {
 					JOptionPane.showMessageDialog(null, "Sorry, something is wrong with it", "Cannot convert", JOptionPane.WARNING_MESSAGE);
 				}
 			}
-			
-			
-			
+
+
+
 
 
 
 
 		}
 	}
-	
-
-
-	@Override
-	public void windowActivated(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public void windowClosed(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public void windowClosing(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public void windowDeactivated(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public void windowDeiconified(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public void windowIconified(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
 
 	@Override
 	public void windowOpened(WindowEvent e) {
-		// TODO Auto-generated method stub
 		System.out.println("CA COMEEEEEEENNNNNNNNNNCCCCCCEEEEEEEE");
+
+		Temperatures_Sensors temperatures_sensors = new Temperatures_Sensors();
+		
+		//Temperatures_Sensors temperatures_sensors = new Temperatures_Sensors(macAdress, brand);
+
+		System.out.println(temperatures_sensors.toString());
+		String serializedObject = Tools.serializeObject(temperatures_sensors, temperatures_sensors.getClass(), "");
+		String jsRequest = Tools.serializeQuery(Queries.SELECT, Temperatures_Sensors.class, serializedObject, null);
+		System.out.println(jsRequest);
+		System.out.println("toto3");
+		ClientServerConnection.callSocket();
+		System.out.print("TOT54321"
+				+ "");
+		//String answer = ClientServerConnection.returnClientSocket().sendToServer(jsRequest);
+
+
+		try 
+		{
+			String answer = ClientServerConnection.returnClientSocket().sendToServer(jsRequest);
+			log.info("Getting the answer from the server..." + Tools.getPrettyJson(answer));
+			String error = Tools.jsonNode(JSONExample.ERROR, answer).trim();
+			if(error.equals(""))
+			{
+				List<Temperatures_Sensors> temperaturesSensors = (List<Temperatures_Sensors>) Tools.deserializeObject(answer);
+				String temperaturesSensorText = "";
+				for(Temperatures_Sensors temperatures_Sensors : temperaturesSensors)
+				{
+					temperaturesSensorText += temperaturesSensors+ "\n";
+				}
+				System.out.println(answer);
+				//homePageFront.getTextArea().setText(locationsText);
+				//sensorsfront1.getList_1()
+			}
+			else {
+				JOptionPane.showMessageDialog(sensorsfront1, error, "Error", JOptionPane.ERROR_MESSAGE);
+			}
+
+		} 
+		catch (IOException e1){
+			log.error(e1.getMessage());
+		}
+		catch (AllConnectionUsedException usedConnection){
+			log.error(usedConnection.getMessage());
+		}
 	}
+
+
+
+
+
+
+
+
+
+
+
+
+	/*if(ae.getSource()==homePageFront.getButtonDisplay()) {
+
+		Locations Location = new Locations ();
+		System.out.println(Location.toString());
+	    String serializedObject = Tools.serializeObject(Location, Location.getClass(), "");
+		String jsRequest = Tools.serializeQuery(Queries.SELECT, Locations.class, serializedObject,null);
+		System.out.println(serializedObject);
+
+
+	    // String jsRequest = Tools.serializeObject(Queries.SELECT, Alerts.class, null);
+		// String jsRequest = Tools.serializeQuery(Queries.SELECT, Alerts.class, serializedObject,null);
+
+	    System.out.println(jsRequest);
+		try 
+		{
+			String answer = ClientServerConnection.returnClientSocket().sendToServer(jsRequest);
+			log.info("Getting the answer from the server..." + Tools.getPrettyJson(answer));
+			String error = Tools.jsonNode(JSONExample.ERROR, answer).trim();
+			if(error.equals(""))
+			{
+				List<Locations> locations = (List<Locations>) Tools.deserializeObject(answer);
+				String locationsText = "";
+				for(Locations location : locations)
+				{
+					locationsText += location+ "\n";
+				}
+				homePageFront.getTextArea().setText(locationsText);
+			}
+			else {
+				JOptionPane.showMessageDialog(homePageFront, error, "Error", JOptionPane.ERROR_MESSAGE);
+			}
+
+		} 
+		catch (IOException e1){
+			log.error(e1.getMessage());
+		} 
+		catch (AllConnectionUsedException usedConnection){
+			log.error(usedConnection.getMessage());
+		}
+	}*/
+
+
+
+@Override
+public void windowActivated(WindowEvent arg0) {
+	// TODO Auto-generated method stub
+
+}
+
+
+@Override
+public void windowClosed(WindowEvent arg0) {
+	// TODO Auto-generated method stub
+
+}
+
+
+@Override
+public void windowClosing(WindowEvent arg0) {
+	// TODO Auto-generated method stub
+
+}
+
+
+@Override
+public void windowDeactivated(WindowEvent arg0) {
+	// TODO Auto-generated method stub
+
+}
+
+
+@Override
+public void windowDeiconified(WindowEvent arg0) {
+	// TODO Auto-generated method stub
+
+}
+
+
+@Override
+public void windowIconified(WindowEvent arg0) {
+	// TODO Auto-generated method stub
+
+}
+
 
 
 
