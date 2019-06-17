@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
+import java.util.Vector;
 
 import javax.swing.JFrame;
 import javax.swing.JTextField;
@@ -64,6 +65,7 @@ public class SensorsFront1 extends JPanel implements ActionListener{
 	JLabel lblSeuildioxidecarbone;
 	private Sensor_Backend sensor_backend;
 	private EhpadPage ehpadPage;
+	public static DefaultListModel temperatures = new DefaultListModel();
 	private JList list_1;
 	private JList list_2;
 
@@ -102,27 +104,27 @@ public class SensorsFront1 extends JPanel implements ActionListener{
 
 
 		frame = new JFrame("Configuration");
-		frame.setBounds(100, 100, 550, 475);
+		frame.setBounds(100, 100, 670, 655);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.addWindowListener(sensor_backend);
 
 		User_Name_Field = new JTextField();
-		User_Name_Field.setBounds(378, 36, 130, 20);
+		User_Name_Field.setBounds(514, 36, 130, 20);
 		frame.getContentPane().add(User_Name_Field);
 		User_Name_Field.setColumns(10);
 
 		JLabel lblAdresseMac = new JLabel("User_Name");
-		lblAdresseMac.setBounds(378, 11, 130, 14);
+		lblAdresseMac.setBounds(514, 11, 130, 14);
 		frame.getContentPane().add(lblAdresseMac);
 
 		User_firstName_Field = new JTextField();
-		User_firstName_Field.setBounds(378, 84, 130, 20);
+		User_firstName_Field.setBounds(514, 84, 130, 20);
 		frame.getContentPane().add(User_firstName_Field);
 		User_firstName_Field.setColumns(10);
 
 		JLabel lblNewLabel = new JLabel("User_firstName");
-		lblNewLabel.setBounds(378, 59, 130, 14);
+		lblNewLabel.setBounds(514, 59, 130, 14);
 		frame.getContentPane().add(lblNewLabel);
 
 		JList list = new JList();
@@ -130,7 +132,7 @@ public class SensorsFront1 extends JPanel implements ActionListener{
 		frame.getContentPane().add(list);
 
 		btnSubmit1 = new JButton("Submit");btnSubmit1.addActionListener(this);
-		btnSubmit1.setBounds(394, 368, 130, 57);
+		btnSubmit1.setBounds(514, 548, 130, 57);
 		frame.getContentPane().add(btnSubmit1);
 		btnSubmit1.addActionListener(sensor_backend);
 
@@ -175,11 +177,11 @@ public class SensorsFront1 extends JPanel implements ActionListener{
 		PPM_Field.setVisible(false);
 
 		rdbtnNewRadioButton = new JRadioButton("Smoke_Sensors");rdbtnNewRadioButton.addActionListener(this);
-		rdbtnNewRadioButton.setBounds(378, 111, 130, 23);
+		rdbtnNewRadioButton.setBounds(494, 139, 130, 23);
 		frame.getContentPane().add(rdbtnNewRadioButton);
 
 		rdbtnNewRadioButton_1 = new JRadioButton("Temperature_Sensors");rdbtnNewRadioButton_1.addActionListener(this);
-		rdbtnNewRadioButton_1.setBounds(378, 148, 150, 23);
+		rdbtnNewRadioButton_1.setBounds(494, 174, 150, 23);
 		frame.getContentPane().add(rdbtnNewRadioButton_1);
 
 		JLabel lblMacadress = new JLabel("Temperatures_Sensors_List");
@@ -187,7 +189,7 @@ public class SensorsFront1 extends JPanel implements ActionListener{
 		frame.getContentPane().add(lblMacadress);
 
 		JButton btnBack = new JButton("Back");
-		btnBack.setBounds(10, 368, 130, 57);
+		btnBack.setBounds(10, 548, 130, 57);
 		frame.getContentPane().add(btnBack);
 
 		comboBox = new JComboBox();
@@ -200,21 +202,21 @@ public class SensorsFront1 extends JPanel implements ActionListener{
 		frame.getContentPane().add(lblState);
 
 		list_1 = new JList();
-		list_1.setBounds(264, 260, 260, 97);
+		list_1.setBounds(354, 260, 290, 277);
 		frame.getContentPane().add(list_1);
 		list_1.setVisibleRowCount(-1);
 
 
 
 
-		list_2 = new JList();
-		list_2.setBounds(10, 260, 244, 97);
+		list_2 = new JList(temperatures);
+		list_2.setBounds(10, 260, 290, 277);
 		frame.getContentPane().add(list_2);
 		list_2.setVisibleRowCount(-1);
 
 
 		JLabel lblSmokesensorslist = new JLabel("Smoke_Sensors_List");
-		lblSmokesensorslist.setBounds(264, 235, 200, 14);
+		lblSmokesensorslist.setBounds(354, 235, 290, 14);
 		frame.getContentPane().add(lblSmokesensorslist);
 		
 		JLabel lblMacadress_1 = new JLabel("MacAdress");
@@ -378,6 +380,8 @@ public class SensorsFront1 extends JPanel implements ActionListener{
 		if(e.getSource() == rdbtnNewRadioButton){
 			PPM_Field.setVisible(true);
 			lblSeuildioxidecarbone.setVisible(true);
+			lblNewLabel_1.setVisible(false);
+			lblTempmax.setVisible(false);
 			Temp_Min_Field.setVisible(false);
 			Temp_Max_Field.setVisible(false);
 		}
@@ -401,4 +405,5 @@ public class SensorsFront1 extends JPanel implements ActionListener{
 
 
 	}
+
 }

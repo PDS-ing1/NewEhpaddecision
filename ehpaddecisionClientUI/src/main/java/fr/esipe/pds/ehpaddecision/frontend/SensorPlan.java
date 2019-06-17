@@ -127,7 +127,7 @@ public class SensorPlan extends JFrame implements ActionListener{
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	void initialize() {
 		//frame = new JFrame();
 		sensorPlanBackEnd = new PlanSensorBackEnd(this);
 		instance = new Sensors_Add();
@@ -365,7 +365,11 @@ public class SensorPlan extends JFrame implements ActionListener{
 			public void actionPerformed(ActionEvent arg0) {
 				corridor3_1.setText(corridor3);
 			}
+			
 		});
+		
+		
+		
 
 
 

@@ -207,6 +207,12 @@ public class SensorsTemperaturesDAO extends AbDAO<Temperatures_Sensors> implemen
 		return temperatures_sensors;
 	}
 
+	@Override
+	public List<Temperatures_Sensors> DisplayAllTemperaturesSensors() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	/*@Override
 	  public List<Temperatures_Sensors> find(List<String> values) {
 
