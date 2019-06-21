@@ -12,13 +12,13 @@ import org.slf4j.LoggerFactory;
 import com.fasterxml.jackson.core.JsonFactory;
 
 import fr.esipe.pds.ehpaddecision.dao.AbDAO;
-import fr.esipe.pds.ehpaddecision.principales.Locations;
+import fr.esipe.pds.ehpaddecision.principales.Location;
 
 //this class should contain the CRUD methods of the object Location 
 //Create a sensor , delete a or many sensors, update a sensor, and display all sensors,
 // TODO review this class and correct mistakes
 
-public class LocationDAO  extends AbDAO<Locations> {
+public class LocationDAO  extends AbDAO<Location> {
 	// to be able to convert Json into a readable file
 	private JsonFactory factory = new JsonFactory();
 	// to track all steps (logs)
@@ -29,7 +29,7 @@ public class LocationDAO  extends AbDAO<Locations> {
 		super(connection);
 	}
 	@Override
-	public Locations create(Locations location) {
+	public Location create(Location location) {
 		// call the connection to be sure that there is one connection (at least) available to use 
 		if(connection != null)
 		{
@@ -55,7 +55,7 @@ public class LocationDAO  extends AbDAO<Locations> {
 	
 	
 	
-	public void update(Locations location) {
+	public void update(Location location) {
 		// quick check if there is any free connection to use 
 		if(connection != null)
 		{
@@ -93,25 +93,25 @@ public class LocationDAO  extends AbDAO<Locations> {
 	}
 	
 	@Override
-	public void delete(Locations obj) {
+	public void delete(Location obj) {
 		delete(obj.getIdLocation());		
 		
 	}
 
-	public List<Locations> DisplayAllLocations() {
-		List<Locations> locations = new ArrayList<Locations>();
+	public List<Location> displayAllLocations() {
+		List<Location> locationList = new ArrayList<Location>();
 
 		if(connection != null)
 		{
 			try {
 				PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM LOCATION");
 				ResultSet rs = preparedStatement.executeQuery();
-				Locations location;
+				Location location;
 				while (rs.next()) {
 					location = locationsHandler(rs);
 					if(location != null)
 					{
-						locations.add(location);
+						locationList.add(location);
 					}
 				}
 			} catch (Exception e) {
@@ -120,13 +120,13 @@ public class LocationDAO  extends AbDAO<Locations> {
 			}
 		}
 
-		return locations;
+		return locationList;
 	}
-	private Locations locationsHandler(ResultSet rs) {
+	private Location locationsHandler(ResultSet rs) {
 		{
-			Locations location = null;
+			Location location = null;
 			try {
-				location = new Locations(rs.getInt("ID_LOCATION"),rs.getString("NAME_LOCATION"), rs.getInt("HALL_NB"),rs.getInt("FLOOR_NB"), rs.getInt("BUILDING_NB"),rs.getTimestamp("DATE_CREATION"));
+				location = new Location(rs.getInt("ID_LOCATION"),rs.getString("NAME_LOCATION"), rs.getInt("HALL_NB"),rs.getInt("FLOOR_NB"), rs.getInt("BUILDING_NB"),rs.getTimestamp("DATE_CREATION"));
 			} catch (SQLException e) {
 				log.error("Sorry, we occured an error while retrieving this location from the result : " + e.getMessage());
 			}
@@ -135,20 +135,20 @@ public class LocationDAO  extends AbDAO<Locations> {
 		}
 
 	@Override
-	public List<Locations> find(List<String> values) {
-		List<Locations> locations = new ArrayList<Locations>();
+	public List<Location> find(List<String> values) {
+		List<Location> locationList = new ArrayList<Location>();
 
 		if(connection != null)
 		{
 			try {
 				PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM LOCATION");
 				ResultSet rs = preparedStatement.executeQuery();
-				Locations location;
+				Location location;
 				while (rs.next()) {
 					location = locationsHandler(rs);
 					if(location != null)
 					{
-						locations.add(location);
+						locationList.add(location);
 					}
 				}
 			} catch (Exception e) {
@@ -157,7 +157,7 @@ public class LocationDAO  extends AbDAO<Locations> {
 			}
 		}
 
-		return locations;
+		return locationList;
 	}
 }
 

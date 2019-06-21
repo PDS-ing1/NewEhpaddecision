@@ -1,6 +1,6 @@
 package fr.esipe.pds.ehpaddecision.users;
 
-import fr.esipe.pds.ehpaddecision.principales.Users;
+import fr.esipe.pds.ehpaddecision.principales.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,7 +17,7 @@ import com.fasterxml.jackson.core.JsonFactory;
 import fr.esipe.pds.ehpaddecision.alertsreferentiel.AlertsDAO;
 import fr.esipe.pds.ehpaddecision.dao.AbDAO;
 
-public class UsersDAO extends AbDAO<Users>{
+public class UsersDAO extends AbDAO<User>{
 	private final Logger log = LoggerFactory.getLogger(AlertsDAO.class);	
 	private JsonFactory jsFactory = new JsonFactory();
 
@@ -27,11 +27,11 @@ public class UsersDAO extends AbDAO<Users>{
 	}
 
 	
-	private Users usersHandler(ResultSet rs) {
+	private User usersHandler(ResultSet rs) {
 		{
-			Users user = null;
+			User user = null;
 			try {
-				user = new Users(rs.getInt("ID_USER"), rs.getString("NAME"), rs.getTimestamp("creation_Date"));
+				user = new User(rs.getInt("ID_USER"), rs.getString("NAME"), rs.getTimestamp("creation_Date"));
 			} catch (SQLException e) {
 				log.error("Sorry, we occured an error while retrieving this alert from the result : " + e.getMessage());
 			}
@@ -41,7 +41,7 @@ public class UsersDAO extends AbDAO<Users>{
 	
 	
 	
-	public void update(Users user) {
+	public void update(User user) {
 		// quick check if there is any free connection to use 
 		if(connection != null)
 		{
@@ -59,7 +59,7 @@ public class UsersDAO extends AbDAO<Users>{
 	}
 
 	// this method will create new user into the table USER
-	public Users create(Users users) {
+	public User create(User user) {
 	
 		// quick check if there is any free connection to use 
 			if(connection != null)
@@ -68,9 +68,9 @@ public class UsersDAO extends AbDAO<Users>{
 					PreparedStatement preparedStatement = connection
 							.prepareStatement("INSERT INTO USER (ID_USER, NAME, CREATION_DATE)"
 									+ " VALUES (? , ?, ? )", Statement.RETURN_GENERATED_KEYS);
-					preparedStatement.setInt(1, users.getIdUser());
-					preparedStatement.setString(2, users.getNameUser());
-					preparedStatement.setTimestamp(3, users.getDateCreation());
+					preparedStatement.setInt(1, user.getIdUser());
+					preparedStatement.setString(2, user.getNameUser());
+					preparedStatement.setTimestamp(3, user.getDateCreation());
 					preparedStatement.execute();
 					ResultSet rs = preparedStatement.getGeneratedKeys();
 
@@ -80,12 +80,12 @@ public class UsersDAO extends AbDAO<Users>{
 				}
 			}	
 			
-			return users;
+			return user;
 
 		}
 
 	
-	public void delete(Users obj) {
+	public void delete(User obj) {
 		delete(obj.getIdUser());		
 	}
 	// this method will delete one user from the table using his id
@@ -108,20 +108,20 @@ public class UsersDAO extends AbDAO<Users>{
 
 
 	// this method should be able to show us all users 
-	public List<Users> DisplayAllUsers() {
-		List<Users> users = new ArrayList<Users>();
+	public List<User> DisplayAllUsers() {
+		List<User> userList = new ArrayList<User>();
 
 		if(connection != null)
 		{
 			try {
 				PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM USER");
 				ResultSet rs = preparedStatement.executeQuery();
-				Users user;
+				User user;
 				while (rs.next()) {
 					user = usersHandler(rs);
 					if(user != null)
 					{
-						users.add(user);
+						userList.add(user);
 					}
 				}
 			} catch (Exception e) {
@@ -130,26 +130,26 @@ public class UsersDAO extends AbDAO<Users>{
 			}
 		}
 
-		return users;
+		return userList;
 	}
 
 
 
 	@Override
-	public List<Users> find(List<String> values) {
-		List<Users> users = new ArrayList<Users>();
+	public List<User> find(List<String> values) {
+		List<User> userList = new ArrayList<User>();
 
 			if(connection != null)
 			{
 				try {
 					PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM USER ");
 					ResultSet rs = preparedStatement.executeQuery();
-					Users user;
+					User user;
 					while (rs.next()) {
 						user = usersHandler(rs);
 						if(user != null)
 						{
-							users.add(user);
+							userList.add(user);
 						}
 					}
 				} catch (Exception e) {
@@ -158,7 +158,7 @@ public class UsersDAO extends AbDAO<Users>{
 				}
 			}
 
-			return users;
+			return userList;
 		}
 
 	

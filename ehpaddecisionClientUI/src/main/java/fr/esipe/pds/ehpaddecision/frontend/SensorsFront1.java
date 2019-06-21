@@ -69,7 +69,7 @@ public class SensorsFront1 extends JPanel implements ActionListener{
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		sensor_backend = new Sensor_Backend(this);
+	//	sensor_backend = new Sensor_Backend(this);
 		
 		
 		frame = new JFrame("Configuration");

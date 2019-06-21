@@ -28,9 +28,9 @@ import fr.esipe.pds.ehpaddecision.exceptions.AllConnectionUsedException;
 import fr.esipe.pds.ehpaddecision.frontend.HomePageFront;
 import fr.esipe.pds.ehpaddecision.main.ClientServerConnection;
 import fr.esipe.pds.ehpaddecision.nicetoadd.Tools;
-import fr.esipe.pds.ehpaddecision.principales.Alerts;
-import fr.esipe.pds.ehpaddecision.principales.Locations;
-import fr.esipe.pds.ehpaddecision.principales.Users;
+import fr.esipe.pds.ehpaddecision.principales.Alert;
+import fr.esipe.pds.ehpaddecision.principales.Location;
+import fr.esipe.pds.ehpaddecision.principales.User;
 import fr.esipe.pds.ehpaddecision.principales.Temperatures_Sensors;
 
 public class HomePageFront extends JPanel {
@@ -92,9 +92,9 @@ public class HomePageFront extends JPanel {
     @SuppressWarnings("unchecked")
     public void Alerts(){
     	viderTable(dtm1);
-    	Alerts Alert = new Alerts ();
+    	Alert Alert = new Alert ();
 		String serializedObject = Tools.serializeObject(Alert, Alert.getClass(), "");
-		String jsRequest = Tools.serializeQuery(Queries.SELECT, Alerts.class, serializedObject,null);
+		String jsRequest = Tools.serializeQuery(Queries.SELECT, Alert.class, serializedObject,null);
 		
 		try 
 		{
@@ -103,9 +103,9 @@ public class HomePageFront extends JPanel {
 			String error = Tools.jsonNode(JSONExample.ERROR, answer).trim();
 			if(error.equals(""))
 			{
-				List<Alerts> alerts = (List<Alerts>) Tools.deserializeObject(answer);
-				jTabbedPane1.setTitleAt(0,alerts.size()+" Alerts" );
-				for(Alerts alert : alerts)
+				List<Alert> alertList = (List<Alert>) Tools.deserializeObject(answer);
+				jTabbedPane1.setTitleAt(0,alertList.size()+" Alerts" );
+				for(Alert alert : alertList)
 				{
 					id_alert=alert.getIdAlert();
 		            name_alert=alert.getNameAlert();
@@ -130,9 +130,9 @@ public class HomePageFront extends JPanel {
     @SuppressWarnings("unchecked")
     public void Users(){
     	viderTable(dtm2);
-    	Users User = new Users ();
+    	User User = new User ();
 		String serializedObject = Tools.serializeObject(User, User.getClass(), "");
-		String jsRequest = Tools.serializeQuery(Queries.SELECT, Users.class, serializedObject,null);
+		String jsRequest = Tools.serializeQuery(Queries.SELECT, User.class, serializedObject,null);
 		
 		try 
 		{
@@ -141,9 +141,9 @@ public class HomePageFront extends JPanel {
 			String error = Tools.jsonNode(JSONExample.ERROR, answer).trim();
 			if(error.equals(""))
 			{
-				List<Users> users = (List<Users>) Tools.deserializeObject(answer);
-				jTabbedPane1.setTitleAt(1,users.size()+" Users" );
-				for(Users user : users)
+				List<User> userList = (List<User>) Tools.deserializeObject(answer);
+				jTabbedPane1.setTitleAt(1,userList.size()+" Users" );
+				for(User user : userList)
 				{
 					
 					id_user=user.getIdUser();
@@ -171,9 +171,9 @@ public class HomePageFront extends JPanel {
     public void Locations(){
     	viderTable(dtm3);
     	
-    	Locations Location = new Locations ();
+    	Location Location = new Location ();
 	    String serializedObject = Tools.serializeObject(Location, Location.getClass(), "");
-		String jsRequest = Tools.serializeQuery(Queries.SELECT, Locations.class, serializedObject,null);
+		String jsRequest = Tools.serializeQuery(Queries.SELECT, Location.class, serializedObject,null);
 		System.out.println(serializedObject);
 		System.out.println(jsRequest);
 		try 
@@ -183,9 +183,9 @@ public class HomePageFront extends JPanel {
 			String error = Tools.jsonNode(JSONExample.ERROR, answer).trim();
 			if(error.equals(""))
 			{
-				List<Locations> locations = (List<Locations>) Tools.deserializeObject(answer);
-				jTabbedPane1.setTitleAt(2,locations.size()+" Locations" );
-				for(Locations location : locations)
+				List<Location> locationList = (List<Location>) Tools.deserializeObject(answer);
+				jTabbedPane1.setTitleAt(2,locationList.size()+" Locations" );
+				for(Location location : locationList)
 				{
 					id_location=location.getIdLocation();
 		            name_location=location.getNameLocation();

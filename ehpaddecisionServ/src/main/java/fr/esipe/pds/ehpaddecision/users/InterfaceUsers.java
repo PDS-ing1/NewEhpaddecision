@@ -1,13 +1,13 @@
 package fr.esipe.pds.ehpaddecision.users;
 
 import java.util.List;
-import fr.esipe.pds.ehpaddecision.principales.Users;
+import fr.esipe.pds.ehpaddecision.principales.User;
 
 public interface InterfaceUsers {
-	void create (Users user);
-	void update (Users use);
+	void create (User user);
+	void update (User use);
 	void delete (int userId);
 	
 	// to display all Users.
-	List<Users> DisplayAllUsers(); 
+	List<User> DisplayAllUsers(); 
 }

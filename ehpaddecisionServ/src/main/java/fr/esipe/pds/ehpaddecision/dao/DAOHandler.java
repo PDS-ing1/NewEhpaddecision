@@ -16,15 +16,15 @@ public class DAOHandler {
 		
 		// run some test with sysout
 		// TODO remvoe sysout
-		if(entityClass.equals(fr.esipe.pds.ehpaddecision.principales.Alerts.class)){
+		if(entityClass.equals(fr.esipe.pds.ehpaddecision.principales.Alert.class)){
 		     System.out.println("here");
 			return new AlertsDAO(connection);
 		}
-		else if(entityClass.equals(fr.esipe.pds.ehpaddecision.principales.Users.class)){
+		else if(entityClass.equals(fr.esipe.pds.ehpaddecision.principales.User.class)){
 			System.out.println("not here");
 			return new UsersDAO(connection);
 		}
-		else if(entityClass.equals(fr.esipe.pds.ehpaddecision.principales.Locations.class)){
+		else if(entityClass.equals(fr.esipe.pds.ehpaddecision.principales.Location.class)){
 			System.out.println("not here");
 			return new LocationDAO(connection);
 		}

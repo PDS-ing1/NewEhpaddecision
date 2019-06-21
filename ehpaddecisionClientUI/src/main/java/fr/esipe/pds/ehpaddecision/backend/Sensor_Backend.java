@@ -32,12 +32,12 @@ import fr.esipe.pds.ehpaddecision.frontend.SensorsFront1;
 import fr.esipe.pds.ehpaddecision.frontend.Sensors_Add;
 import fr.esipe.pds.ehpaddecision.main.ClientServerConnection;
 import fr.esipe.pds.ehpaddecision.nicetoadd.Tools;
-import fr.esipe.pds.ehpaddecision.principales.Alerts;
-import fr.esipe.pds.ehpaddecision.principales.Locations;
+import fr.esipe.pds.ehpaddecision.principales.Alert;
+import fr.esipe.pds.ehpaddecision.principales.Location;
 import fr.esipe.pds.ehpaddecision.principales.Sensors;
 import fr.esipe.pds.ehpaddecision.principales.Smoke_Sensors;
 import fr.esipe.pds.ehpaddecision.principales.Temperatures_Sensors;
-import fr.esipe.pds.ehpaddecision.principales.Users;
+import fr.esipe.pds.ehpaddecision.principales.User;
 
 import fr.esipe.pds.ehpaddecision.enumerations.JSONExample;
 import fr.esipe.pds.ehpaddecision.enumerations.Queries;

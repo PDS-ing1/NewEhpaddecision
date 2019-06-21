@@ -38,7 +38,7 @@ import fr.esipe.pds.ehpaddecision.nicetoadd.Tools;
 
 
 
-public class AlertPage
+public class AlertPage {/*
 {
 	private static DefaultListSelectionModel selectionModel;
 

@@ -10,11 +10,11 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.fasterxml.jackson.core.JsonFactory;
-import fr.esipe.pds.ehpaddecision.principales.Alerts;
+import fr.esipe.pds.ehpaddecision.principales.Alert;
 
 import fr.esipe.pds.ehpaddecision.dao.AbDAO;
 
-public class AlertsDAO extends AbDAO<Alerts> implements InterfaceAlerts{
+public class AlertsDAO extends AbDAO<Alert> implements InterfaceAlerts{
 	private final Logger log = LoggerFactory.getLogger(AlertsDAO.class);	
 	private JsonFactory jsFactory = new JsonFactory();
 
@@ -24,11 +24,11 @@ public class AlertsDAO extends AbDAO<Alerts> implements InterfaceAlerts{
 	}
 
 	
-	private Alerts alertsHandler(ResultSet rs) {
+	private Alert alertsHandler(ResultSet rs) {
 		{
-			Alerts alert = null;
+			Alert alert = null;
 			try {
-				alert = new Alerts(rs.getInt("ID_ALERT"), rs.getString("NAME"),rs.getTimestamp("CREATION_DATE"));
+				alert = new Alert(rs.getInt("ID_ALERT"), rs.getString("NAME"),rs.getTimestamp("CREATION_DATE"));
 			} catch (SQLException e) {
 				log.error("Sorry, we faced an error while retrieving this alert from the result : " + e.getMessage());
 			}
@@ -38,7 +38,7 @@ public class AlertsDAO extends AbDAO<Alerts> implements InterfaceAlerts{
 	
 	
 	
-	public void update(Alerts alert) {
+	public void update(Alert alert) {
 		// quick check if there is any free connection to use 
 		if(connection != null)
 		{
@@ -55,7 +55,7 @@ public class AlertsDAO extends AbDAO<Alerts> implements InterfaceAlerts{
 
 	}
 
-	public Alerts create(Alerts alerts) {
+	public Alert create(Alert alert) {
 	
 		// quick check if there is any free connection to use 
 			if(connection != null)
@@ -65,9 +65,9 @@ public class AlertsDAO extends AbDAO<Alerts> implements InterfaceAlerts{
 					PreparedStatement preparedStatement = connection
 							.prepareStatement("INSERT INTO ALERT (ID_ALERT, NAME, CREATION_DATE)"
 									+ " VALUES (? , ? , ? )", Statement.RETURN_GENERATED_KEYS);
-					preparedStatement.setInt(1, alerts.getIdAlert());
-					preparedStatement.setString(2, alerts.getNameAlert());
-					preparedStatement.setTimestamp(3, alerts.getCreationDate());
+					preparedStatement.setInt(1, alert.getIdAlert());
+					preparedStatement.setString(2, alert.getNameAlert());
+					preparedStatement.setTimestamp(3, alert.getCreationDate());
 					preparedStatement.execute();
 					ResultSet rs = preparedStatement.getGeneratedKeys();
 
@@ -77,12 +77,12 @@ public class AlertsDAO extends AbDAO<Alerts> implements InterfaceAlerts{
 				}
 			}	
 			
-			return alerts;
+			return alert;
 
 		}
 
 	
-	public void delete(Alerts obj) {
+	public void delete(Alert obj) {
 		delete(obj.getIdAlert());		
 	}
 	
@@ -105,20 +105,20 @@ public class AlertsDAO extends AbDAO<Alerts> implements InterfaceAlerts{
 
 
 	
-	public List<Alerts> DisplayAllAlerts() {
-		List<Alerts> alerts = new ArrayList<Alerts>();
+	public List<Alert> DisplayAllAlerts() {
+		List<Alert> alertList = new ArrayList<Alert>();
 
 		if(connection != null)
 		{
 			try {
 				PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM ALERT");
 				ResultSet rs = preparedStatement.executeQuery();
-				Alerts alert;
+				Alert alert;
 				while (rs.next()) {
 					alert = alertsHandler(rs);
 					if(alert != null)
 					{
-						alerts.add(alert);
+						alertList.add(alert);
 					}
 				}
 			} catch (Exception e) {
@@ -127,26 +127,26 @@ public class AlertsDAO extends AbDAO<Alerts> implements InterfaceAlerts{
 			}
 		}
 
-		return alerts;
+		return alertList;
 	}
 
 
 
 	@Override
-	public List<Alerts> find(List<String> values) {
-		List<Alerts> alerts = new ArrayList<Alerts>();
+	public List<Alert> find(List<String> values) {
+		List<Alert> alertList = new ArrayList<Alert>();
 
 			if(connection != null)
 			{
 				try {
 					PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM ALERT");
 					ResultSet rs = preparedStatement.executeQuery();
-					Alerts alert;
+					Alert alert;
 					while (rs.next()) {
 						alert = alertsHandler(rs);
 						if(alert != null)
 						{
-							alerts.add(alert);
+							alertList.add(alert);
 						}
 					}
 				} catch (Exception e) {
@@ -155,7 +155,7 @@ public class AlertsDAO extends AbDAO<Alerts> implements InterfaceAlerts{
 				}
 			}
 
-			return alerts;
+			return alertList;
 		}
 	
 }

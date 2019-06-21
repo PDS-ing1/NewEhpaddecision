@@ -21,9 +21,9 @@ import fr.esipe.pds.ehpaddecision.frontend.SensorPlan;
 import fr.esipe.pds.ehpaddecision.main.ClientServerConnection;
 import fr.esipe.pds.ehpaddecision.nicetoadd.Tools;
 
-import fr.esipe.pds.ehpaddecision.principales.Alerts;
+import fr.esipe.pds.ehpaddecision.principales.Alert;
 import fr.esipe.pds.ehpaddecision.principales.Sensors;
-import fr.esipe.pds.ehpaddecision.principales.Users;
+import fr.esipe.pds.ehpaddecision.principales.User;
 
 public class PlanSensorBackEnd implements ActionListener{
 
