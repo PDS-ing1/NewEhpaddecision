@@ -1,5 +1,8 @@
 package fr.esipe.pds.ehpaddecision.backend;
 
+
+// this enum should be removed from this class and kept only in the share package
+// TODO remove this class
 public enum ConnectionStarting {
 	FAIL(-1,"Something is wrong with the connection..."),
 	TRYAGAIN(0, "We are facing some issues.. Please try again"),

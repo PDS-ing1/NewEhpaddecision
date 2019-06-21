@@ -2,16 +2,15 @@ package fr.esipe.pds.ehpaddecision.clientsocket;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.net.SocketTimeoutException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import fr.esipe.pds.ehpaddecision.*;
-import fr.esipe.pds.ehpaddecision.backend.AllConnectionUsedException;
+
 import fr.esipe.pds.ehpaddecision.backend.ConnectionStarting;
-import fr.esipe.pds.ehpaddecision.doublon.Tools;
+import fr.esipe.pds.ehpaddecision.exceptions.AllConnectionUsedException;
 import fr.esipe.pds.ehpaddecision.main.EhpadMain;
 
 // S as Socket 
@@ -19,7 +18,8 @@ public class SClient {
 	// to add logs
 	
 	
-	// TODO add address_ip in properties file
+	// TODO add address_ip in properties file, and remove the unuseful comments
+	// TODO no value directly in code is allowed, to be removed and put it in the properties file.
 	private final String ADRESS_IP = "localhost";
 	private final int N_PORT = 7070;
 	private static  final Logger log = LoggerFactory.getLogger(EhpadMain.class);
@@ -27,8 +27,7 @@ public class SClient {
 	private BufferedReader readFromServer;
 	private PrintWriter writeToServer;
 	
-	// Set a delay for the the server, after this delay we will send a timeout error
-	
+	// Set a delay for the the server, after this delay we will send a timeout error, this timeout is not ON now.
 	private final int TIMEOUT = 2000;
 	private Socket socket;
 	
@@ -45,8 +44,11 @@ public class SClient {
 			// if the servers takes a long time to send an answer, we will send that as a timeout
 			//socket.setSoTimeout(TIMEOUT); // turn off the timeout for some tests
 			// for read from Server and write to it
-			readFromServer = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-			writeToServer = new PrintWriter(socket.getOutputStream(), true);		
+			
+			
+			writeToServer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(), "UTF-8"), true);	
+			readFromServer = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"));
+			
 	
 			/*String error = readFromServer.readLine();
 			System.out.println(" error " + error);
@@ -54,7 +56,7 @@ public class SClient {
 				throw new AllConnectionUsedException();
 			}*/
 				log.info("Connected to the server");
-				String jsRequest= "INSERT INTO ALERT (ID_ALERT, NAME, CREATION_DATE) VALUES (1 , 'Default' , null )";
+				//String s= "INSERT INTO ALERT (ID_ALERT, NAME, CREATION_DATE) VALUES (1 , 'Default' , null )";
 				return ConnectionStarting.WELLDONE;
 			}
 			catch (Exception e){
@@ -68,15 +70,16 @@ public class SClient {
 	{
 		String answerServerClient = "";
 		
-		//log.info("Request sent to the server :\n" + Util.indentJsonOutput(requestToSendToServer));
 		
 		// Send the request to the server
+		System.out.println("WriteToServer will be executed");
 		writeToServer.println(requestToSendToServer);
-		System.out.println("Test"+ requestToSendToServer);
+		System.out.println("WriteToServer have been executed");
+		
 		
 		// Receive an answer from the the server
 		answerServerClient = readFromServer.readLine();
-		System.out.println("Test2" + answerServerClient);
+		System.out.println("toto6");
 		return answerServerClient;
 	}
 		

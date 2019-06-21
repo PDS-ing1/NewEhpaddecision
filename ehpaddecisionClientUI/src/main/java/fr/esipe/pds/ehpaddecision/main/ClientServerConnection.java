@@ -1,8 +1,8 @@
 package fr.esipe.pds.ehpaddecision.main;
 
-import fr.esipe.pds.ehpaddecision.backend.AllConnectionUsedException;
 import fr.esipe.pds.ehpaddecision.backend.ConnectionStarting;
 import fr.esipe.pds.ehpaddecision.clientsocket.SClient;
+import fr.esipe.pds.ehpaddecision.exceptions.AllConnectionUsedException;
 
 public class ClientServerConnection {
 	private static SClient sclient;
@@ -23,6 +23,9 @@ public class ClientServerConnection {
 
 	
 	public static SClient returnClientSocket() {
+		/*if(sclient == null) {
+			callSocket();
+		}*/
 		return sclient;
 	}
 	

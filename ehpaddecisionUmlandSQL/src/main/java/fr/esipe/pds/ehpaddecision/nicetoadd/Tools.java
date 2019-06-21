@@ -1,24 +1,19 @@
 package fr.esipe.pds.ehpaddecision.nicetoadd;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
-import javax.management.InvalidAttributeValueException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.base.GeneratorBase;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
-import fr.esipe.pds.ehpdaddecision.enumerations.JSONExample;
-import fr.esipe.pds.ehpdaddecision.enumerations.Queries;
+import fr.esipe.pds.ehpaddecision.enumerations.JSONExample;
+import fr.esipe.pds.ehpaddecision.enumerations.Queries;
+
+//this class will handle many communications 
 public class Tools {
 
 	private static final Logger log = LoggerFactory.getLogger(Tools.class);
@@ -42,7 +37,8 @@ public class Tools {
 		return val;
 	}
 
-	// not completed... to review 
+	
+	// this function is able to serialize an object from java object to Json 
 	public static String serializeObject(Object obj, Class Class, String message)
 	{		
 		String JSONobj = null;
@@ -58,15 +54,19 @@ public class Tools {
 				
 				if(obj instanceof List)
 				{
-					node.put(JSONExample.LIST.baseExample(), true);				
+					
+					node.put(JSONExample.LIST.baseExample(), true);	
 				}
 				else
 				{
 					node.put(JSONExample.LIST.baseExample(), false);
 				}				
+				
+				String className = Class.getName();
+				
+				node.put(JSONExample.PERIM.baseExample(), className);
 				node.putPOJO(JSONExample.INFO.baseExample(), obj);
-				log.info("Successful serialization");
-				System.out.println(obj.toString());
+				log.info("Serialization into JSON succedeed");
 			}
 			else
 			{
@@ -81,13 +81,11 @@ public class Tools {
 			System.out.println("ERROR " + obj.toString());
 			System.out.println("Exception " +e.toString());
 		}			
-
+		System.out.println(JSONobj);
 		return JSONobj;
 	}
 	
 	// this function will be able to convert a json string into a java object
-	
-	// not completed... to review 
 	public static Object deserializeObject(String objectInJSONString) {
 
 		Object jstObj = null;
@@ -99,6 +97,7 @@ public class Tools {
 				throw new Exception("Sorry, We can't load to serialize, check again!");
 
 			JsonNode stringJs = mapper.readTree(objectInJSONString);
+			// the next implementation corresponds to our enum JSONExample
 			JsonNode perimNode = stringJs.get(JSONExample.PERIM.baseExample());
 		
 			JsonNode infoNode = stringJs.get(JSONExample.INFO.baseExample());
@@ -107,6 +106,7 @@ public class Tools {
 
 			
 			String className = perimNode.textValue();
+			// the object <?> it is called a wildcard and it takes all kinds of objects in Java 
 			Class<?> objectClass = Class.forName(className);
 
 			boolean isListOfEntities = listNode.booleanValue();			
@@ -116,18 +116,17 @@ public class Tools {
 			else
 				jstObj = mapper.readValue(infoNode.toString(), objectClass);
 
-			log.info("Deserialization into Java Object succedeed");
+			log.info("Successful deserialization");
 
 		} catch (Exception e) {
-			log.error("Deserialization into Java Object failed : " + e.getMessage());
+			log.error("Failed deserialization : " + e.getMessage());
 			e.printStackTrace();
 		} 
 
 		return jstObj;		
 	}
 
-	public static String jsonNode(JSONExample example, String js)
-	{
+	public static String jsonNode(JSONExample example, String js){
 		String result = "";		
 
 		try 
@@ -145,10 +144,10 @@ public class Tools {
 	}
 	
 	// this function should be able to reflect pretty line 
-	public static String getPrettyJson(String jsString)
-	{
+	// this function is not mandatory, but we implement it to get a pretty answer of Json
+	public static String getPrettyJson(String jsString){
 		ObjectMapper mapper = new ObjectMapper();
-		// indent_ouput display the answer in multiple lines, as a pretty display
+		// indent_ouput : display the answer in multiple lines, as a pretty display
 		mapper.configure(SerializationFeature.INDENT_OUTPUT, true);
 		try {
 			JsonNode jsonNode = mapper.readTree(jsString);
@@ -158,6 +157,40 @@ public class Tools {
 			return "";
 		}
 	}
+	
+	// this function will help us to serialize all kinds of request (CRUD). 
+	public static String serializeQuery(Queries queryExample, Class entityClass,String serializedObject, 
+			List<String> values) {	
+		String objectToJSON = null;
+			try {
+				if(queryExample == null || entityClass == null)
+					throw new IOException("Sorry, this information could not be empty !");
+
+				objectToJSON = null;
+				ObjectMapper mapper = new ObjectMapper();
+				ObjectNode rootNode = mapper.createObjectNode();
+				ObjectNode requestNode = mapper.createObjectNode();
+
+				if(serializedObject == null)
+					serializedObject = "";
+				JsonNode serializedObjectNode = mapper.readTree(serializedObject);
+
+				requestNode.put(JSONExample.QUERY.baseExample(), queryExample.toString());		
+				requestNode.put(JSONExample.PERIM.baseExample(), entityClass.getName());	
+				requestNode.putPOJO(JSONExample.INFO.baseExample(), values);
+				
+				rootNode.putPOJO(JSONExample.INFO.baseExample(), requestNode);
+				rootNode.putPOJO(JSONExample.SERIALIZE.baseExample(), serializedObjectNode);
+
+				objectToJSON = mapper.writeValueAsString(rootNode);
+		} catch (IOException e) {
+			log.error("Sorry, something was wrong with the deserialization of this request :\n" + e.getMessage());
+		}
+
+		return objectToJSON;
+	}	
+	
+	
 	
 	
 	/**

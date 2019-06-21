@@ -1,5 +1,8 @@
 package fr.esipe.pds.ehpdaddecision.enums;
 
+// TODO remove this package from Server and put it only in Share as it is shared between client and server
+// TODO remove this class 
+// this enumeration helps us to know the state of the connection with the server.
 public enum ConnectionStarting {
 	FAIL(-1,"Something is wrong with the connection..."),
 	TRYAGAIN(0, "We are facing some issues.. Please try again"),

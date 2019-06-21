@@ -1,3 +1,6 @@
+
+---------- TODO TO BE MODIFIED BEFORE THE LAST RELEASE------------------------
+
 -- Table `PDS`.`Connected_Object`
 -- -----------------------------------------------------
 CREATE TABLE connected_object (

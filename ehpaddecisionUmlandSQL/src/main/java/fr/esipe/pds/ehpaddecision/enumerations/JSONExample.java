@@ -1,7 +1,7 @@
 package fr.esipe.pds.ehpaddecision.enumerations;
 
 public enum JSONExample {
-	
+
 	PERIM("perim"),
 	LIST("list"),
 	QUERY("query"),
@@ -9,9 +9,10 @@ public enum JSONExample {
 	ERROR("error"), 
 	SERIALIZE("serialize");
 	
+	
 private String baseExample;
 	
-	JSONExample(String abe)
+	JSONExample(String baseExample)
 	{
 		this.baseExample = baseExample;
 	}
@@ -22,3 +23,8 @@ private String baseExample;
 	}
 	
 }
+
+	
+	
+	
+

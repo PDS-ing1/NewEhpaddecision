@@ -4,6 +4,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import fr.esipe.pds.ehpaddecision.frontend.EhpadPage;
+import fr.esipe.pds.ehpaddecision.frontend.Sensors_Add;
+
 import javax.swing.*;
 public class EhpadMain {
 	

@@ -16,7 +16,7 @@ public class DataSource {
 
 	public DataSource() {}
 	
-	public static synchronized Connection getConnection()
+	public static synchronized Connection getConnection(String myUrl, String user, String passwd)
 	{
 		try {
 			return connectionPool.getConnection();
