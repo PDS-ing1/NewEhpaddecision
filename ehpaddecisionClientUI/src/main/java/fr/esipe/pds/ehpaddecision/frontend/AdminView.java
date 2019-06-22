@@ -28,7 +28,6 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
-
 import fr.esipe.pds.ehpaddecision.backend.AdminModel;
 import fr.esipe.pds.ehpaddecision.enumerations.JSONExample;
 import fr.esipe.pds.ehpaddecision.enumerations.Queries;
