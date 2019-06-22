@@ -1,7 +1,6 @@
 package fr.esipe.pds.ehpaddecision.mocksimu;
 
 
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -20,7 +19,7 @@ import fr.esipe.pds.ehpaddecision.frontend.AlertPage;
 import fr.esipe.pds.ehpaddecision.frontend.ResultSetTableModel;
 import fr.esipe.pds.ehpaddecision.frontend.TablePanel;
 
-// todo faire le nombre d'alertes par type de capteur
+
 
 public class SimulHumidity {
 
@@ -94,26 +93,26 @@ public class SimulHumidity {
 									System.out.println("alerte température");
 									String sql ="SELECT id FROM humidity_sensor where temperature = " + elem ;
 									ResultSet result2 = st.executeQuery(sql);
-
+									
 									try {
 										Connection connection = AlertPage.getConnection();
 										Statement st1 = connection.createStatement();
 										ResultSet rs = st1.executeQuery(sql);								
 										while(rs.next()) {
-											String id = rs.getString("id");
-											System.out.println(id); 
-
+										String id = rs.getString("id");
+										System.out.println(id); 
+										
 										}
 									} catch (SQLException e1) {
 										// TODO Auto-generated catch block
 										e1.printStackTrace();
 									}
-
+									
 									ResultSetMetaData resultMeta2 = result2.getMetaData();
 
 									while(result2.next()){         
 										for(int j = 1; j <= resultMeta2.getColumnCount(); j++)
-
+											
 
 											System.out.print("\t" +result2.getInt(j)+"\t |");
 
