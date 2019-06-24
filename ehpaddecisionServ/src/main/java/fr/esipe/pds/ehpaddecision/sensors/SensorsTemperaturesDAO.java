@@ -1,3 +1,4 @@
+
 package fr.esipe.pds.ehpaddecision.sensors;
 
 import java.sql.Connection;
@@ -14,11 +15,11 @@ import com.fasterxml.jackson.core.JsonFactory;
 
 import fr.esipe.pds.ehpaddecision.dao.AbDAO;
 import fr.esipe.pds.ehpaddecision.locations.LocationDAO;
-import fr.esipe.pds.ehpaddecision.principales.Alerts;
-import fr.esipe.pds.ehpaddecision.principales.Locations;
+import fr.esipe.pds.ehpaddecision.principales.Alert;
+import fr.esipe.pds.ehpaddecision.principales.Location;
 import fr.esipe.pds.ehpaddecision.principales.Sensors;
 import fr.esipe.pds.ehpaddecision.principales.Temperatures_Sensors;
-import fr.esipe.pds.ehpaddecision.principales.Users;
+import fr.esipe.pds.ehpaddecision.principales.User;
 
 public class SensorsTemperaturesDAO extends AbDAO<Temperatures_Sensors> implements InterfaceSensors {
 

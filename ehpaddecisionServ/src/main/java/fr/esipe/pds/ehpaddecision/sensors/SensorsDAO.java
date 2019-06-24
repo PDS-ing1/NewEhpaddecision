@@ -1,3 +1,4 @@
+
 package fr.esipe.pds.ehpaddecision.sensors;
 
 import java.sql.Connection;
@@ -5,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -79,8 +81,28 @@ public class SensorsDAO extends AbDAO<Sensors>{
 
 		@Override
 		public List<Sensors> find(List<String> values) {
-			// TODO Auto-generated method stub
-			return null;
+			List<Sensors> sensorList = new ArrayList<Sensors>();
+
+			if(connection != null)
+			{
+				try {
+					PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM SENSOR");
+					ResultSet rs = preparedStatement.executeQuery();
+					Sensors sensor;
+					while (rs.next()) {
+						sensor = sensorsHandler(rs);
+						if(sensor != null)
+						{
+							sensorList.add(sensor);
+						}
+					}
+				} catch (Exception e) {
+					log.error("Oh it seems to be a big URL, try again : " + e.getMessage());
+					e.printStackTrace();
+				}
+			}
+
+			return sensorList;
 		}
 
 		@Override

@@ -1,7 +1,5 @@
 package fr.esipe.pds.ehpaddecision.frontend;
 
-
-
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -15,7 +13,6 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Vector;
 
 import javax.swing.DefaultListSelectionModel;
 import javax.swing.JButton;
@@ -28,13 +25,8 @@ import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.table.TableModel;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-//import fr.esipe.pds.ehpaddecision.connectionpool.JDBCConnectionPool;
 import fr.esipe.pds.ehpaddecision.mocksimu.SimulHumidity;
 import fr.esipe.pds.ehpaddecision.mocksimu.SimulSmoke;
-import fr.esipe.pds.ehpaddecision.nicetoadd.Tools;
 
 
 
@@ -45,8 +37,7 @@ public class AlertPage
 	public static void main(String[] args)
 	{
 
-	
-		Connection connection = this.connection(); 
+		Connection connection = getConnection();
 		try
 		{	
 			
@@ -82,21 +73,14 @@ public class AlertPage
 			mainFrame.add(smokesensor);       
 			mainFrame.add(boutonRefresh);
 
-			JLabel descriptif = new JLabel("Descriptif des alertes");
-			descriptif.setFont(new Font("Times New Roman", Font.BOLD, 12));
-			descriptif.setBounds(54, 32, 119, 14);
-
-			mainFrame.add( descriptif , BorderLayout.SOUTH);
-
-
-
+			
 			humiditysensor.addActionListener(new ActionListener(){
 				public synchronized void actionPerformed(ActionEvent event){
 					new JOptionPane();
 					new SimulHumidity(80);
 
 					SimulHumidity.main(null);
-					//tablePanel.repaint();
+					tablePanel.repaint();
 				}
 			});   
 
@@ -121,7 +105,7 @@ public class AlertPage
 			e.printStackTrace();
 		}
 	}
-/*
+
 	public static Connection getConnection()
 	{
 		Connection connection = null;
@@ -150,34 +134,79 @@ public class AlertPage
 		}
 
 		return connection;
-	}*/
+	}
 	private static final String PILOTE ="com.mysql.jdbc.Driver";
 	private static final String URL_DATABASE ="jdbc:mysql://localhost:3306/pds1";
-	private static final Logger log = LoggerFactory.getLogger(AlertPage.class);
-    private final String url             =  Tools.propertiesFileHandler("url");
-    private final String user            =  Tools.propertiesFileHandler("username");
-    private final String pswd            =  Tools.propertiesFileHandler("password");
-    private int connectionsAvailableNb;
-    private int connectionsRecentlyCreated;
-    private Vector<Connection> connections;
 	
-	public AlertPage() {
-		connections = new Vector<Connection>();
-		connectionsRecentlyCreated = 0;
-		log.info("This Database is linked to this url : " + url);
-		try
-		{
-			connectionsAvailableNb = Integer.parseInt(Tools.propertiesFileHandler("nb_connection"));
-		}
-		catch(Exception e)
-		{
-			log.error("File unloaded from properties !");
-			connectionsAvailableNb = 10;
-		}
-
-		log.info(connectionsAvailableNb + " connection(s) should be put inside the connection pool.");
-	} 
 }
 
 
+class TablePanel extends JPanel
+{
+	private JTable table;
+	
+	public TablePanel( TableModel model )
+	{
+		table = new JTable( model );
+		JTextArea alertes = new JTextArea();
+		alertes.setToolTipText("Descriptif des alertes");
+		alertes.setBounds(256, 152, 130, 75);
+		add(alertes);
+		
 
+		table.addMouseListener(new MouseAdapter() {
+		
+			public void mouseClicked(MouseEvent e) {
+
+				if(table.getSelectedRow() != -1 && table.getSelectedColumn() != -1) {
+					String selData = table.getValueAt(table.getSelectedRow(),1).toString();
+					
+					System.out.println(selData);
+					String sql ="select * from test where id = " +selData ;
+					// String sql =" select * from test where id = '"+selData+"'";
+					
+					
+						try {
+							Connection connection = AlertPage.getConnection();
+							Statement st = connection.createStatement();
+							ResultSet rs = st.executeQuery(sql);
+							
+							while(rs.next()) {
+							
+							String id = rs.getString("id");
+							String temperature = rs.getString("temperature");
+							String heure = rs.getString("creation_date");
+							System.out.println(id+temperature+heure);
+							alertes.setText("identifiant: " +id+"\n"+"temperature:"+temperature+"\n"+"heure:"+heure);
+								
+								
+							}
+						} catch (SQLException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+					 
+				
+				}
+			}
+
+			
+		});
+
+		setLayout( new BorderLayout() );
+		add( new JScrollPane( table ), BorderLayout.CENTER );
+	}
+
+
+
+	public void update(TableModel model){
+
+		table.setModel(model);
+		//tableModel.getDataVector().elementAt(jTable.getSelectedRow());
+
+	}
+
+
+
+
+}

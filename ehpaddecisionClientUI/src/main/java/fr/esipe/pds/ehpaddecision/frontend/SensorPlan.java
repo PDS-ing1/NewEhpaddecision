@@ -18,7 +18,6 @@ import net.miginfocom.swing.MigLayout;
 
 import javax.swing.JLabel;
 
-import com.jgoodies.forms.factories.DefaultComponentFactory;
 
 import fr.esipe.pds.ehpaddecision.backend.PlanSensorBackEnd;
 
