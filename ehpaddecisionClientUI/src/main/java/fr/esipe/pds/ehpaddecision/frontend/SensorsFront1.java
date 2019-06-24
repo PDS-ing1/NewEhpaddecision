@@ -55,13 +55,14 @@ public class SensorsFront1 extends JPanel implements ActionListener{
 	private static JTextField Temp_Max_Field;
 	private static JTextField PPM_Field;
 	private static JTextField MacAdressTextField;
-	
+
 	JLabel lblNewLabel_1;
 	JLabel lblTempmax;
 	static JComboBox comboBox;
 	static JRadioButton rdbtnNewRadioButton ;
 	static JRadioButton rdbtnNewRadioButton_1;
 	static JButton btnSubmit1;
+	static JButton btnBack; 
 	JLabel lblSeuildioxidecarbone;
 	private Sensor_Backend sensor_backend;
 	private EhpadPage ehpadPage;
@@ -161,7 +162,7 @@ public class SensorsFront1 extends JPanel implements ActionListener{
 		lblSeuildioxidecarbone = new JLabel("Seuil_DioxideCarbone");
 		lblSeuildioxidecarbone.setBounds(10, 115, 150, 14);
 		lblSeuildioxidecarbone.setVisible(false);
-		
+
 		MacAdressTextField = new JTextField();
 		MacAdressTextField.setBounds(180, 36, 130, 20);
 		frame.getContentPane().add(MacAdressTextField);
@@ -188,9 +189,10 @@ public class SensorsFront1 extends JPanel implements ActionListener{
 		lblMacadress.setBounds(10, 235, 200, 14);
 		frame.getContentPane().add(lblMacadress);
 
-		JButton btnBack = new JButton("Back");
+		btnBack = new JButton("Back");
 		btnBack.setBounds(10, 548, 130, 57);
 		frame.getContentPane().add(btnBack);
+		btnBack.addActionListener(this);
 
 		comboBox = new JComboBox();
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"off", "on"}));
@@ -218,13 +220,13 @@ public class SensorsFront1 extends JPanel implements ActionListener{
 		JLabel lblSmokesensorslist = new JLabel("Smoke_Sensors_List");
 		lblSmokesensorslist.setBounds(354, 235, 290, 14);
 		frame.getContentPane().add(lblSmokesensorslist);
-		
+
 		JLabel lblMacadress_1 = new JLabel("MacAdress");
 		lblMacadress_1.setBounds(180, 11, 130, 14);
 		frame.getContentPane().add(lblMacadress_1);
 	}
 
-	
+
 
 	public JFrame getFrame() {
 		return frame;
@@ -394,6 +396,13 @@ public class SensorsFront1 extends JPanel implements ActionListener{
 			lblNewLabel_1.setVisible(true);
 			lblTempmax.setVisible(true);
 
+
+		}
+
+		if(e.getSource()== btnBack) {
+
+			System.out.println("action button Back");
+			frame.setVisible(false);
 
 		}
 

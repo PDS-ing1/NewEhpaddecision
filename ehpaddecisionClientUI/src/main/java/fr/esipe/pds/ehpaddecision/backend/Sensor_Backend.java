@@ -83,6 +83,7 @@ public class Sensor_Backend implements ActionListener, WindowListener {
 					String location = Sensors_Add.getComboBox_1().getSelectedItem().toString();
 					String type = Sensors_Add.getComboBox_2().getSelectedItem().toString();
 					String mode = "off";
+					boolean state = false;
 					long date = System.currentTimeMillis();
 					int temperatureMin = 5;
 					int temperatureMax = 39;
@@ -123,7 +124,7 @@ public class Sensor_Backend implements ActionListener, WindowListener {
 
 
 
-								Sensors sensors = new Sensors(macAdress, brand, location, type, mode, date);
+								Sensors sensors = new Sensors(macAdress, brand, location, type, mode, state, date);
 								System.out.println(sensors.toString());
 								String serializedObject1 = Tools.serializeObject(sensors, sensors.getClass(), "");
 								String jsRequest1 = Tools.serializeQuery(Queries.INSERT, Sensors.class, serializedObject1, null);
@@ -188,7 +189,7 @@ public class Sensor_Backend implements ActionListener, WindowListener {
 
 
 
-								Sensors sensors = new Sensors(macAdress, brand, location, type, mode, date);
+								Sensors sensors = new Sensors(macAdress, brand, location, type, mode, state, date);
 								System.out.println(sensors.toString());
 								String serializedObject3 = Tools.serializeObject(sensors, sensors.getClass(), "");
 								String jsRequest3 = Tools.serializeQuery(Queries.INSERT, Sensors.class, serializedObject3, null);
@@ -250,7 +251,7 @@ public class Sensor_Backend implements ActionListener, WindowListener {
 
 			if(ae.getSource() == Sensors_Add.getBtnDelete()){
 				System.out.println("Action button Delete");
-				ClientServerConnection.callSocket();
+				//ClientServerConnection.callSocket();
 				try
 				{
 					String macAdress = Sensors_Add.getTextField().getText();

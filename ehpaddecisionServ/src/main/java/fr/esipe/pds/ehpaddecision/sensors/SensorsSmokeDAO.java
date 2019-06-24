@@ -17,7 +17,7 @@ import fr.esipe.pds.ehpaddecision.locations.LocationDAO;
 import fr.esipe.pds.ehpaddecision.principales.Sensors;
 import fr.esipe.pds.ehpaddecision.principales.Smoke_Sensors;
 
-public class SensorsSmokeDAO extends AbDAO<SensorsSmokeDAO> implements InterfaceSmokeSensors {
+public class SensorsSmokeDAO extends AbDAO<Smoke_Sensors> implements InterfaceSmokeSensors {
 	// to be able to convert Json into a readable file
 	private JsonFactory factory = new JsonFactory();
 	// to track all steps (logs)
@@ -68,26 +68,28 @@ public class SensorsSmokeDAO extends AbDAO<SensorsSmokeDAO> implements Interface
 	}
 
 
-	@Override
-	public void update(SensorsSmokeDAO obj) {
-		// TODO Auto-generated method stub
+	
 
+	@Override
+	public void update(Smoke_Sensors obj) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
-	public void delete(SensorsSmokeDAO obj) {
+	public void delete(Smoke_Sensors obj) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
-	public SensorsSmokeDAO create(SensorsSmokeDAO obj) {
+	public List<Smoke_Sensors> findAll() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<SensorsSmokeDAO> find(List<String> values) {
+	public List<Smoke_Sensors> find(List<String> values) {
 		// TODO Auto-generated method stub
 		return null;
 	}

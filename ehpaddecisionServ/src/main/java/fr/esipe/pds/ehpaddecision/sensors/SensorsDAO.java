@@ -32,7 +32,7 @@ public class SensorsDAO extends AbDAO<Sensors>{
 			{
 				Sensors sensors = null;
 				try {
-					sensors = new Sensors(rs.getString("macAdress"), rs.getString("Brand"), rs.getString("Location"), rs.getString("Type"), rs.getString("mode"), rs.getLong("date"));
+					sensors = new Sensors(rs.getString("macAdress"), rs.getString("Brand"), rs.getString("Location"), rs.getString("Type"), rs.getString("mode"), rs.getBoolean("state"), rs.getLong("date"));
 				} catch (SQLException e) {
 					log.error("Sorry, we occured an error while retrieving this sensor from the result : " + e.getMessage());
 				}
@@ -46,14 +46,15 @@ public class SensorsDAO extends AbDAO<Sensors>{
 			{
 				try {
 					PreparedStatement preparedStatement = connection
-							.prepareStatement("INSERT INTO sensor (macAdress, Brand, Location, Type, mode, date)"
-									+ " VALUES (? , ? , ? , ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+							.prepareStatement("INSERT INTO sensor (macAdress, Brand, Location, Type, mode, state, date)"
+									+ " VALUES (? , ? , ? , ? , ? , ? , ?)", Statement.RETURN_GENERATED_KEYS);
 					preparedStatement.setString(1, sensors.getMacAdress());
 					preparedStatement.setString(2, sensors.getBrand());
 					preparedStatement.setString(3, sensors.getLocation());
 					preparedStatement.setString(4, sensors.getType());
 					preparedStatement.setString(5, sensors.getMode());
-					preparedStatement.setLong(6, sensors.getDate());
+					preparedStatement.setBoolean(6, sensors.getState());
+					preparedStatement.setLong(7, sensors.getDate());
 					preparedStatement.execute();
 					ResultSet rs = preparedStatement.getGeneratedKeys();
 				} catch (Exception e) {
@@ -78,6 +79,12 @@ public class SensorsDAO extends AbDAO<Sensors>{
 
 		@Override
 		public List<Sensors> find(List<String> values) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public List<Sensors> findAll() {
 			// TODO Auto-generated method stub
 			return null;
 		}

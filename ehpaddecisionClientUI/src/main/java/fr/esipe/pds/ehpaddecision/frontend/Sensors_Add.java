@@ -67,7 +67,7 @@ public class Sensors_Add extends JPanel implements ActionListener{
 
 					Sensors_Add window = new Sensors_Add();
 					window.frame.setVisible(true);
-					
+
 
 
 
@@ -93,7 +93,7 @@ public class Sensors_Add extends JPanel implements ActionListener{
 	 */
 	public void initialize() {
 		sensor_backend = new Sensor_Backend(this);
-		
+
 		frame = new JFrame("Add_Sensors");
 		frame.setBounds(100, 100, 480, 340);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -143,51 +143,31 @@ public class Sensors_Add extends JPanel implements ActionListener{
 		btnBack = new JButton("Back");
 		btnBack.setBounds(10, 225, 116, 65);
 		frame.getContentPane().add(btnBack);
+		btnBack.addActionListener(this);
 
+		
 		btnSubmit = new JButton("Submit");
 		btnSubmit.setBounds(338, 225, 116, 65);
 		frame.getContentPane().add(btnSubmit);
 		btnSubmit.addActionListener(sensor_backend);
-		
+
 		btnDelete = new JButton("Delete");
 		btnDelete.setBounds(243, 233, 85, 49);
 		frame.getContentPane().add(btnDelete);
 		btnDelete.addActionListener(sensor_backend);
+
+	}
+
+	public void actionPerformed(ActionEvent ae) {
+		System.out.println("action button Back");
 		
-		/*{
-			public void actionPerformed(ActionEvent ae) {
-				System.out.println("action button Submit");
+		if(ae.getSource()== btnBack) {
+			
+			frame.setVisible(false);
+			
+		}
+	}
 
-				String macAdress2 = textField.getText();  
-				// String code = codeVille.getText();
-
-				try{
-					String macAdress1 = textField.getText(); 
-					Statement state = SdzConnection.getInstance().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-					PreparedStatement test = SdzConnection.test(macAdress1);
-
-					//state.executeUpdate("INSERT INTO sensor"+ "VALUES (1,"+macAdress+",'allumé')");
-					JOptionPane.showMessageDialog(null, "requete exécuté avec succès");
-
-					textField.setText("");
-					//codeVille.setText("");
-
-
-
-
-				}
-
-				catch(SQLException ex ){
-
-					System.out.println(ex);
-
-
-				}
-			}
-
-
-			});*/
-		};
 
 
 
@@ -308,9 +288,4 @@ public class Sensors_Add extends JPanel implements ActionListener{
 		this.btnBack = btnBack;
 	}
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-
-	}
 }

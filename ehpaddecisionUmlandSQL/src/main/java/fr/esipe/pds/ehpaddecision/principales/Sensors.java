@@ -10,17 +10,35 @@ public class Sensors {
 	private String Location;
 	private String Type;
 	private String mode = "off";
+	private Boolean state = false;
 	private long date = System.currentTimeMillis();
 	
 	@JsonCreator
-	public Sensors(@JsonProperty("macAdress") String macAdress,@JsonProperty("Brand") String Brand,@JsonProperty("Location") String Location,@JsonProperty("Type") String Type, @JsonProperty("mode") String mode, @JsonProperty("date") long date){
+	public Sensors(@JsonProperty("macAdress") String macAdress,@JsonProperty("Brand") String Brand,@JsonProperty("Location") String Location,@JsonProperty("Type") String Type, @JsonProperty("mode") String mode, @JsonProperty("state") Boolean state, @JsonProperty("date") long date){
 		
 		this.macAdress = macAdress;
 		this.Brand = Brand;
 		this.Location = Location;
 		this.Type = Type;
 		this.mode = mode;
+		this.state = state;
 		this.date = date;
+	}
+
+	public boolean isState() {
+		return state;
+	}
+
+	public void setState(boolean state) {
+		this.state = state;
+	}
+
+	public Boolean getState() {
+		return state;
+	}
+
+	public void setState(Boolean state) {
+		this.state = state;
 	}
 
 	public long getDate() {
@@ -72,7 +90,7 @@ public class Sensors {
 	}
 	
 	public String toString() {
-		return "sensors1 [macAdress=" + macAdress + ", Brand=" + Brand + ", Location=" + Location + ", Type=" + Type +", mode=" + mode +", date=" + date +"]";
+		return "sensors1 [macAdress=" + macAdress + ", Brand=" + Brand + ", Location=" + Location + ", Type=" + Type +", mode=" + mode +", state=" + state +", date=" + date +"]";
 	}
 	
 
