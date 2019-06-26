@@ -189,7 +189,7 @@ public class ServerHandler implements Runnable {
 		System.out.println(deserializedObject);
 		String result = "";		
 		String getStringJson = srzdONode.get(JSONExample.INFO.baseExample()).textValue();
-		List<String> values = null;
+		List<String> values ;
 		System.out.println(getStringJson);
 		if(getStringJson != null && getStringJson.trim().length() > 0) {
 			values = mapper.readValue(getStringJson, mapper.getTypeFactory().constructCollectionType(List.class, String.class));

@@ -23,6 +23,10 @@ public class Sensors {
 		this.date = date;
 	}
 
+	public Sensors() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public long getDate() {
 		return date;
 	}
@@ -72,7 +76,7 @@ public class Sensors {
 	}
 	
 	public String toString() {
-		return "sensors1 [macAdress=" + macAdress + ", Brand=" + Brand + ", Location=" + Location + ", Type=" + Type +", mode=" + mode +", date=" + date +"]";
+		return "Sensors [macAdress=" + macAdress + ", Brand=" + Brand + ", Location=" + Location + ", Type=" + Type +", mode=" + mode +", date=" + date +"]";
 	}
 	
 

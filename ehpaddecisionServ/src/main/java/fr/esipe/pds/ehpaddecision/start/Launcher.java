@@ -44,14 +44,14 @@ public class Launcher {
 			// st.executeUpdate("INSERT INTO alert VALUES (4,'Fred',1555238588982)");
 			
 			
-			String query = "SELECT * from alert";
+			//String query = "SELECT * from alert";
 			
 
-			PreparedStatement prepare = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			//PreparedStatement prepare = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			
-			ResultSet result = st.executeQuery(query);
+			//ResultSet result = st.executeQuery(query);
 
-			ResultSetMetaData resultMeta = result.getMetaData();
+			//ResultSetMetaData resultMeta = result.getMetaData();
 			
 			
 
@@ -59,7 +59,7 @@ public class Launcher {
 				
 
 
-			result.close();
+			//result.close();
 			st.close();
 			conn.close();
 

@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -15,8 +16,9 @@ import com.fasterxml.jackson.core.JsonFactory;
 import fr.esipe.pds.ehpaddecision.dao.AbDAO;
 import fr.esipe.pds.ehpaddecision.locations.LocationDAO;
 import fr.esipe.pds.ehpaddecision.principales.Sensors;
+import fr.esipe.pds.ehpaddecision.principales.Temperatures_Sensors;
 
-public class SensorsDAO extends AbDAO<Sensors>{
+public class SensorsDAO extends AbDAO<Sensors> implements InterfaceSensorDAO{
 	
 	// to be able to convert Json into a readable file
 		private JsonFactory factory = new JsonFactory();
@@ -82,9 +84,37 @@ public class SensorsDAO extends AbDAO<Sensors>{
 			return null;
 		}
 
-	
-	
-	
+		@Override
+		public List<Sensors> findAll() {
+			List<Sensors> sensors = new ArrayList<Sensors>();
+
+			if(connection != null)
+			{
+				try {
+					PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM sensor");
+					ResultSet rs = preparedStatement.executeQuery();
+					Sensors Sensors;
+					while (rs.next()) {
+						Sensors = sensorsHandler(rs);
+						if(Sensors != null)
+						{
+							sensors.add(Sensors);
+						}
+					}
+				} catch (Exception e) {
+					log.error("Oh, it looks like a big url.. try again : " + e.getMessage());
+					e.printStackTrace();
+				}
+			}
+
+			return sensors;
+		
+		}
+
+		
+		
+
+		
 	
 
 }

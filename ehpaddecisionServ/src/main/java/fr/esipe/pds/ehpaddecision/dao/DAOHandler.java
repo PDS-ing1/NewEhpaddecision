@@ -37,6 +37,8 @@ public class DAOHandler {
 			System.out.println("not here");
 			return new SensorsDAO(connection);
 		}
+		
+		
 		else if(entityClass.equals(fr.esipe.pds.ehpaddecision.principales.Smoke_Sensors.class)){
 			System.out.println("not here");
 			return new SensorsSmokeDAO(connection);
