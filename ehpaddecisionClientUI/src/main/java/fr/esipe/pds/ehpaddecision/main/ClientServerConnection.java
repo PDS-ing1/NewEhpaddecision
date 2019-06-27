@@ -23,6 +23,9 @@ public class ClientServerConnection {
 
 	
 	public static SClient returnClientSocket() {
+		/*if(sclient == null) {
+			callSocket();
+		}*/
 		return sclient;
 	}
 	

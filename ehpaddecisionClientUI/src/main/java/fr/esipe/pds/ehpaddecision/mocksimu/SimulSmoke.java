@@ -63,9 +63,9 @@ public class SimulSmoke {
 					Statement st = getConnection().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
 							ResultSet.CONCUR_READ_ONLY);
 					st.executeUpdate("INSERT INTO testsmoke"
-							+ "(id,smokeppm,creation_date)"
-							+ "VALUES('"+id[rand.nextInt(6)]+"','"+smokeppm[rand.nextInt(21)]+"','"+ myDate.toString() +"')");
-
+									+ "(id,smokeppm,creation_date)"
+									+ "VALUES('"+id[rand.nextInt(6)]+"','"+smokeppm[rand.nextInt(21)]+"','"+ myDate.toString() +"')");
+					
 					ArrayList<Integer> list = new ArrayList<Integer>();
 
 					ResultSet result1 = st.executeQuery("SELECT smokeppm FROM smoke_sensor");
@@ -95,21 +95,21 @@ public class SimulSmoke {
 
 											System.out.print("\t" +result2.getInt(j)+"\t |");
 
-											System.out.println("\n---------------------------------");
-											st.executeUpdate("INSERT INTO alerts"
-													+ "(id_sensor,type,time)"
+										System.out.println("\n---------------------------------");
+										st.executeUpdate("INSERT INTO alerts"
+												+ "(id_sensor,type,time)"
 
 												+ "VALUES('"+result2.getInt(j)+"','"+"alerte fumée"+"','"+ myDate.toString() +"')");
-											ResultSet rs;
-											ResultSetTableModel rtm;
-											rs = st.executeQuery( "SELECT * FROM alerts" );
-											rtm = new ResultSetTableModel(rs);
-											TablePanel tablePanel = new TablePanel( rtm );
+										ResultSet rs;
+										ResultSetTableModel rtm;
+										rs = st.executeQuery( "SELECT * FROM alerts" );
+										rtm = new ResultSetTableModel(rs);
+										TablePanel tablePanel = new TablePanel( rtm );
 										}
-
+										
 
 									}
-
+									
 								}
 							}
 

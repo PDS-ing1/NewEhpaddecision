@@ -6,7 +6,10 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.IOException;
 import java.util.List;
+import java.util.Vector;
 
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 
@@ -21,6 +24,7 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.ListModel;
 import javax.tools.Tool;
 
 import org.slf4j.Logger;
@@ -35,12 +39,12 @@ import fr.esipe.pds.ehpaddecision.frontend.SensorsFront1;
 import fr.esipe.pds.ehpaddecision.frontend.Sensors_Add;
 import fr.esipe.pds.ehpaddecision.main.ClientServerConnection;
 import fr.esipe.pds.ehpaddecision.nicetoadd.Tools;
-import fr.esipe.pds.ehpaddecision.principales.Alerts;
-import fr.esipe.pds.ehpaddecision.principales.Locations;
+import fr.esipe.pds.ehpaddecision.principales.Alert;
+import fr.esipe.pds.ehpaddecision.principales.Location;
 import fr.esipe.pds.ehpaddecision.principales.Sensors;
 import fr.esipe.pds.ehpaddecision.principales.Smoke_Sensors;
 import fr.esipe.pds.ehpaddecision.principales.Temperatures_Sensors;
-import fr.esipe.pds.ehpaddecision.principales.Users;
+import fr.esipe.pds.ehpaddecision.principales.User;
 
 import fr.esipe.pds.ehpaddecision.enumerations.JSONExample;
 import fr.esipe.pds.ehpaddecision.enumerations.Queries;
@@ -79,6 +83,7 @@ public class Sensor_Backend implements ActionListener, WindowListener {
 					String location = Sensors_Add.getComboBox_1().getSelectedItem().toString();
 					String type = Sensors_Add.getComboBox_2().getSelectedItem().toString();
 					String mode = "off";
+					String state = "false";
 					long date = System.currentTimeMillis();
 					int temperatureMin = 5;
 					int temperatureMax = 39;
@@ -119,7 +124,7 @@ public class Sensor_Backend implements ActionListener, WindowListener {
 
 
 
-								Sensors sensors = new Sensors(macAdress, brand, location, type, mode, date);
+								Sensors sensors = new Sensors(macAdress, brand, location, type, mode, state, date);
 								System.out.println(sensors.toString());
 								String serializedObject1 = Tools.serializeObject(sensors, sensors.getClass(), "");
 								String jsRequest1 = Tools.serializeQuery(Queries.INSERT, Sensors.class, serializedObject1, null);
@@ -184,7 +189,7 @@ public class Sensor_Backend implements ActionListener, WindowListener {
 
 
 
-								Sensors sensors = new Sensors(macAdress, brand, location, type, mode, date);
+								Sensors sensors = new Sensors(macAdress, brand, location, type, mode, state, date);
 								System.out.println(sensors.toString());
 								String serializedObject3 = Tools.serializeObject(sensors, sensors.getClass(), "");
 								String jsRequest3 = Tools.serializeQuery(Queries.INSERT, Sensors.class, serializedObject3, null);
@@ -224,12 +229,8 @@ public class Sensor_Backend implements ActionListener, WindowListener {
 
 						}
 					}
-					sensorPlan.AddButtonavailable(location);
+					//sensorPlan.AddButtonavailable(location);
 				}
-
-
-
-
 
 
 
@@ -246,6 +247,7 @@ public class Sensor_Backend implements ActionListener, WindowListener {
 
 			if(ae.getSource() == Sensors_Add.getBtnDelete()){
 				System.out.println("Action button Delete");
+				//ClientServerConnection.callSocket();
 				try
 				{
 					String macAdress = Sensors_Add.getTextField().getText();
@@ -296,28 +298,6 @@ public class Sensor_Backend implements ActionListener, WindowListener {
 
 
 
-			/*if(ae.getSource()== SensorsFront1.getBtnSubmit1()){
-			System.out.println("action button Submit1");
-			try
-			{
-				String macAdress = Sensors.class;
-				/*String brand = Sensors_Add.getComboBox().getSelectedItem().toString();
-				String location = Sensors_Add.getComboBox_1().getSelectedItem().toString();
-				String type = Sensors_Add.getComboBox_2().getSelectedItem().toString();
-				String mode = "off";
-				long date = System.currentTimeMillis();
-				int temperatureMin = 5;
-				int temperatureMax = 39;
-				ClientServerConnection.callSocket();
-
-
-				System.out.println("Mac_adress"+macAdress+brand+location+type);
-				if(macAdress.length() <= 0)
-			} catch(Exception e0){
-				log.error(e0.getMessage());
-			}*/
-
-
 
 			if(ae.getSource() == SensorsFront1.getBtnSubmit1()) {
 				System.out.println("Action Button Submit1");
@@ -335,7 +315,7 @@ public class Sensor_Backend implements ActionListener, WindowListener {
 					Long date = System.currentTimeMillis();
 
 					System.out.println("Mac_adress"+macAdress+Brand);
-					ClientServerConnection.callSocket();
+					//ClientServerConnection.callSocket();
 
 					//String id = Integer.parseInt(idInString);
 
@@ -405,7 +385,7 @@ public class Sensor_Backend implements ActionListener, WindowListener {
 		System.out.println("CA COMEEEEEEENNNNNNNNNNCCCCCCEEEEEEEE");
 
 		Temperatures_Sensors temperatures_sensors = new Temperatures_Sensors();
-		
+
 		//Temperatures_Sensors temperatures_sensors = new Temperatures_Sensors(macAdress, brand);
 
 		System.out.println(temperatures_sensors.toString());
@@ -427,14 +407,30 @@ public class Sensor_Backend implements ActionListener, WindowListener {
 			if(error.equals(""))
 			{
 				List<Temperatures_Sensors> temperaturesSensors = (List<Temperatures_Sensors>) Tools.deserializeObject(answer);
+				//DefaultListModel temperatures = new DefaultListModel();
+				//Vector<Temperatures_Sensors> temperaturesSensors = (Vector<Temperatures_Sensors>) Tools.deserializeObject(answer);
 				String temperaturesSensorText = "";
-				for(Temperatures_Sensors temperatures_Sensors : temperaturesSensors)
-				{
-					temperaturesSensorText += temperaturesSensors+ "\n";
+				Vector nine = new Vector();
+				while(!temperaturesSensors.isEmpty()) {
+					SensorsFront1.temperatures.addElement(temperaturesSensors.get(0));
+					temperaturesSensors.remove(0);
 				}
-				System.out.println(answer);
+
+				/*for(Temperatures_Sensors temperatures_Sensors : temperaturesSensors)
+				{
+
+					temperaturesSensorText += temperaturesSensors+ "\n";
+					temperaturesSensors1.addElement(temperaturesSensorText);
+				}*/
+
+				//temperaturesSensors1.addElement(temperaturesSensorText);
+				//System.out.println(answer);
+				System.out.println(SensorsFront1.temperatures);
+				//System.out.print(temperaturesSensorText);
+				//System.out.println(temperaturesSensors);
 				//homePageFront.getTextArea().setText(locationsText);
-				//sensorsfront1.getList_1()
+				//sensorsfront1.getList_1();
+				//sensorsfront1.getList_1().setSelectedIndex(0);
 			}
 			else {
 				JOptionPane.showMessageDialog(sensorsfront1, error, "Error", JOptionPane.ERROR_MESSAGE);
@@ -503,51 +499,49 @@ public class Sensor_Backend implements ActionListener, WindowListener {
 
 
 
-@Override
-public void windowActivated(WindowEvent arg0) {
-	// TODO Auto-generated method stub
+	@Override
+	public void windowActivated(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+
+	}
+
+
+	@Override
+	public void windowClosed(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+
+	}
+
+
+	@Override
+	public void windowClosing(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+
+	}
+
+
+	@Override
+	public void windowDeactivated(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+
+	}
+
+
+	@Override
+	public void windowDeiconified(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+
+	}
+
+
+	@Override
+	public void windowIconified(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+
+	}
+
+
+
+
 
 }
-
-
-@Override
-public void windowClosed(WindowEvent arg0) {
-	// TODO Auto-generated method stub
-
-}
-
-
-@Override
-public void windowClosing(WindowEvent arg0) {
-	// TODO Auto-generated method stub
-
-}
-
-
-@Override
-public void windowDeactivated(WindowEvent arg0) {
-	// TODO Auto-generated method stub
-
-}
-
-
-@Override
-public void windowDeiconified(WindowEvent arg0) {
-	// TODO Auto-generated method stub
-
-}
-
-
-@Override
-public void windowIconified(WindowEvent arg0) {
-	// TODO Auto-generated method stub
-
-}
-
-
-
-
-
-
-}
-

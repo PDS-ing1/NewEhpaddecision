@@ -6,6 +6,7 @@ import javax.swing.JOptionPane;
 import fr.esipe.pds.ehpaddecision.*;
 import fr.esipe.pds.ehpaddecision.frontend.EhpadPage;
 import fr.esipe.pds.ehpaddecision.frontend.OpenPageFront;
+import fr.esipe.pds.ehpaddecision.frontend.SensorPlan;
 import fr.esipe.pds.ehpaddecision.frontend.Sensors_Add;
 import fr.esipe.pds.ehpaddecision.main.ClientServerConnection;
 import fr.esipe.pds.ehpaddecision.main.EhpadMain;
@@ -56,6 +57,8 @@ public class OpeningBackEnd implements ActionListener{
 					case WELLDONE:
 						JOptionPane.showMessageDialog(null, ConnectionStarting.WELLDONE, null, JOptionPane.INFORMATION_MESSAGE);
 						ehpadPage.showPage(ehpadPage.returnNameEhpad());
+						//ehpadPage.showPage1(ehpadPage.returnNameEhpad());
+						new SensorPlan();
 						ehpadPage.setVisible(true);
 						
 						break;

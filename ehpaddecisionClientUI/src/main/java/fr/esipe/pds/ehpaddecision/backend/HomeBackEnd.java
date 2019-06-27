@@ -16,9 +16,9 @@ import fr.esipe.pds.ehpaddecision.exceptions.AllConnectionUsedException;
 import fr.esipe.pds.ehpaddecision.frontend.HomePageFront;
 import fr.esipe.pds.ehpaddecision.main.ClientServerConnection;
 import fr.esipe.pds.ehpaddecision.nicetoadd.Tools;
-import fr.esipe.pds.ehpaddecision.principales.Alerts;
-import fr.esipe.pds.ehpaddecision.principales.Locations;
-import fr.esipe.pds.ehpaddecision.principales.Users;
+import fr.esipe.pds.ehpaddecision.principales.Alert;
+import fr.esipe.pds.ehpaddecision.principales.Location;
+import fr.esipe.pds.ehpaddecision.principales.User;
 
 public class HomeBackEnd implements ActionListener {
 	

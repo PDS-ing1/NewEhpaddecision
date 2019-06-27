@@ -4,28 +4,50 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Sensors {
-	
+
 	private String macAdress;
 	private String Brand;
 	private String Location;
 	private String Type;
 	private String mode = "off";
+	private String state = "false";
 	private long date = System.currentTimeMillis();
-	
+
 	@JsonCreator
-	public Sensors(@JsonProperty("macAdress") String macAdress,@JsonProperty("Brand") String Brand,@JsonProperty("Location") String Location,@JsonProperty("Type") String Type, @JsonProperty("mode") String mode, @JsonProperty("date") long date){
-		
+	public Sensors(@JsonProperty("macAdress") String macAdress,@JsonProperty("Brand") String Brand,@JsonProperty("Location") String Location,@JsonProperty("Type") String Type, @JsonProperty("mode") String mode, @JsonProperty("state") String state, @JsonProperty("date") long date){
+
 		this.macAdress = macAdress;
 		this.Brand = Brand;
 		this.Location = Location;
 		this.Type = Type;
 		this.mode = mode;
+		this.state = state;
 		this.date = date;
 	}
+
 
 	public Sensors() {
 		// TODO Auto-generated constructor stub
 	}
+	public Sensors(Object object) {
+		// TODO Auto-generated constructor stub
+	}
+
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+//	public void setState(Boolean state) {
+//		this.state = state;
+//
+//
+//
+//	}
 
 	public long getDate() {
 		return date;
@@ -74,10 +96,14 @@ public class Sensors {
 	public void setLocation(String location) {
 		Location = location;
 	}
-	
+
 	public String toString() {
-		return "Sensors [macAdress=" + macAdress + ", Brand=" + Brand + ", Location=" + Location + ", Type=" + Type +", mode=" + mode +", date=" + date +"]";
+
+		return "sensors1 [macAdress=" + macAdress + ", Brand=" + Brand + ", Location=" + Location + ", Type=" + Type +", mode=" + mode +", state=" + state +", date=" + date +"]";
+
+		//		return "Sensors [macAdress=" + macAdress + ", Brand=" + Brand + ", Location=" + Location + ", Type=" + Type +", mode=" + mode +", date=" + date +"]";
+		//>>>>>>> acd8d61 Commit test
 	}
-	
+
 
 }

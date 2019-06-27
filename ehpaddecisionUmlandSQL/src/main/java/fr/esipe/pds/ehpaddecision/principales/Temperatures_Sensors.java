@@ -121,6 +121,7 @@ public class Temperatures_Sensors {
 	public String toString1() {
 		return "temperatures_sensors [macAdress=" + macAdress + ", Brand=" + Brand +"]";
 	}
+	
 
 
 

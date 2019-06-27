@@ -18,5 +18,7 @@ public abstract class InterfaceDao<O> {
 	public abstract void delete(O obj);	
 	
 	public abstract List<O> find(List<String> fields, List<String> values);
+	
+	public abstract List<O> findAll();
 
 }
