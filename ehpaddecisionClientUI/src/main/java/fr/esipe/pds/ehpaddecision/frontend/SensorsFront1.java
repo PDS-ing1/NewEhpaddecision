@@ -192,7 +192,19 @@ public class SensorsFront1 extends JPanel implements ActionListener{
 		btnBack = new JButton("Back");
 		btnBack.setBounds(10, 548, 130, 57);
 		frame.getContentPane().add(btnBack);
-		btnBack.addActionListener(this);
+		btnBack.addActionListener(new ActionListener()
+				{
+
+					@Override
+					public void actionPerformed(ActionEvent arg0) {
+						
+						frame.dispose();
+						SensorPlan sensorPlan = new SensorPlan(2);
+						sensorPlan.frame.setVisible(true);
+						
+					}
+			
+				});
 
 		comboBox = new JComboBox();
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"off", "on"}));
@@ -229,7 +241,7 @@ public class SensorsFront1 extends JPanel implements ActionListener{
 
 
 	public JFrame getFrame() {
-		return frame;
+		return this.frame;
 	}
 
 	public void setFrame(JFrame frame) {

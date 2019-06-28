@@ -69,11 +69,13 @@ public class Sensor_Backend implements ActionListener, WindowListener {
 	public Sensor_Backend(SensorsFront1 sensorsFront1) {
 		this.sensorsfront1 = sensorsfront1;
 	}
+	
 
 
 
 	public void actionPerformed(ActionEvent ae) {
 		{
+			
 			if(ae.getSource()== Sensors_Add.getBtnSubmit()){
 				System.out.println("action button Submit");
 				try
@@ -87,7 +89,7 @@ public class Sensor_Backend implements ActionListener, WindowListener {
 					long date = System.currentTimeMillis();
 					int temperatureMin = 5;
 					int temperatureMax = 39;
-					ClientServerConnection.callSocket();
+					//ClientServerConnection.callSocket();
 
 
 					System.out.println("Mac_adress"+macAdress+brand+location+type);
@@ -393,7 +395,7 @@ public class Sensor_Backend implements ActionListener, WindowListener {
 		String jsRequest = Tools.serializeQuery(Queries.SELECT, Temperatures_Sensors.class, serializedObject, null);
 		System.out.println(jsRequest);
 		System.out.println("toto3");
-		ClientServerConnection.callSocket();
+		//ClientServerConnection.callSocket();
 		System.out.print("TOT54321"
 				+ "");
 		//String answer = ClientServerConnection.returnClientSocket().sendToServer(jsRequest);

@@ -163,14 +163,13 @@ public class Sensors_Add extends JPanel implements ActionListener{
 		
 		if(ae.getSource()== btnBack) {
 			
-			frame.setVisible(false);
+			
+			frame.dispose();
+			SensorPlan sensorPlan = new SensorPlan(2);
+			sensorPlan.frame.setVisible(true);
 			
 		}
 	}
-
-
-
-
 
 
 	public static JButton getBtnDelete() {

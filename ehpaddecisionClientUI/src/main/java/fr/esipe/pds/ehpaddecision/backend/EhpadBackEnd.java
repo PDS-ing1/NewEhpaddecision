@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import fr.esipe.pds.ehpaddecision.frontend.EhpadPage;
+import fr.esipe.pds.ehpaddecision.frontend.SensorPlan;
 import fr.esipe.pds.ehpaddecision.frontend.Sensors_Add;
 import fr.esipe.pds.ehpaddecision.main.ClientServerConnection;
 
@@ -44,6 +45,7 @@ public class EhpadBackEnd extends WindowAdapter {
 		log.info("Awesome, the application is closed");
 		try {
 			ClientServerConnection.returnClientSocket().closeCommunication();
+			SensorPlan sensorPlan = new SensorPlan(2);
 		} catch (Exception e) {
 			log.error("Sorry, something is wrong with exiting of this socket :\n" + e.getMessage());
 		}

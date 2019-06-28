@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import fr.esipe.pds.ehpaddecision.frontend.EhpadPage;
+import fr.esipe.pds.ehpaddecision.frontend.SensorPlan;
 import fr.esipe.pds.ehpaddecision.frontend.Sensors_Add;
 
 import javax.swing.*;
@@ -17,7 +18,7 @@ public class EhpadMain {
 	
 		public void run() {
 			log.info("Welcome to EHPAD DECISION");
-			EhpadPage ehpadpage = new EhpadPage();
+			SensorPlan ehpadpage = new SensorPlan();
 		}
 		
 		}
